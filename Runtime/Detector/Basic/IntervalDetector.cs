@@ -35,12 +35,13 @@
 		{
 			base.OnInputUpdate(inputManager);
 
-			if(Duration >= m_NextTrigger)
+			bool updated = false;
+			while(Duration >= m_NextTrigger)
 			{
+				updated = true;
 				UpdateInterval();
-				return true;
 			}
-			return false;
+			return updated;
 		}
 
 		protected override void OnInputReset(InputManager inputManager)
