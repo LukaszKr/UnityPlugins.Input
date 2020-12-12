@@ -13,6 +13,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 	public static class EGamepadIDExt
 	{
-		public readonly static EGamepadID[] Values = (EGamepadID[])Enum.GetValues(typeof(EGamepadID));
+		public static readonly EGamepadID[] Values = (EGamepadID[])Enum.GetValues(typeof(EGamepadID));
 	}
 }

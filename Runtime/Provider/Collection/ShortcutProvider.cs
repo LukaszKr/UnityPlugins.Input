@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class CombinationProvider: AInputProvider
+	//AND-List
+	public class ShortcutProvider: AInputProvider
 	{
 		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
 
