@@ -3,23 +3,29 @@
 	public class GamepadButtonProvider: AButtonProvider
 	{
 		public EGamepadButton Button;
-		public AGamepadDevice Gamepad;
+		public EGamepadID GamepadID;
+
+		public GamepadButtonProvider(EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
+		{
+			Button = button;
+			GamepadID = gamepadID;
+		}
 
 		public GamepadButtonProvider(EGamepadButton button, AGamepadDevice gamepad = null)
 		{
 			Button = button;
-			Gamepad = gamepad;
+			GamepadID = gamepad.GamepadID;
 		}
 
 		protected override EButtonState GetButtonState(InputManager inputManager)
 		{
-			AGamepadDevice gamepad = (Gamepad == null? inputManager.AnyGamepad: Gamepad);
+			AGamepadDevice gamepad = inputManager.GetGamepad(GamepadID);
 			return gamepad.Get(Button);
 		}
 
 		public override string ToString()
 		{
-			return string.Format("[GamepadButton: {0}, GamepadID: {1}]", Button.ToString(), Gamepad.ToString());
+			return string.Format("[GamepadButton: {0}, GamepadID: {1}]", Button.ToString(), GamepadID.ToString());
 		}
 	}
 }

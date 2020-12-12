@@ -4,10 +4,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public enum EGamepadID
 	{
-		P1 = 0,
-		P2 = 1,
-		P3 = 2,
-		P4 = 3
+		Any = 0,
+		P1 = 1,
+		P2 = 2,
+		P3 = 3,
+		P4 = 4
 	}
 
 	public static class EGamepadIDExt

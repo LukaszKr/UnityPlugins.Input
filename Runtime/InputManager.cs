@@ -257,15 +257,34 @@ namespace ProceduralLevel.UnityPlugins.Input
 		#endregion
 
 		#region Gamepad
+		public AGamepadDevice GetGamepad(EGamepadID id)
+		{
+			if(id == EGamepadID.Any)
+			{
+				return AnyGamepad;
+			}
+			int length = Gamepads.Length;
+			for(int x = 0; x < length; ++x)
+			{
+				AGamepadDevice gamepad = Gamepads[x];
+				if(gamepad.GamepadID == id)
+				{
+					return gamepad;
+				}
+			}
+			return null;
+		}
+
 		public Gamepad GetUnityGamepad(EGamepadID id)
 		{
 			ReadOnlyArray<Gamepad> gamepads = Gamepad.all;
 			int count = gamepads.Count;
-			if(count <= (int)id)
+			int intID = (int)id-1;
+			if(intID < 0 || count <= intID)
 			{
 				return null;
 			}
-			return gamepads[(int)id];
+			return gamepads[intID];
 		}
 		#endregion
 

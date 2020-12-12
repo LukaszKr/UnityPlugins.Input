@@ -9,7 +9,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		public static float AxisDeadZone = 0.19f;
 		public static float ButtonDeadZone = 0.5f;
-		public readonly EGamepadID GamepadID;
 
 		private readonly float[] m_AxesStates;
 
@@ -24,8 +23,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public override EGamepadType GamepadType { get { return m_GamepadType; } }
 
 		public GamepadDevice(EGamepadID gamepadID)
+			: base(gamepadID)
 		{
-			GamepadID = gamepadID;
 			m_AxesStates = new float[EGamepadButtonExt.MAX_VALUE+1];
 		}
 

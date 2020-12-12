@@ -61,9 +61,21 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return this;
 		}
 
+		public AInputDetector Add(EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
+		{
+			m_InputProviders.Add(new GamepadButtonProvider(button, gamepadID));
+			return this;
+		}
+
 		public AInputDetector Add(EGamepadButton button, GamepadDevice gamepad = null)
 		{
 			m_InputProviders.Add(new GamepadButtonProvider(button, gamepad));
+			return this;
+		}
+
+		public AInputDetector Add(EGamepadButton axis, float minValue, EGamepadID gamepadID = EGamepadID.Any)
+		{
+			m_InputProviders.Add(new GamepadAxisProvider(axis, minValue, gamepadID));
 			return this;
 		}
 

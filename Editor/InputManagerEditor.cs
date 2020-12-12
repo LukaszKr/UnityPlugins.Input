@@ -17,7 +17,7 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 
 		protected override void Initialize()
 		{
-			m_LayerScroll = new LayerDefinitionScrollView(Target, Nameof<InputManager>.Property((s) => s.LayerDefinitions));
+			m_LayerScroll = new LayerDefinitionScrollView(Target, nameof(InputManager.LayerDefinitions));
 		}
 
 		public override bool RequiresConstantRepaint()
@@ -167,7 +167,7 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 
 		private void UpdateDefinitionList()
 		{
-			Type type = Target.EnumIDType; 
+			Type type = Target.EnumIDType;
 			if(type != null)
 			{
 				Array values = Enum.GetValues(type);

@@ -6,7 +6,18 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		public EGamepadButton Axis;
 		public float MinValue;
-		public AGamepadDevice Gamepad;
+		public EGamepadID GamepadID;
+
+		public GamepadAxisProvider(EGamepadButton axis, float minValue, EGamepadID gamepadID = EGamepadID.Any)
+		{
+			if(minValue < 0 || minValue > 1)
+			{
+				throw new NotSupportedException("Min Value is not in range [0, 1]");
+			}
+			Axis = axis;
+			MinValue = minValue;
+			GamepadID = gamepadID;
+		}
 
 		public GamepadAxisProvider(EGamepadButton axis, float minValue, AGamepadDevice gamepad = null)
 		{
@@ -16,12 +27,12 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			Axis = axis;
 			MinValue = minValue;
-			Gamepad = gamepad;
+			GamepadID = gamepad.GamepadID;
 		}
 
 		protected override InputProviderData OnRefresh(InputManager inputManager)
 		{
-			AGamepadDevice gamepad = (Gamepad == null? inputManager.AnyGamepad: Gamepad);
+			AGamepadDevice gamepad = inputManager.GetGamepad(GamepadID);
 			float axis = gamepad.GetAxis(Axis);
 			bool triggered = (axis >= MinValue);
 			return new InputProviderData(triggered, axis);
@@ -29,7 +40,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		public override string ToString()
 		{
-			return string.Format("[Axis: {0}, GamepadID: {1}, MinValue: {2}]", Axis.ToString(), Gamepad.ID.ToString(), MinValue.ToString());
+			return string.Format("[Axis: {0}, GamepadID: {1}, MinValue: {2}]", Axis.ToString(), GamepadID.ToString(), MinValue.ToString());
 		}
 	}
 }
