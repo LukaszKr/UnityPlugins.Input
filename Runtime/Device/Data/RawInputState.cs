@@ -13,10 +13,10 @@
 			Axis = (IsActive ? 1f : 0f);
 		}
 
-		public RawInputState(bool isActive, float axis)
+		public RawInputState(bool isActive, float axis, bool isRealAxis = true)
 		{
 			IsActive = isActive;
-			IsRealAxis = true;
+			IsRealAxis = isRealAxis;
 			Axis = axis;
 		}
 

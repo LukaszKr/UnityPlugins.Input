@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
 
-		protected override RawInputState OnRefresh(InputManager inputManager)
+		protected override RawInputState OnGetState(InputManager inputManager)
 		{
 			float axis = 0f;
 			bool isRealAxis = false;
@@ -16,7 +16,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			for(int x = 0; x < count; ++x)
 			{
 				AInputProvider provider = Providers[x];
-				RawInputState data = provider.Refresh(inputManager);
+				RawInputState data = provider.GetState(inputManager);
 				if(!data.IsActive)
 				{
 					return new RawInputState(false);
@@ -29,11 +29,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 				}
 			}
 
-			if(isRealAxis)
-			{
-				return new RawInputState(true, axis);
-			}
-			return new RawInputState(true);
+			return new RawInputState(true, axis, isRealAxis);
 		}
 	}
 }

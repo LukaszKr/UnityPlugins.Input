@@ -9,9 +9,9 @@
 			Button = button;
 		}
 
-		protected override EInputStatus GetButtonState(InputManager inputManager)
+		protected override RawInputState GetInputStatus(InputManager inputManager)
 		{
-			return inputManager.Mouse.GetStatus(Button);
+			return inputManager.Mouse.Get(Button).ToRaw();
 		}
 
 		public override string ToString()

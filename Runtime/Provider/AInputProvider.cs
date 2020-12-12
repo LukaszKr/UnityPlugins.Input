@@ -2,11 +2,11 @@
 {
 	public abstract class AInputProvider
 	{
-		public RawInputState Refresh(InputManager inputManager)
+		public RawInputState GetState(InputManager inputManager)
 		{
-			return OnRefresh(inputManager);
+			return OnGetState(inputManager);
 		}
 
-		protected abstract RawInputState OnRefresh(InputManager inputManager);
+		protected abstract RawInputState OnGetState(InputManager inputManager);
 	}
 }

@@ -17,10 +17,10 @@
 			GamepadID = gamepad.GamepadID;
 		}
 
-		protected override EInputStatus GetButtonState(InputManager inputManager)
+		protected override RawInputState GetInputStatus(InputManager inputManager)
 		{
 			AGamepadDevice gamepad = inputManager.GetGamepad(GamepadID);
-			return gamepad.GetStatus(Button);
+			return gamepad.Get(Button).ToRaw();
 		}
 
 		public override string ToString()

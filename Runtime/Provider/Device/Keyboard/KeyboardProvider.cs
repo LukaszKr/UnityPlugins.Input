@@ -11,9 +11,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			Key = key;
 		}
 
-		protected override EInputStatus GetButtonState(InputManager inputManager)
+		protected override RawInputState GetInputStatus(InputManager inputManager)
 		{
-			return inputManager.Keyboard.Get(Key);
+			return inputManager.Keyboard.Get(Key).ToRaw();
 		}
 
 

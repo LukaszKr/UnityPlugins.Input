@@ -35,6 +35,11 @@
 			return new InputState(newStatus, rawInput.Axis, rawInput.IsRealAxis);
 		}
 
+		public RawInputState ToRaw()
+		{
+			return new RawInputState(this);
+		}
+
 		public override string ToString()
 		{
 			return $"({nameof(Status)}: {Status}, {nameof(IsRealAxis)}: {IsRealAxis}, {nameof(Axis)}: {Axis})";

@@ -8,30 +8,32 @@ namespace ProceduralLevel.UnityPlugins.Input
 		private readonly List<AInputProvider> m_InputProviders = new List<AInputProvider>(1);
 
 		private bool m_Triggered;
-		private float m_Axis;
 
+		private RawInputState m_InputState;
+
+		public RawInputState InputState { get { return m_InputState; } }
 		public override bool Triggered { get { return m_Triggered; } }
-		public float Axis { get { return m_Axis; } }
+		public float Axis { get { return m_InputState.Axis; } }
 
 		protected override void OnUpdate(InputManager inputManager)
 		{
-			m_Axis = 0f;
 			bool anyProviderValid = false;
 			int count = m_InputProviders.Count;
 			for(int x = 0; x < count; ++x)
 			{
 				AInputProvider provider = m_InputProviders[x];
-				RawInputState data = provider.Refresh(inputManager);
+				RawInputState data = provider.GetState(inputManager);
 				if(data.IsActive)
 				{
 					m_Triggered = OnInputUpdate(inputManager);
 					anyProviderValid = true;
-					m_Axis = data.Axis;
+					m_InputState = data;
 				}
 			}
 			
 			if(!anyProviderValid)
 			{
+				m_InputState = new RawInputState();
 				m_Triggered = false;
 				OnInputReset(inputManager);
 			}
@@ -64,18 +66,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public AInputDetector Add(EGamepadButton button, GamepadDevice gamepad = null)
 		{
 			m_InputProviders.Add(new GamepadProvider(button, gamepad));
-			return this;
-		}
-
-		public AInputDetector Add(EGamepadButton axis, float minValue, EGamepadID gamepadID = EGamepadID.Any)
-		{
-			m_InputProviders.Add(new GamepadAxisProvider(axis, minValue, gamepadID));
-			return this;
-		}
-
-		public AInputDetector Add(EGamepadButton axis, float minValue, GamepadDevice gamepad = null)
-		{
-			m_InputProviders.Add(new GamepadAxisProvider(axis, minValue, gamepad));
 			return this;
 		}
 
