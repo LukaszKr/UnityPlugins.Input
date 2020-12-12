@@ -16,6 +16,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		}
 
+		#region Getters
 		public override InputState Get(EGamepadButton button)
 		{
 			if(m_ActiveGamepad != null)
@@ -42,25 +43,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			return 0f;
 		}
+		#endregion
 
-		public override void Rumble(float low, float high)
-		{
-			if(m_ActiveGamepad != null)
-			{
-				m_ActiveGamepad.Rumble(low, high);
-			}
-		}
-
-		protected override RawInputState GetRawState(int inputID)
-		{
-			if(m_ActiveGamepad != null)
-			{
-				InputState state = m_ActiveGamepad.Get((EGamepadButton)inputID);
-				return new RawInputState(state);
-			}
-			return new RawInputState(false);
-		}
-
+		#region Update State
 		protected override void OnUpdateState(InputManager inputManager)
 		{
 			GamepadDevice[] gamepads = inputManager.Gamepads;
@@ -77,6 +62,25 @@ namespace ProceduralLevel.UnityPlugins.Input
 			if(m_ActiveGamepad != null)
 			{
 				m_IsActive = m_ActiveGamepad.IsActive;
+			}
+		}
+
+		protected override RawInputState GetRawState(int inputID)
+		{
+			if(m_ActiveGamepad != null)
+			{
+				InputState state = m_ActiveGamepad.Get((EGamepadButton)inputID);
+				return new RawInputState(state);
+			}
+			return new RawInputState(false);
+		}
+		#endregion
+
+		public override void Rumble(float low, float high)
+		{
+			if(m_ActiveGamepad != null)
+			{
+				m_ActiveGamepad.Rumble(low, high);
 			}
 		}
 

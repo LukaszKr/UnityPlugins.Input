@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class MouseDevice : AInputDevice
+	public class MouseDevice: AInputDevice
 	{
 		public static float AxisDeadZone = 0.19f;
 		public static float ButtonDeadZone = 0.5f;
@@ -22,11 +22,24 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 		}
 
-		protected override void OnSkippedFrame()
+		#region Getters
+		public InputState Get(EMouseButton button)
 		{
-			Position = m_Mouse.position.ReadValue();
+			return m_InputState[(int)button];
 		}
 
+		public EInputStatus GetStatus(EMouseButton button)
+		{
+			return m_InputState[(int)button].Status;
+		}
+
+		public float GetAxis(EMouseButton button)
+		{
+			return m_InputState[(int)button].Axis;
+		}
+		#endregion
+
+		#region Update State
 		protected override void OnUpdateState(InputManager inputManager)
 		{
 			m_Mouse = Mouse.current;
@@ -34,7 +47,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 			Vector2 oldPosition = Position;
 
-			Position = (m_Mouse != null? m_Mouse.position.ReadValue(): new Vector2(0f, 0f));
+			Position = (m_Mouse != null ? m_Mouse.position.ReadValue() : new Vector2(0f, 0f));
 			Rect screenRect = new Rect(0f, 0f, Screen.width,  Screen.height); //probably won't work with dual screens
 			if(screenRect.Contains(oldPosition)) //prevent massive delta changes when out of focus 
 			{
@@ -94,20 +107,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		public InputState Get(EMouseButton button)
+		protected override void OnSkippedFrame()
 		{
-			return m_InputState[(int)button];
+			Position = m_Mouse.position.ReadValue();
 		}
-
-		public EInputStatus GetStatus(EMouseButton button)
-		{
-			return m_InputState[(int)button].Status;
-		}
-
-		public float GetAxis(EMouseButton button)
-		{
-			return m_InputState[(int)button].Axis;
-		}
+		#endregion
 
 		public override void GetActiveInputLinks(List<AInputLink> links)
 		{

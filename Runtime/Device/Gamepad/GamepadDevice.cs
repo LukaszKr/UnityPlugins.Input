@@ -20,6 +20,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 		}
 
+		#region Getters
 		public override InputState Get(EGamepadButton button)
 		{
 			return m_InputState[(int)button];
@@ -34,16 +35,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 			return m_InputState[(int)button].Axis;
 		}
+		#endregion
 
-		public override void Rumble(float low, float high)
-		{
-			IDualMotorRumble rumble = m_Gamepad as IDualMotorRumble;
-			if(rumble != null)
-			{
-				rumble.SetMotorSpeeds(low, high);
-			}
-		}
-
+		#region Update State
 		protected override void OnUpdateState(InputManager inputManager)
 		{
 			m_Gamepad = inputManager.GetUnityGamepad(GamepadID);
@@ -51,6 +45,25 @@ namespace ProceduralLevel.UnityPlugins.Input
 			if(m_Gamepad != null)
 			{
 				m_GamepadType = EGamepadTypeExt.FromGamepad(m_Gamepad);
+			}
+		}
+
+		protected override RawInputState GetRawState(int inputID)
+		{
+			if(m_Gamepad == null)
+			{
+				return new RawInputState(false);
+			}
+			EGamepadButton button = (EGamepadButton)inputID;
+			if(button.IsAxis())
+			{
+				float axisValue = ReadAxisValue(button);
+				return new RawInputState(axisValue >= AxisDeadZone, axisValue);
+			}
+			else
+			{
+				bool buttonState = m_Gamepad[button.ToUnity()].isPressed;
+				return new RawInputState(buttonState);
 			}
 		}
 
@@ -84,23 +97,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 					throw new NotImplementedException();
 			}
 		}
+		#endregion
 
-		protected override RawInputState GetRawState(int inputID)
+		public override void Rumble(float low, float high)
 		{
-			if(m_Gamepad == null)
+			IDualMotorRumble rumble = m_Gamepad as IDualMotorRumble;
+			if(rumble != null)
 			{
-				return new RawInputState(false);
-			}
-			EGamepadButton button = (EGamepadButton)inputID;
-			if(button.IsAxis())
-			{
-				float axisValue = ReadAxisValue(button);
-				return new RawInputState(axisValue >= AxisDeadZone, axisValue);
-			}
-			else
-			{
-				bool buttonState = m_Gamepad[button.ToUnity()].isPressed;
-				return new RawInputState(buttonState);
+				rumble.SetMotorSpeeds(low, high);
 			}
 		}
 

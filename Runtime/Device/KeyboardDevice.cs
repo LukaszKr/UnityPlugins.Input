@@ -17,6 +17,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 		}
 
+		#region Getters
+		public EInputStatus Get(Key key)
+		{
+			return m_InputState[(int)key].Status;
+		}
+		#endregion
+
+		#region UpdateState
 		protected override void OnUpdateState(InputManager inputManager)
 		{
 			m_Keyboard = Keyboard.current;
@@ -31,11 +39,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			return new RawInputState(false);
 		}
-
-		public EInputStatus Get(Key key)
-		{
-			return m_InputState[(int)key].Status;
-		}
+		#endregion
 
 		public override void GetActiveInputLinks(List<AInputLink> links)
 		{
