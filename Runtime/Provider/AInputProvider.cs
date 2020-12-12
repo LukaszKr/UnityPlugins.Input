@@ -2,7 +2,14 @@
 {
 	public abstract class AInputProvider
 	{
+		public readonly EDeviceID DeviceID;
+
 		private int m_UpdateTick = 0;
+
+		protected AInputProvider(EDeviceID deviceID)
+		{
+			DeviceID = deviceID;
+		}
 
 		public RawInputState GetState(InputManager inputManager)
 		{
@@ -16,5 +23,12 @@
 		}
 
 		protected abstract RawInputState OnGetState(InputManager inputManager);
+
+		public override string ToString()
+		{
+			return $"[{DeviceID} | {ToStringImpl()}]";
+		}
+
+		protected abstract string ToStringImpl();
 	}
 }

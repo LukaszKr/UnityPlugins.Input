@@ -6,15 +6,10 @@
 		public EGamepadID GamepadID;
 
 		public GamepadProvider(EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
+			: base(EDeviceID.Gamepad)
 		{
 			Button = button;
 			GamepadID = gamepadID;
-		}
-
-		public GamepadProvider(EGamepadButton button, AGamepadDevice gamepad = null)
-		{
-			Button = button;
-			GamepadID = gamepad.GamepadID;
 		}
 
 		protected override RawInputState OnGetState(InputManager inputManager)
@@ -23,9 +18,9 @@
 			return gamepad.Get(Button).ToRaw();
 		}
 
-		public override string ToString()
+		protected override string ToStringImpl()
 		{
-			return string.Format("[GamepadButton: {0}, GamepadID: {1}]", Button.ToString(), GamepadID.ToString());
+			return $"{Button}, {GamepadID}";
 		}
 	}
 }

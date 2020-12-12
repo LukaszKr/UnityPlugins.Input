@@ -7,6 +7,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public Key Key;
 
 		public KeyboardProvider(Key key)
+			: base(EDeviceID.Keyboard)
 		{
 			Key = key;
 		}
@@ -16,10 +17,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return inputManager.Keyboard.Get(Key).ToRaw();
 		}
 
-
-		public override string ToString()
+		protected override string ToStringImpl()
 		{
-			return string.Format("[Key: {0}]", Key);
+			return $"{Key}";
 		}
 	}
 }

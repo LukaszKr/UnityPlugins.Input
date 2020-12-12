@@ -127,14 +127,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 			SetActiveDevice(device.ID);
 		}
 
-		public void GetActiveInputLinks(List<AInputLink> links)
+		public void RecordProviders(List<AInputProvider> links)
 		{
 			links.Clear();
 			int count = m_InputDevices.Count;
 			for(int x = 0; x < count; ++x)
 			{
 				AInputDevice device = m_InputDevices[x];
-				device.GetActiveInputLinks(links);
+				device.RecordProviders(links);
 			}
 		}
 
@@ -310,11 +310,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 				GUILayout.Label(touch.ToString());
 			}
 
-			List<AInputLink> links = new List<AInputLink>();
-			GetActiveInputLinks(links);
-			if(links.Count > 0)
+			List<AInputProvider> providers = new List<AInputProvider>();
+			RecordProviders(providers);
+			if(providers.Count > 0)
 			{
-				string str = StringExt.JoinToString(links);
+				string str = StringExt.JoinToString(providers);
 				GUILayout.Label(str);
 			}
 		}

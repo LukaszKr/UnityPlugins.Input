@@ -108,7 +108,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		public override void GetActiveInputLinks(List<AInputLink> links)
+		public override void RecordProviders(List<AInputProvider> providers)
 		{
 			//leave empty to avoid duplications from each of separate gamepads
 		}

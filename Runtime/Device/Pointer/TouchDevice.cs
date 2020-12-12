@@ -65,14 +65,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 		}
 		#endregion
 
-		public override void GetActiveInputLinks(List<AInputLink> links)
+		public override void RecordProviders(List<AInputProvider> providers)
 		{
 			if(IsActive)
 			{
 				int touchCount = Count;
 				for(int x = 0; x < touchCount; ++x)
 				{
-					links.Add(new TouchInputLink((ETouchID)x));
+					providers.Add(new TouchProvider((ETouchID)x));
 				}
 			}
 		}

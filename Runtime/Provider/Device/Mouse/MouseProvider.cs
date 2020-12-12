@@ -5,6 +5,7 @@
 		public EMouseButton Button;
 
 		public MouseProvider(EMouseButton button)
+			: base(EDeviceID.Mouse)
 		{
 			Button = button;
 		}
@@ -14,9 +15,9 @@
 			return inputManager.Mouse.Get(Button).ToRaw();
 		}
 
-		public override string ToString()
+		protected override string ToStringImpl()
 		{
-			return string.Format("[MouseButton: {0}]", Button);
+			return $"{Button}";
 		}
 	}
 }

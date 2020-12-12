@@ -84,7 +84,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		public override void GetActiveInputLinks(List<AInputLink> links)
+		public override void RecordProviders(List<AInputProvider> providers)
 		{
 			if(IsActive)
 			{
@@ -94,7 +94,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 					InputState state = m_InputState[x];
 					if(state.IsActive)
 					{
-						links.Add(new GamepadInputLink((EGamepadButton)x));
+						providers.Add(new GamepadProvider((EGamepadButton)x));
 					}
 				}
 			}

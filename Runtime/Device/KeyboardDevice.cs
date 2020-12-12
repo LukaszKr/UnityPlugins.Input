@@ -46,7 +46,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		}
 		#endregion
 
-		public override void GetActiveInputLinks(List<AInputLink> links)
+		public override void RecordProviders(List<AInputProvider> providers)
 		{
 			if(IsActive)
 			{
@@ -56,7 +56,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 					InputState state = m_InputState[x];
 					if(state.IsActive)
 					{
-						links.Add(new KeyboardInputLink((Key)x));
+						providers.Add(new KeyboardProvider((Key)x));
 					}
 				}
 			}

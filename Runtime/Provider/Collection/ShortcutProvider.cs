@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -7,6 +8,12 @@ namespace ProceduralLevel.UnityPlugins.Input
 	public class ShortcutProvider: AInputProvider
 	{
 		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
+
+		public ShortcutProvider()
+			: base(EDeviceID.Unknown)
+		{
+
+		}
 
 		protected override RawInputState OnGetState(InputManager inputManager)
 		{
@@ -31,6 +38,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 
 			return new RawInputState(true, axis, isRealAxis);
+		}
+
+		protected override string ToStringImpl()
+		{
+			return $"[{Providers.JoinToString()}]";
 		}
 	}
 }
