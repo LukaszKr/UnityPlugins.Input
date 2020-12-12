@@ -9,10 +9,10 @@
 
 		public float CurrentInterval { get; private set; }
 		public float Count { get; private set; }
-		public float Progress 
-		{ 
-			get 
-			{ 
+		public float Progress
+		{
+			get
+			{
 				float diff = m_NextTrigger-m_PreviousTrigger;
 				if(diff > 0)
 				{
@@ -59,12 +59,12 @@
 		{
 			if(m_IntervalIndex < m_Intervals.Length-1)
 			{
-				m_IntervalIndex ++;
+				m_IntervalIndex++;
 				CurrentInterval = m_Intervals[m_IntervalIndex];
 			}
 			m_PreviousTrigger = m_NextTrigger;
 			m_NextTrigger += m_Intervals[m_IntervalIndex];
-			Count ++;
+			Count++;
 		}
 
 		public override string ToString()

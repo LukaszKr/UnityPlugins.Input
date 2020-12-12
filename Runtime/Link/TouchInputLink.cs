@@ -4,7 +4,7 @@
 	{
 		public readonly ETouchID TouchID;
 
-		public TouchInputLink(ETouchID touchID) 
+		public TouchInputLink(ETouchID touchID)
 			: base(EDeviceID.Touch)
 		{
 			TouchID = touchID;

@@ -4,7 +4,7 @@
 	{
 		public readonly EMouseButton Button;
 
-		public MouseInputLink(EMouseButton button) 
+		public MouseInputLink(EMouseButton button)
 			: base(EDeviceID.Mouse)
 		{
 			Button = button;

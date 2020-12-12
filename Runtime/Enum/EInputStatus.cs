@@ -25,13 +25,13 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 			if(isPressed)
 			{
-				if (current == EInputStatus.Released)
+				if(current == EInputStatus.Released)
 				{
 					return EInputStatus.JustPressed;
 				}
 				return EInputStatus.Pressed;
 			}
-			else if (current == EInputStatus.Pressed)
+			else if(current == EInputStatus.Pressed)
 			{
 				return EInputStatus.JustReleased;
 			}

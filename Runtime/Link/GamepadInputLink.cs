@@ -4,7 +4,7 @@
 	{
 		public readonly EGamepadButton Button;
 
-		public GamepadInputLink(EGamepadButton button) 
+		public GamepadInputLink(EGamepadButton button)
 			: base(EDeviceID.Gamepad)
 		{
 			Button = button;

@@ -1,7 +1,7 @@
-﻿using ProceduralLevel.Common.Event;
-using ProceduralLevel.Common.Ext;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ProceduralLevel.Common.Event;
+using ProceduralLevel.Common.Ext;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;

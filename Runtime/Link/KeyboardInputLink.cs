@@ -6,7 +6,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		public readonly Key Key;
 
-		public KeyboardInputLink(Key key) 
+		public KeyboardInputLink(Key key)
 			: base(EDeviceID.Keyboard)
 		{
 			Key = key;

@@ -12,7 +12,7 @@
 		{
 			Status = status;
 			IsRealAxis = false;
-			Axis = (EInputStatus.IsDown.Contains(status)? 1f: 0f);
+			Axis = (EInputStatus.IsDown.Contains(status) ? 1f : 0f);
 		}
 
 		public InputState(EInputStatus status, float axis)
