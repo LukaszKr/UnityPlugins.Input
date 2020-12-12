@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,23 +9,17 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		public static float AxisDeadZone = 0.19f;
 		public static float ButtonDeadZone = 0.5f;
-		private const int STATE_SIZE = EMouseButtonExt.MAX_VALUE;
-
-		private bool m_AnyScrollActive;
-		public bool AnyScrollActive { get { return m_AnyScrollActive; } }
+		private const int INPUT_COUNT = EMouseButtonExt.MAX_VALUE;
 
 		public Vector2 PositionDelta { get; private set; }
 		public Vector2 Position { get; private set; }
 		public Vector2 Scroll { get; private set; }
 
 		private Mouse m_Mouse;
-		private readonly float[] m_AxesStates;
 
 		public MouseDevice()
-			: base(EDeviceID.Mouse, STATE_SIZE)
+			: base(EDeviceID.Mouse, INPUT_COUNT)
 		{
-			m_AxesStates = new float[EMouseButtonExt.MAX_VALUE+1];
-
 		}
 
 		protected override void OnSkippedFrame()
@@ -34,8 +29,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected override void OnUpdateState(InputManager inputManager)
 		{
-			m_AnyScrollActive = false;
 			m_Mouse = Mouse.current;
+			Scroll = (m_Mouse != null ? m_Mouse.scroll.ReadValue() : new Vector2(0f, 0f));
 
 			Vector2 oldPosition = Position;
 
@@ -49,99 +44,80 @@ namespace ProceduralLevel.UnityPlugins.Input
 			{
 				PositionDelta = Vector2.zero;
 			}
-			ProcessScroll();
 
-
-			m_IsActive = m_IsActive || m_AnyScrollActive || PositionDelta.sqrMagnitude > 0.1f;
+			m_IsActive |= PositionDelta.sqrMagnitude > 0.1f;
 		}
 
-		private void ProcessScroll()
-		{
-			Scroll = (m_Mouse != null ? m_Mouse.scroll.ReadValue() : new Vector2(0f, 0f));
-
-			int axesCount = m_AxesStates.Length;
-			for(int x = 0; x < axesCount; ++x)
-			{
-				m_AxesStates[x] = 0f;
-			}
-
-			if(Scroll.x > 0)
-			{
-				ProcessAxis(EMouseButton.ScrollRight, Scroll.x);
-			}
-			else 
-			{
-				ProcessAxis(EMouseButton.ScrollLeft, -Scroll.x);
-			}
-			if(Scroll.y > 0)
-			{
-				ProcessAxis(EMouseButton.ScrollForward, Scroll.y);
-			}
-			else
-			{
-				ProcessAxis(EMouseButton.ScrollBackward, -Scroll.y);
-			}
-		}
-
-		private void ProcessAxis(EMouseButton axis, float value)
-		{
-			m_AxesStates[(int)axis] = value;
-			if(value >= AxisDeadZone)
-			{
-				m_AnyScrollActive = true;
-			}
-		}
-
-		protected override bool IsPressed(int codeValue) 
+		protected override RawInputState GetRawState(int inputID)
 		{
 			if(m_Mouse == null)
 			{
-				return false;
+				return new RawInputState(false);
 			}
-			EMouseButton button = (EMouseButton)codeValue;
+			EMouseButton button = (EMouseButton)inputID;
 			switch(button)
 			{
 				case EMouseButton.Left:
-					return m_Mouse.leftButton.isPressed;
+					return new RawInputState(m_Mouse.leftButton.isPressed);
 				case EMouseButton.Right:
-					return m_Mouse.rightButton.isPressed;
+					return new RawInputState(m_Mouse.rightButton.isPressed);
 				case EMouseButton.Middle:
-					return m_Mouse.middleButton.isPressed;
+					return new RawInputState(m_Mouse.middleButton.isPressed);
 				case EMouseButton.Back:
-					return m_Mouse.backButton.isPressed;
+					return new RawInputState(m_Mouse.backButton.isPressed);
 				case EMouseButton.Forward:
-					return m_Mouse.forwardButton.isPressed;
+					return new RawInputState(m_Mouse.forwardButton.isPressed);
 				default:
-					return GetAxis(button) >= ButtonDeadZone;
+					if(button.IsAxis())
+					{
+						float scrollValue = ReadScrollValue(button);
+						return new RawInputState(scrollValue >= AxisDeadZone, scrollValue);
+					}
+					throw new NotImplementedException();
 			}
 		}
 
-		public EButtonState Get(EMouseButton button)
+		private float ReadScrollValue(EMouseButton button)
 		{
-			return m_KeyStates[(int)button];
+			switch(button)
+			{
+				case EMouseButton.ScrollForward:
+					return Math.Max(0f, Scroll.y);
+				case EMouseButton.ScrollBackward:
+					return -Math.Min(0f, Scroll.y);
+				case EMouseButton.ScrollRight:
+					return Math.Max(0f, Scroll.x);
+				case EMouseButton.ScrollLeft:
+					return -Math.Min(0f, Scroll.x);
+				default:
+					throw new NotImplementedException();
+			}
+		}
+
+		public InputState Get(EMouseButton button)
+		{
+			return m_InputState[(int)button];
+		}
+
+		public EInputStatus GetStatus(EMouseButton button)
+		{
+			return m_InputState[(int)button].Status;
 		}
 
 		public float GetAxis(EMouseButton button)
 		{
-			if(button.IsAxis())
-			{
-				return m_AxesStates[(int)button];
-			}
-			else
-			{
-				return (EButtonState.IsDown.Contains(Get(button))? 1f: 0f);
-			}
+			return m_InputState[(int)button].Axis;
 		}
 
 		public override void GetActiveInputLinks(List<AInputLink> links)
 		{
 			if(IsActive)
 			{
-				int length = m_KeyStates.Length;
+				int length = m_InputState.Length;
 				for(int x = 0; x < length; ++x)
 				{
-					EButtonState state = m_KeyStates[x];
-					if(EButtonState.IsDown.Contains(state))
+					InputState state = m_InputState[x];
+					if(state.IsActive)
 					{
 						links.Add(new MouseInputLink((EMouseButton)x));
 					}

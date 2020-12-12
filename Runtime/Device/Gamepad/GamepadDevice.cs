@@ -1,6 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Haptics;
 
 namespace ProceduralLevel.UnityPlugins.Input
@@ -8,16 +7,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 	public partial class GamepadDevice: AGamepadDevice
 	{
 		public static float AxisDeadZone = 0.19f;
-		public static float ButtonDeadZone = 0.5f;
-
-		private readonly float[] m_AxesStates;
 
 		private Gamepad m_Gamepad;
 		private EGamepadType m_GamepadType = EGamepadType.Generic;
-
-		private bool m_AnyAxisActive;
-
-		public bool AnyAxisActive { get { return m_AnyAxisActive; } }
 
 		public override Gamepad UnityGamepad { get { return m_Gamepad; } }
 		public override EGamepadType GamepadType { get { return m_GamepadType; } }
@@ -25,24 +17,21 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public GamepadDevice(EGamepadID gamepadID)
 			: base(gamepadID)
 		{
-			m_AxesStates = new float[EGamepadButtonExt.MAX_VALUE+1];
 		}
 
-		public override EButtonState Get(EGamepadButton code)
+		public override InputState Get(EGamepadButton button)
 		{
-			return m_KeyStates[(int)code];
+			return m_InputState[(int)button];
+		}
+
+		public override EInputStatus GetStatus(EGamepadButton button)
+		{
+			return m_InputState[(int)button].Status;
 		}
 
 		public override float GetAxis(EGamepadButton button)
 		{
-			if(button.IsAxis())
-			{
-				return m_AxesStates[(int)button];
-			}
-			else
-			{
-				return (EButtonState.IsDown.Contains(Get(button)) ? 1f : 0f);
-			}
+			return m_InputState[(int)button].Axis;
 		}
 
 		public override void Rumble(float low, float high)
@@ -56,73 +45,61 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected override void OnUpdateState(InputManager inputManager)
 		{
-			m_AnyAxisActive = false;
 			m_Gamepad = inputManager.GetUnityGamepad(GamepadID);
-
-			int axesCount = m_AxesStates.Length;
-			for(int x = 0; x < axesCount; ++x)
-			{
-				m_AxesStates[x] = 0f;
-			}
 
 			if(m_Gamepad != null)
 			{
 				m_GamepadType = EGamepadTypeExt.FromGamepad(m_Gamepad);
-				ProcessStick(m_Gamepad.leftStick, EGamepadButton.LStickUp, EGamepadButton.LStickDown, EGamepadButton.LStickLeft, EGamepadButton.LStickRight);
-				ProcessStick(m_Gamepad.rightStick, EGamepadButton.RStickUp, EGamepadButton.RStickDown, EGamepadButton.RStickLeft, EGamepadButton.RStickRight);
-				ProcessAxis(EGamepadButton.LTrigger, m_Gamepad.leftTrigger.ReadValue());
-				ProcessAxis(EGamepadButton.RTrigger, m_Gamepad.rightTrigger.ReadValue());
 			}
-
-			m_IsActive = m_IsActive || m_AnyAxisActive;
 		}
 
-		private void ProcessAxis(EGamepadButton axis, float value)
+		private float ReadAxisValue(EGamepadButton button)
 		{
-			m_AxesStates[(int)axis] = value;
-			if(value >= AxisDeadZone)
+			switch(button)
 			{
-				m_AnyAxisActive = true;
+				case EGamepadButton.LStickRight:
+					return Math.Max(0f, m_Gamepad.leftStick.ReadValue().x);
+				case EGamepadButton.LStickLeft:
+					return -Math.Min(0f, m_Gamepad.leftStick.ReadValue().x);
+				case EGamepadButton.LStickUp:
+					return Math.Max(0f, m_Gamepad.leftStick.ReadValue().y);
+				case EGamepadButton.LStickDown:
+					return -Math.Min(0f, m_Gamepad.leftStick.ReadValue().y);
+
+				case EGamepadButton.RStickRight:
+					return Math.Max(0f, m_Gamepad.rightStick.ReadValue().x);
+				case EGamepadButton.RStickLeft:
+					return -Math.Min(0f, m_Gamepad.rightStick.ReadValue().x);
+				case EGamepadButton.RStickUp:
+					return Math.Max(0f, m_Gamepad.rightStick.ReadValue().y);
+				case EGamepadButton.RStickDown:
+					return -Math.Min(0f, m_Gamepad.rightStick.ReadValue().y);
+
+				case EGamepadButton.LTrigger:
+					return m_Gamepad.leftTrigger.ReadValue();
+				case EGamepadButton.RTrigger:
+					return m_Gamepad.rightTrigger.ReadValue();
+				default:
+					throw new NotImplementedException();
 			}
 		}
 
-		private void ProcessStick(StickControl stick, EGamepadButton up, EGamepadButton down, EGamepadButton left, EGamepadButton right)
-		{
-			Vector2 axes = stick.ReadValue();
-			float valueX = axes.x;
-			float valueY = axes.y;
-			if(valueX > 0)
-			{
-				ProcessAxis(right, valueX);
-			}
-			else
-			{
-				ProcessAxis(left, -valueX);
-			}
-			if(valueY > 0)
-			{
-				ProcessAxis(up, valueY);
-			}
-			else
-			{
-				ProcessAxis(down, -valueY);
-			}
-		}
-
-		protected override bool IsPressed(int codeValue)
+		protected override RawInputState GetRawState(int inputID)
 		{
 			if(m_Gamepad == null)
 			{
-				return false;
+				return new RawInputState(false);
 			}
-			EGamepadButton button = (EGamepadButton)codeValue;
-			if(codeValue <= (int)EGamepadButton.DPadDown)
+			EGamepadButton button = (EGamepadButton)inputID;
+			if(button.IsAxis())
 			{
-				return m_Gamepad[button.ToUnity()].isPressed;
+				float axisValue = ReadAxisValue(button);
+				return new RawInputState(axisValue >= AxisDeadZone, axisValue);
 			}
 			else
 			{
-				return GetAxis(button) >= ButtonDeadZone;
+				bool buttonState = m_Gamepad[button.ToUnity()].isPressed;
+				return new RawInputState(buttonState);
 			}
 		}
 	}

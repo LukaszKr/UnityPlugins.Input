@@ -30,12 +30,12 @@ namespace ProceduralLevel.UnityPlugins.Input
 			GamepadID = gamepad.GamepadID;
 		}
 
-		protected override InputProviderData OnRefresh(InputManager inputManager)
+		protected override InputProviderState OnRefresh(InputManager inputManager)
 		{
 			AGamepadDevice gamepad = inputManager.GetGamepad(GamepadID);
 			float axis = gamepad.GetAxis(Axis);
 			bool triggered = (axis >= MinValue);
-			return new InputProviderData(triggered, axis);
+			return new InputProviderState(triggered, axis);
 		}
 
 		public override string ToString()

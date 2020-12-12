@@ -5,7 +5,7 @@
 		private bool m_WasPressed = false;
 		private int m_UpdateTick = 0;
 
-		protected override InputProviderData OnRefresh(InputManager inputManager)
+		protected override InputProviderState OnRefresh(InputManager inputManager)
 		{
 			int newUpdateTick = inputManager.UpdateTick;
 			if(newUpdateTick-1 != m_UpdateTick)
@@ -15,23 +15,23 @@
 
 			m_UpdateTick = newUpdateTick;
 
-			EButtonState buttonState = GetButtonState(inputManager);
-			if(buttonState == EButtonState.JustPressed)
+			EInputStatus buttonState = GetButtonState(inputManager);
+			if(buttonState == EInputStatus.JustPressed)
 			{
 				m_WasPressed = true;
-				return new InputProviderData(true);
+				return new InputProviderState(true);
 			}
-			else if(buttonState == EButtonState.JustReleased)
+			else if(buttonState == EInputStatus.JustReleased)
 			{
 				m_WasPressed = false;
 			}
-			else if(m_WasPressed && buttonState == EButtonState.Pressed)
+			else if(m_WasPressed && buttonState == EInputStatus.Pressed)
 			{
-				return new InputProviderData(true);
+				return new InputProviderState(true);
 			}
-			return new InputProviderData(false);
+			return new InputProviderState(false);
 		}
 
-		protected abstract EButtonState GetButtonState(InputManager inputManager);
+		protected abstract EInputStatus GetButtonState(InputManager inputManager);
 	}
 }

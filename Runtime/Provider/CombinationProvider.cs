@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
 
-		protected override InputProviderData OnRefresh(InputManager inputManager)
+		protected override InputProviderState OnRefresh(InputManager inputManager)
 		{
 			float axis = 0f;
 			bool isRealAxis = false;
@@ -16,10 +16,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 			for(int x = 0; x < count; ++x)
 			{
 				AInputProvider provider = Providers[x];
-				InputProviderData data = provider.Refresh(inputManager);
+				InputProviderState data = provider.Refresh(inputManager);
 				if(!data.Triggered)
 				{
-					return new InputProviderData(false, 0f);
+					return new InputProviderState(false, 0f);
 				}
 				//in case of key+axis combination, we want to return axis value
 				if(data.IsRealAxis)
@@ -31,9 +31,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 			if(isRealAxis)
 			{
-				return new InputProviderData(true, axis);
+				return new InputProviderState(true, axis);
 			}
-			return new InputProviderData(true);
+			return new InputProviderState(true);
 		}
 	}
 }

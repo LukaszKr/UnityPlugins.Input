@@ -18,19 +18,21 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 		}
 
-		protected override bool IsPressed(int codeValue)
+		protected override RawInputState GetRawState(int inputID)
 		{
-			if(Count > 0)
-			{
-				return codeValue < Count;
-			}
-			return false;
+			return new RawInputState(Count > 0 && inputID < Count);
 		}
 
-		public EButtonState Get(ETouchID touchID)
+		public InputState Get(ETouchID touchID)
 		{
 			int index = (int)touchID;
-			return m_KeyStates[index];
+			return m_InputState[index];
+		}
+
+		public EInputStatus GetStatus(ETouchID touchID)
+		{
+			int index = (int)touchID;
+			return m_InputState[index].Status;
 		}
 
 		protected override void OnUpdateState(InputManager inputManager)

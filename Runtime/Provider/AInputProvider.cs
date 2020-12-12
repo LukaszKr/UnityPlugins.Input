@@ -2,11 +2,11 @@
 {
 	public abstract class AInputProvider
 	{
-		public InputProviderData Refresh(InputManager inputManager)
+		public InputProviderState Refresh(InputManager inputManager)
 		{
 			return OnRefresh(inputManager);
 		}
 
-		protected abstract InputProviderData OnRefresh(InputManager inputManager);
+		protected abstract InputProviderState OnRefresh(InputManager inputManager);
 	}
 }

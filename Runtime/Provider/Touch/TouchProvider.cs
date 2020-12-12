@@ -9,9 +9,9 @@
 			TouchID = touchID;
 		}
 
-		protected override EButtonState GetButtonState(InputManager inputManager)
+		protected override EInputStatus GetButtonState(InputManager inputManager)
 		{
-			return inputManager.Touch.Get(TouchID);
+			return inputManager.Touch.GetStatus(TouchID);
 		}
 	}
 }

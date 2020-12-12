@@ -15,7 +15,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 			GamepadID = gamepadID;
 		}
 
-		public abstract EButtonState Get(EGamepadButton button);
+		public abstract InputState Get(EGamepadButton button);
+		public abstract EInputStatus GetStatus(EGamepadButton button);
 		public abstract float GetAxis(EGamepadButton button);
 		public abstract void Rumble(float low, float high);
 
@@ -23,11 +24,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 			if(IsActive)
 			{
-				int length = m_KeyStates.Length;
+				int length = m_InputState.Length;
 				for(int x = 0; x < length; ++x)
 				{
-					EButtonState state = m_KeyStates[x];
-					if(EButtonState.IsDown.Contains(state))
+					InputState state = m_InputState[x];
+					if(state.IsActive)
 					{
 						links.Add(new GamepadInputLink((EGamepadButton)x));
 					}

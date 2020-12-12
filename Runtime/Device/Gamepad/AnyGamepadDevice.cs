@@ -15,13 +15,22 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		}
 
-		public override EButtonState Get(EGamepadButton button)
+		public override InputState Get(EGamepadButton button)
 		{
 			if(m_ActiveGamepad != null)
 			{
 				return m_ActiveGamepad.Get(button);
 			}
-			return EButtonState.Released;
+			return new InputState();
+		}
+
+		public override EInputStatus GetStatus(EGamepadButton button)
+		{
+			if(m_ActiveGamepad != null)
+			{
+				return m_ActiveGamepad.GetStatus(button);
+			}
+			return EInputStatus.Released;
 		}
 
 		public override float GetAxis(EGamepadButton button)
@@ -41,14 +50,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		protected override bool IsPressed(int codeValue)
+		protected override RawInputState GetRawState(int inputID)
 		{
 			if(m_ActiveGamepad != null)
 			{
-				EButtonState buttonState = m_ActiveGamepad.Get((EGamepadButton)codeValue);
-				return EButtonState.IsDown.Contains(buttonState);
+				InputState state = m_ActiveGamepad.Get((EGamepadButton)inputID);
+				return new RawInputState(state);
 			}
-			return false;
+			return new RawInputState(false);
 		}
 
 		protected override void OnUpdateState(InputManager inputManager)

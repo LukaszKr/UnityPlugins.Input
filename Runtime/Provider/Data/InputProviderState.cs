@@ -1,27 +1,27 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public struct InputProviderData
+	public struct InputProviderState
 	{
 		public readonly bool Triggered;
-		public readonly float Axis;
 		public readonly bool IsRealAxis;
+		public readonly float Axis;
 
-		public InputProviderData(bool triggered)
+		public InputProviderState(bool triggered)
 		{
 			Triggered = triggered;
-			Axis = (triggered? 1f: 0f);
 			IsRealAxis = false;
+			Axis = (triggered? 1f: 0f);
 		}
 
-		public InputProviderData(bool triggered, float axis)
+		public InputProviderState(bool triggered, float axis)
 		{
 			if(axis < 0)
 			{
 				axis = -axis;
 			}
 			Triggered = triggered;
-			Axis = axis;
 			IsRealAxis = true;
+			Axis = axis;
 		}
 
 		public override string ToString()

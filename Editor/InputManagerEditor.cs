@@ -143,16 +143,16 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 
 		private void DrawDeviceButtonState(string name, AInputDevice device, Type enumType, int minLineCount)
 		{
-			EButtonState[] buttons = device.GetAllButtons();
+			InputState[] inputState = device.GetAllInputState();
 
 			EditorGUILayout.LabelField(name, EditorStyles.boldLabel);
 			EditorGUILayout.BeginVertical(GUILayout.MinHeight(EditorStyles.label.TotalLineHeight()*minLineCount));
 			if(device.AnyKeyPressed)
 			{
-				for(int x = 0; x < buttons.Length; ++x)
+				for(int x = 0; x < inputState.Length; ++x)
 				{
-					EButtonState state = buttons[x];
-					if(state > EButtonState.Released)
+					InputState state = inputState[x];
+					if(state.Status > EInputStatus.Released)
 					{
 						EditorGUILayout.LabelField(string.Format("{0} -> {1}", Enum.GetName(enumType, x), state.ToString()));
 					}
