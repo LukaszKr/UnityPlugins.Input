@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class TouchProvider: AButtonProvider
+	public class TouchProvider: AInputProvider
 	{
 		public ETouchID TouchID;
 
@@ -9,7 +9,7 @@
 			TouchID = touchID;
 		}
 
-		protected override RawInputState GetInputStatus(InputManager inputManager)
+		protected override RawInputState OnGetState(InputManager inputManager)
 		{
 			return inputManager.Touch.Get(TouchID).ToRaw();
 		}

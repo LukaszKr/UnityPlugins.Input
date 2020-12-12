@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class GamepadProvider: AButtonProvider
+	public class GamepadProvider: AInputProvider
 	{
 		public EGamepadButton Button;
 		public EGamepadID GamepadID;
@@ -17,7 +17,7 @@
 			GamepadID = gamepad.GamepadID;
 		}
 
-		protected override RawInputState GetInputStatus(InputManager inputManager)
+		protected override RawInputState OnGetState(InputManager inputManager)
 		{
 			AGamepadDevice gamepad = inputManager.GetGamepad(GamepadID);
 			return gamepad.Get(Button).ToRaw();

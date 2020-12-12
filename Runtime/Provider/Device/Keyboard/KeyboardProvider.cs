@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class KeyboardProvider: AButtonProvider
+	public class KeyboardProvider: AInputProvider
 	{
 		public Key Key;
 
@@ -11,7 +11,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			Key = key;
 		}
 
-		protected override RawInputState GetInputStatus(InputManager inputManager)
+		protected override RawInputState OnGetState(InputManager inputManager)
 		{
 			return inputManager.Keyboard.Get(Key).ToRaw();
 		}

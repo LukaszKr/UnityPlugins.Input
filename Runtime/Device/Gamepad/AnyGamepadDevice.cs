@@ -23,7 +23,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			{
 				return m_ActiveGamepad.Get(button);
 			}
-			return new InputState();
+			return new InputState(EInputStatus.Released);
 		}
 
 		public override EInputStatus GetStatus(EGamepadButton button)

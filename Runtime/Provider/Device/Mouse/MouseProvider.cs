@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class MouseProvider: AButtonProvider
+	public class MouseProvider: AInputProvider
 	{
 		public EMouseButton Button;
 
@@ -9,7 +9,7 @@
 			Button = button;
 		}
 
-		protected override RawInputState GetInputStatus(InputManager inputManager)
+		protected override RawInputState OnGetState(InputManager inputManager)
 		{
 			return inputManager.Mouse.Get(Button).ToRaw();
 		}
