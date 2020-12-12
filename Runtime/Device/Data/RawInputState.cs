@@ -2,7 +2,7 @@
 {
 	public struct RawInputState
 	{
-		public bool IsActive;
+		public readonly bool IsActive;
 		public readonly bool IsRealAxis;
 		public readonly float Axis;
 

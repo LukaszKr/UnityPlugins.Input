@@ -21,8 +21,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 			for(int x = 0; x < count; ++x)
 			{
 				AInputProvider provider = m_InputProviders[x];
-				InputProviderState data = provider.Refresh(inputManager);
-				if(data.Triggered)
+				RawInputState data = provider.Refresh(inputManager);
+				if(data.IsActive)
 				{
 					m_Triggered = OnInputUpdate(inputManager);
 					anyProviderValid = true;

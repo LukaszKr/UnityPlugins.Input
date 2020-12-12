@@ -9,9 +9,9 @@
 			Count = count;
 		}
 
-		protected override InputProviderState OnRefresh(InputManager inputManager)
+		protected override RawInputState OnRefresh(InputManager inputManager)
 		{
-			return new InputProviderState(inputManager.Touch.Count == Count);
+			return new RawInputState(inputManager.Touch.Count == Count);
 		}
 	}
 }

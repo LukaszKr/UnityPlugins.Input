@@ -86,7 +86,18 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		public override void GetActiveInputLinks(List<AInputLink> links)
 		{
-			//leave empty to avoid duplications from each of separate gamepads
+			if(IsActive)
+			{
+				int length = m_InputState.Length;
+				for(int x = 0; x < length; ++x)
+				{
+					InputState state = m_InputState[x];
+					if(state.IsActive)
+					{
+						links.Add(new GamepadInputLink((EGamepadButton)x));
+					}
+				}
+			}
 		}
 	}
 }
