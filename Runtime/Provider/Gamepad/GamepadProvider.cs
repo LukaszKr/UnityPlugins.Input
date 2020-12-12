@@ -1,17 +1,17 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class GamepadButtonProvider: AButtonProvider
+	public class GamepadProvider: AButtonProvider
 	{
 		public EGamepadButton Button;
 		public EGamepadID GamepadID;
 
-		public GamepadButtonProvider(EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
+		public GamepadProvider(EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
 		{
 			Button = button;
 			GamepadID = gamepadID;
 		}
 
-		public GamepadButtonProvider(EGamepadButton button, AGamepadDevice gamepad = null)
+		public GamepadProvider(EGamepadButton button, AGamepadDevice gamepad = null)
 		{
 			Button = button;
 			GamepadID = gamepad.GamepadID;

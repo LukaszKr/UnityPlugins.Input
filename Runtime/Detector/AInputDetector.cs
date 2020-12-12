@@ -45,25 +45,25 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		public AInputDetector Add(Key key)
 		{
-			m_InputProviders.Add(new KeyboardKeyProvider(key));
+			m_InputProviders.Add(new KeyboardProvider(key));
 			return this;
 		}
 
 		public AInputDetector Add(EMouseButton button)
 		{
-			m_InputProviders.Add(new MouseButtonProvider(button));
+			m_InputProviders.Add(new MouseProvider(button));
 			return this;
 		}
 
 		public AInputDetector Add(EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
 		{
-			m_InputProviders.Add(new GamepadButtonProvider(button, gamepadID));
+			m_InputProviders.Add(new GamepadProvider(button, gamepadID));
 			return this;
 		}
 
 		public AInputDetector Add(EGamepadButton button, GamepadDevice gamepad = null)
 		{
-			m_InputProviders.Add(new GamepadButtonProvider(button, gamepad));
+			m_InputProviders.Add(new GamepadProvider(button, gamepad));
 			return this;
 		}
 

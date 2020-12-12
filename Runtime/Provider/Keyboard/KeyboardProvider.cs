@@ -2,11 +2,11 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class KeyboardKeyProvider: AButtonProvider
+	public class KeyboardProvider: AButtonProvider
 	{
 		public Key Key;
 
-		public KeyboardKeyProvider(Key key)
+		public KeyboardProvider(Key key)
 		{
 			Key = key;
 		}

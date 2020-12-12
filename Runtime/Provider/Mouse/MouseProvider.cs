@@ -1,10 +1,10 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class MouseButtonProvider: AButtonProvider
+	public class MouseProvider: AButtonProvider
 	{
 		public EMouseButton Button;
 
-		public MouseButtonProvider(EMouseButton button)
+		public MouseProvider(EMouseButton button)
 		{
 			Button = button;
 		}
