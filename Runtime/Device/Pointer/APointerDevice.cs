@@ -2,7 +2,7 @@
 {
 	public abstract class APointerDevice: AInputDevice
 	{
-		public APointerDevice(DeviceID id, int buttonCount) 
+		public APointerDevice(EDeviceID id, int buttonCount) 
 			: base(id, buttonCount)
 		{
 		}

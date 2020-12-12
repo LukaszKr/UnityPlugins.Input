@@ -1,4 +1,5 @@
-﻿using UnityEngine.InputSystem;
+﻿using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -12,7 +13,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		}
 
 		public KeyboardDevice()
-			: base(DeviceID.Keyboard, STATE_SIZE)
+			: base(EDeviceID.Keyboard, STATE_SIZE)
 		{
 		}
 
@@ -34,6 +35,22 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public EButtonState Get(Key key)
 		{
 			return m_KeyStates[(int)key];
+		}
+
+		public override void GetActiveInputLinks(List<AInputLink> links)
+		{
+			if(IsActive)
+			{
+				int length = m_KeyStates.Length;
+				for(int x = 0; x < length; ++x)
+				{
+					EButtonState state = m_KeyStates[x];
+					if(EButtonState.IsDown.Contains(state))
+					{
+						links.Add(new KeyboardInputLink((Key)x));
+					}
+				}
+			}
 		}
 	}
 }

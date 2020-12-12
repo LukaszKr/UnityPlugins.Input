@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Utilities;
@@ -13,7 +14,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public int Count { get; private set; }
 
 		public TouchDevice()
-			: base(DeviceID.Touch, TOUCH_COUNT)
+			: base(EDeviceID.Touch, TOUCH_COUNT)
 		{
 		}
 
@@ -54,6 +55,18 @@ namespace ProceduralLevel.UnityPlugins.Input
 			else
 			{
 				Count = 0;
+			}
+		}
+
+		public override void GetActiveInputLinks(List<AInputLink> links)
+		{
+			if(IsActive)
+			{
+				int touchCount = Count;
+				for(int x = 0; x < touchCount; ++x)
+				{
+					links.Add(new TouchInputLink((ETouchID)x));
+				}
 			}
 		}
 	}

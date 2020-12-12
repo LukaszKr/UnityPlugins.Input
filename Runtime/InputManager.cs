@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.Common.Event;
+using ProceduralLevel.Common.Ext;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,10 +33,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public float DeltaTime { get; private set; }
 		public int UpdateTick { get { return m_UpdateTick; } }
 
-		private DeviceID m_ActiveDevice = DeviceID.Mouse;
-		public DeviceID ActiveDevice { get { return m_ActiveDevice; } }
+		private EDeviceID m_ActiveDevice = EDeviceID.Mouse;
+		public EDeviceID ActiveDevice { get { return m_ActiveDevice; } }
 
-		public readonly CustomEvent<DeviceID> OnActiveDeviceChanged = new CustomEvent<DeviceID>();
+		public readonly CustomEvent<EDeviceID> OnActiveDeviceChanged = new CustomEvent<EDeviceID>();
 
 		private void Awake()
 		{
@@ -89,7 +90,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		private void UpdateDevices()
 		{
-			DeviceID oldDevice = m_ActiveDevice;
+			EDeviceID oldDevice = m_ActiveDevice;
 			bool deviceChanged = false;
 
 			int count = m_InputDevices.Count;
@@ -112,9 +113,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		public void SetActiveDevice(DeviceID id)
+		public void SetActiveDevice(EDeviceID id)
 		{
-			if(id != null && !m_ActiveDevice.Equals(id))
+			if(m_ActiveDevice != id)
 			{
 				m_ActiveDevice = id;
 				OnActiveDeviceChanged.Invoke(m_ActiveDevice);
@@ -124,6 +125,17 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public void SetActiveDevice(AInputDevice device)
 		{
 			SetActiveDevice(device.ID);
+		}
+
+		public void GetActiveInputLinks(List<AInputLink> links)
+		{
+			links.Clear();
+			int count = m_InputDevices.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				AInputDevice device = m_InputDevices[x];
+				device.GetActiveInputLinks(links);
+			}
 		}
 
 		#region Layers
@@ -290,15 +302,20 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected void DrawDebugGUI()
 		{
-			GUILayout.Label($"Touch, Enabled:{Touch.Enabled}, Active: {Touch.IsActive}, Count: {Touch.Count}");
-			GUILayout.Label($"Mouse, Enabled:{Mouse.Enabled}, Active: {Mouse.IsActive}");
-
 			TouchData[] touches = Touch.Touches;
 			int touchCount = Touch.Count;
 			for(int x = 0; x < touchCount; ++x)
 			{
 				TouchData touch = touches[x];
 				GUILayout.Label(touch.ToString());
+			}
+
+			List<AInputLink> links = new List<AInputLink>();
+			GetActiveInputLinks(links);
+			if(links.Count > 0)
+			{
+				string str = StringExt.JoinToString(links);
+				GUILayout.Label(str);
 			}
 		}
 	}

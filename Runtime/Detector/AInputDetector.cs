@@ -55,12 +55,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return this;
 		}
 
-		public AInputDetector AddMouseScroll(float minValue)
-		{
-			m_InputProviders.Add(new MouseScrollProvider(minValue));
-			return this;
-		}
-
 		public AInputDetector Add(EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
 		{
 			m_InputProviders.Add(new GamepadButtonProvider(button, gamepadID));

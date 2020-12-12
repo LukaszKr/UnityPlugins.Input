@@ -1,4 +1,6 @@
-﻿namespace ProceduralLevel.UnityPlugins.Input
+﻿using System.Collections.Generic;
+
+namespace ProceduralLevel.UnityPlugins.Input
 {
 	public abstract class AInputDevice
 	{
@@ -10,12 +12,12 @@
 		public bool IsActive { get { return m_IsActive; } }
 		public bool AnyKeyPressed { get { return m_AnyKeyPressed; } }
 
-		public readonly DeviceID ID;
+		public readonly EDeviceID ID;
 		public bool Enabled = true;
 
 		private int m_LastUpdateTick;
 
-		public AInputDevice(DeviceID id, int buttonCount)
+		public AInputDevice(EDeviceID id, int buttonCount)
 		{
 			ID = id;
 			m_KeyStates = new EButtonState[buttonCount];
@@ -56,5 +58,7 @@
 
 		protected abstract void OnUpdateState(InputManager inputManager);
 		protected abstract bool IsPressed(int codeValue);
+
+		public abstract void GetActiveInputLinks(List<AInputLink> links);
 	}
 }
