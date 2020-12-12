@@ -4,11 +4,13 @@
 	{
 		public readonly bool Triggered;
 		public readonly float Axis;
+		public readonly bool IsRealAxis;
 
 		public InputProviderData(bool triggered)
 		{
 			Triggered = triggered;
 			Axis = (triggered? 1f: 0f);
+			IsRealAxis = false;
 		}
 
 		public InputProviderData(bool triggered, float axis)
@@ -19,6 +21,7 @@
 			}
 			Triggered = triggered;
 			Axis = axis;
+			IsRealAxis = true;
 		}
 
 		public override string ToString()
