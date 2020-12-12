@@ -1,4 +1,5 @@
-﻿using UnityEngine.InputSystem;
+﻿using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -77,6 +78,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 			{
 				m_IsActive = m_ActiveGamepad.IsActive;
 			}
+		}
+
+		public override void GetActiveInputLinks(List<AInputLink> links)
+		{
+			//leave empty to avoid duplications from each of separate gamepads
 		}
 	}
 }

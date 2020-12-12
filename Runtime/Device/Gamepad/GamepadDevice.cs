@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Haptics;
 
@@ -100,6 +101,22 @@ namespace ProceduralLevel.UnityPlugins.Input
 			{
 				bool buttonState = m_Gamepad[button.ToUnity()].isPressed;
 				return new RawInputState(buttonState);
+			}
+		}
+
+		public override void GetActiveInputLinks(List<AInputLink> links)
+		{
+			if(IsActive)
+			{
+				int length = m_InputState.Length;
+				for(int x = 0; x < length; ++x)
+				{
+					InputState state = m_InputState[x];
+					if(state.IsActive)
+					{
+						links.Add(new GamepadInputLink((EGamepadButton)x));
+					}
+				}
 			}
 		}
 	}

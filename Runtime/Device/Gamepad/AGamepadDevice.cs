@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine.InputSystem;
+﻿using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -19,21 +18,5 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public abstract EInputStatus GetStatus(EGamepadButton button);
 		public abstract float GetAxis(EGamepadButton button);
 		public abstract void Rumble(float low, float high);
-
-		public override void GetActiveInputLinks(List<AInputLink> links)
-		{
-			if(IsActive)
-			{
-				int length = m_InputState.Length;
-				for(int x = 0; x < length; ++x)
-				{
-					InputState state = m_InputState[x];
-					if(state.IsActive)
-					{
-						links.Add(new GamepadInputLink((EGamepadButton)x));
-					}
-				}
-			}
-		}
 	}
 }
