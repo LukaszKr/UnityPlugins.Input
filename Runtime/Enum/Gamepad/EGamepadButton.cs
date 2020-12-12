@@ -54,5 +54,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 			return m_Map[(int)button];
 		}
+
+		public static bool IsAxis(this EGamepadButton button)
+		{
+			return button >= EGamepadButton.LStickLeft;
+		}
 	}
 }

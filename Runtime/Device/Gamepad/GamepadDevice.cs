@@ -35,13 +35,13 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		public override float GetAxis(EGamepadButton button)
 		{
-			if(button <= EGamepadButton.DPadDown)
+			if(button.IsAxis())
 			{
-				return (EButtonState.IsDown.Contains(Get(button)) ? 1f : 0f);
+				return m_AxesStates[(int)button];
 			}
 			else
 			{
-				return m_AxesStates[(int)button];
+				return (EButtonState.IsDown.Contains(Get(button)) ? 1f : 0f);
 			}
 		}
 
