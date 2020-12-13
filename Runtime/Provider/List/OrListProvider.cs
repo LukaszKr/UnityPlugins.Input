@@ -11,10 +11,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 			bool isRealAxis = false;
 			bool isAnyProviderActive = false;
 
-			int count = Providers.Count;
+			int count = m_Providers.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				AInputProvider provider = Providers[x];
+				AInputProvider provider = m_Providers[x];
 				RawInputState data = provider.GetState(inputManager);
 				if(data.IsActive)
 				{

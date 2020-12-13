@@ -1,44 +1,49 @@
-﻿using System.Collections.Generic;
-using UnityEngine.InputSystem;
+﻿using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
 	public static class InputProviderListExt
 	{
-		public static List<AInputProvider> Add(this List<AInputProvider> providers, AInputProvider provider)
+		public static TSource Add<TSource>(this TSource source, AInputProvider provider)
+			where TSource : IProviderContainer
 		{
-			providers.Add(provider);
-			return providers;
+			source.AddProvider(provider);
+			return source;
 		}
 
-		public static List<AInputProvider> Add(this List<AInputProvider> providers, Key key)
+		public static TSource Add<TSource>(this TSource source, Key key)
+			where TSource : IProviderContainer
 		{
-			providers.Add(new KeyboardProvider(key));
-			return providers;
+			source.AddProvider(new KeyboardProvider(key));
+			return source;
 		}
 
-		public static List<AInputProvider> Add(this List<AInputProvider> providers, EMouseButton button)
+		public static TSource Add<TSource>(this TSource source, EMouseButton button)
+			where TSource : IProviderContainer
 		{
-			providers.Add(new MouseProvider(button));
-			return providers;
+			source.AddProvider(new MouseProvider(button));
+			return source;
 		}
 
-		public static List<AInputProvider> Add(this List<AInputProvider> providers, EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
+		public static TSource Add<TSource>(this TSource source, EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
+			where TSource : IProviderContainer
 		{
-			providers.Add(new GamepadProvider(button, gamepadID));
-			return providers;
+			source.AddProvider(new GamepadProvider(button, gamepadID));
+			return source;
 		}
 
-		public static List<AInputProvider> Add(this List<AInputProvider> providers, ETouchID touchID)
+		public static TSource Add<TSource>(this TSource source, ETouchID touchID)
+			where TSource : IProviderContainer
 		{
-			providers.Add(new TouchProvider(touchID));
-			return providers;
+			source.AddProvider(new TouchProvider(touchID));
+			return source;
 		}
 
-		public static List<AInputProvider> AddTouchCount(this List<AInputProvider> providers, int count)
+		public static TSource AddTouchCount<TSource>(this TSource source, int count)
+			where TSource : IProviderContainer
 		{
-			providers.Add(new TouchCountProvider(count));
-			return providers;
+			source.AddProvider(new TouchCountProvider(count));
+			return source;
 		}
 	}
 }

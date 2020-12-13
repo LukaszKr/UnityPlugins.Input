@@ -3,9 +3,9 @@ using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class AListProvider: AInputProvider
+	public abstract class AListProvider: AInputProvider, IProviderContainer
 	{
-		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
+		protected readonly List<AInputProvider> m_Providers = new List<AInputProvider>();
 
 		public AListProvider()
 			: base(EDeviceID.Unknown)
@@ -13,9 +13,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		}
 
+		public void AddProvider(AInputProvider provider)
+		{
+			m_Providers.Add(provider);
+		}
+
 		protected override string ToStringImpl()
 		{
-			return $"[{Providers.JoinToString()}]";
+			return $"[{m_Providers.JoinToString()}]";
 		}
 	}
 }

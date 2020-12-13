@@ -2,9 +2,9 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class AInputDetector: ADetector
+	public abstract class AInputDetector: ADetector, IProviderContainer
 	{
-		public readonly List<AInputProvider> Providers = new List<AInputProvider>(1);
+		private readonly List<AInputProvider> m_Providers = new List<AInputProvider>();
 
 		private bool m_Triggered;
 
@@ -14,13 +14,18 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public override bool Triggered { get { return m_Triggered; } }
 		public float Axis { get { return m_InputState.Axis; } }
 
+		public void AddProvider(AInputProvider provider)
+		{
+			m_Providers.Add(provider);
+		}
+
 		protected override void OnUpdate(InputManager inputManager)
 		{
 			bool anyProviderValid = false;
-			int count = Providers.Count;
+			int count = m_Providers.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				AInputProvider provider = Providers[x];
+				AInputProvider provider = m_Providers[x];
 				RawInputState data = provider.GetState(inputManager);
 				if(data.IsActive)
 				{
@@ -44,7 +49,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public override string ToString()
 		{
 			return string.Format("[Triggered: {0}, Axis: {1}, InputProviders: {2}]",
-				Triggered.ToString(), Axis.ToString(), Providers.ToString());
+				Triggered.ToString(), Axis.ToString(), m_Providers.ToString());
 		}
 	}
 }
