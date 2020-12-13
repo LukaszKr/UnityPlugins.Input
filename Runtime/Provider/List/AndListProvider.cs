@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {

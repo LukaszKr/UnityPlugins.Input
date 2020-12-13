@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EGamepadButton
+	public enum EGamepadButton: byte
 	{
 		LStick = 0,
 		RStick = 1,

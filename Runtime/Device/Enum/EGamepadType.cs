@@ -1,10 +1,9 @@
 ﻿using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.XInput;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EGamepadType
+	public enum EGamepadType: byte
 	{
 		Generic = 0,
 
@@ -36,7 +35,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		public static EGamepadType FromGamepad(Gamepad gamepad)
 		{
-			InputDeviceDescription desc = gamepad.description;
 			string name = gamepad.GetType().Name;
 			if(gamepad is IXboxOneRumble) //Doesn't seem to be working on Windows
 			{

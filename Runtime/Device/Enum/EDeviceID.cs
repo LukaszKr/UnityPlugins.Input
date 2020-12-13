@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EDeviceID
+	public enum EDeviceID: byte
 	{
 		Unknown = 0,
 		Keyboard = 1,

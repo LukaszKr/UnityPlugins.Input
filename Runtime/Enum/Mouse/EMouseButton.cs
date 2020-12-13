@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EMouseButton
+	public enum EMouseButton: byte
 	{
 		Left = 0,
 		Right = 1,

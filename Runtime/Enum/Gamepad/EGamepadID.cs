@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EGamepadID
+	public enum EGamepadID: byte
 	{
 		Any = 0,
 		P1 = 1,

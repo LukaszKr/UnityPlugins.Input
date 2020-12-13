@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum ETouchID
+	public enum ETouchID: byte
 	{
 		Touch01 = 0,
 		Touch02 = 1,
