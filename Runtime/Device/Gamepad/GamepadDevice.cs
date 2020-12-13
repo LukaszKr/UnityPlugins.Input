@@ -48,21 +48,21 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		protected override RawInputState GetRawState(int inputID)
+		protected override RawInputState GetRawState(int rawInputID)
 		{
 			if(m_Gamepad == null)
 			{
 				return new RawInputState(false);
 			}
-			EGamepadInputID button = (EGamepadInputID)inputID;
-			if(button.IsAxis())
+			EGamepadInputID inputID = (EGamepadInputID)rawInputID;
+			if(inputID.IsAxis())
 			{
-				float axisValue = ReadAxisValue(button);
+				float axisValue = ReadAxisValue(inputID);
 				return new RawInputState(axisValue >= AxisDeadZone, axisValue);
 			}
 			else
 			{
-				bool buttonState = m_Gamepad[button.ToUnity()].isPressed;
+				bool buttonState = m_Gamepad[inputID.ToUnity()].isPressed;
 				return new RawInputState(buttonState);
 			}
 		}

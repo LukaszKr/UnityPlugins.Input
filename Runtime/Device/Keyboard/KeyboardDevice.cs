@@ -35,11 +35,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 			m_Keyboard = Keyboard.current;
 		}
 
-		protected override RawInputState GetRawState(int inputID)
+		protected override RawInputState GetRawState(int rawInputID)
 		{
-			if(inputID > 0 && m_Keyboard != null)
+			if(rawInputID > 0 && m_Keyboard != null)
 			{
-				Key key = (Key)inputID;
+				Key key = (Key)rawInputID;
 				return new RawInputState(m_Keyboard[key].isPressed);
 			}
 			return new RawInputState(false);

@@ -22,9 +22,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public const int MAX_VALUE = 8;
 		public static readonly EMouseInputID[] Values = (EMouseInputID[])Enum.GetValues(typeof(EMouseInputID));
 
-		public static bool IsAxis(this EMouseInputID button)
+		public static bool IsScroll(this EMouseInputID inputID)
 		{
-			return button >= EMouseInputID.ScrollLeft;
+			return inputID >= EMouseInputID.ScrollLeft && inputID <= EMouseInputID.ScrollBackward;
 		}
 	}
 }

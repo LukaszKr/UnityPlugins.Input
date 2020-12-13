@@ -50,14 +50,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 			GamepadButton.DpadLeft, GamepadButton.DpadRight, GamepadButton.DpadUp, GamepadButton.DpadDown
 		};
 
-		public static GamepadButton ToUnity(this EGamepadInputID button)
+		public static GamepadButton ToUnity(this EGamepadInputID inputID)
 		{
-			return m_Map[(int)button];
+			return m_Map[(int)inputID];
 		}
 
-		public static bool IsAxis(this EGamepadInputID button)
+		public static bool IsAxis(this EGamepadInputID inputID)
 		{
-			return button >= EGamepadInputID.LStickLeft;
+			return inputID >= EGamepadInputID.LStickLeft;
 		}
 	}
 }

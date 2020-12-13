@@ -70,14 +70,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 			m_IsActive |= PositionDelta.sqrMagnitude > 0.1f;
 		}
 
-		protected override RawInputState GetRawState(int inputID)
+		protected override RawInputState GetRawState(int rawInputID)
 		{
 			if(m_Mouse == null)
 			{
 				return new RawInputState(false);
 			}
-			EMouseInputID button = (EMouseInputID)inputID;
-			switch(button)
+			EMouseInputID inputID = (EMouseInputID)rawInputID;
+			switch(inputID)
 			{
 				case EMouseInputID.Left:
 					return new RawInputState(m_Mouse.leftButton.isPressed);
@@ -90,9 +90,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 				case EMouseInputID.Forward:
 					return new RawInputState(m_Mouse.forwardButton.isPressed);
 				default:
-					if(button.IsAxis())
+					if(inputID.IsScroll())
 					{
-						float scrollValue = ReadScrollValue(button);
+						float scrollValue = ReadScrollValue(inputID);
 						return new RawInputState(scrollValue >= AxisDeadZone, scrollValue);
 					}
 					throw new NotImplementedException();

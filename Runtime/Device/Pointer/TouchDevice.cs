@@ -59,9 +59,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		protected override RawInputState GetRawState(int inputID)
+		protected override RawInputState GetRawState(int rawInputID)
 		{
-			return new RawInputState(Count > 0 && inputID < Count);
+			return new RawInputState(Count > 0 && rawInputID < Count);
 		}
 		#endregion
 

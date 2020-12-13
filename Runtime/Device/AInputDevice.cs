@@ -42,12 +42,12 @@ namespace ProceduralLevel.UnityPlugins.Input
 			OnUpdateState(inputManager);
 
 			int length = m_InputState.Length;
-			for(int buttonID = 0; buttonID < length; ++buttonID)
+			for(int rawInputID = 0; rawInputID < length; ++rawInputID)
 			{
-				RawInputState rawInput = GetRawState(buttonID);
-				InputState currentState = m_InputState[buttonID];
+				RawInputState rawInput = GetRawState(rawInputID);
+				InputState currentState = m_InputState[rawInputID];
 				InputState newState = currentState.GetNextState(rawInput);
-				m_InputState[buttonID] = newState;
+				m_InputState[rawInputID] = newState;
 				m_IsActive = m_IsActive || rawInput.IsActive || newState.Status == EInputStatus.JustReleased;
 				m_AnyInputActive |= rawInput.IsActive;
 			}
@@ -56,7 +56,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		protected virtual void OnSkippedFrame() { }
 
 		protected abstract void OnUpdateState(InputManager inputManager);
-		protected abstract RawInputState GetRawState(int inputID);
+		protected abstract RawInputState GetRawState(int rawInputID);
 
 		public abstract void RecordProviders(List<AInputProvider> providers);
 	}

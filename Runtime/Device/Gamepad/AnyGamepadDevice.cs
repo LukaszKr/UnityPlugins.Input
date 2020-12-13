@@ -65,11 +65,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		protected override RawInputState GetRawState(int inputID)
+		protected override RawInputState GetRawState(int rawInputID)
 		{
 			if(m_ActiveGamepad != null)
 			{
-				InputState state = m_ActiveGamepad.Get((EGamepadInputID)inputID);
+				InputState state = m_ActiveGamepad.Get((EGamepadInputID)rawInputID);
 				return new RawInputState(state);
 			}
 			return new RawInputState(false);
