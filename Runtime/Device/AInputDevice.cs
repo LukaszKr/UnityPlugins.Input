@@ -58,6 +58,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		protected abstract void OnUpdateState(InputManager inputManager);
 		protected abstract RawInputState GetRawState(int inputID);
 
-		public abstract void RecordProviders(List<AInputProvider> links);
+		public abstract void RecordProviders(List<AInputProvider> providers);
 	}
 }

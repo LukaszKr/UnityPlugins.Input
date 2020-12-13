@@ -127,14 +127,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 			SetActiveDevice(device.ID);
 		}
 
-		public void RecordProviders(List<AInputProvider> links)
+		public void RecordProviders(List<AInputProvider> providers)
 		{
-			links.Clear();
+			providers.Clear();
 			int count = m_InputDevices.Count;
 			for(int x = 0; x < count; ++x)
 			{
 				AInputDevice device = m_InputDevices[x];
-				device.RecordProviders(links);
+				device.RecordProviders(providers);
 			}
 		}
 
