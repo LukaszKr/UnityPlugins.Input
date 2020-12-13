@@ -2,8 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	//OR-List
-	public class GroupProvider: AListProvider
+	public class OrListProvider: AListProvider
 	{
 
 		protected override RawInputState OnGetState(InputManager inputManager)

@@ -4,8 +4,7 @@ using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	//AND-List
-	public class ShortcutProvider: AListProvider
+	public class AndListProvider: AListProvider
 	{
 		protected override RawInputState OnGetState(InputManager inputManager)
 		{
