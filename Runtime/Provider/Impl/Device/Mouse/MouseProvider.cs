@@ -2,22 +2,25 @@
 {
 	public class MouseProvider: AInputProvider
 	{
-		public EMouseButton Button;
+		public EMouseInputID InputID;
 
-		public MouseProvider(EMouseButton button)
-			: base(EDeviceID.Mouse)
+		public MouseProvider()
 		{
-			Button = button;
+		}
+
+		public MouseProvider(EMouseInputID inputID)
+		{
+			InputID = inputID;
 		}
 
 		protected override RawInputState OnGetState(InputManager inputManager)
 		{
-			return inputManager.Mouse.Get(Button).ToRaw();
+			return inputManager.Mouse.Get(InputID).ToRaw();
 		}
 
 		protected override string ToStringImpl()
 		{
-			return $"{Button}";
+			return $"{InputID}";
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EMouseButton: byte
+	public enum EMouseInputID: byte
 	{
 		Left = 0,
 		Right = 1,
@@ -17,14 +17,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 		ScrollBackward = 8
 	}
 
-	public static class EMouseButtonExt
+	public static class EMouseInputIDExt
 	{
 		public const int MAX_VALUE = 8;
-		public static readonly EMouseButton[] Values = (EMouseButton[])Enum.GetValues(typeof(EMouseButton));
+		public static readonly EMouseInputID[] Values = (EMouseInputID[])Enum.GetValues(typeof(EMouseInputID));
 
-		public static bool IsAxis(this EMouseButton button)
+		public static bool IsAxis(this EMouseInputID button)
 		{
-			return button >= EMouseButton.ScrollLeft;
+			return button >= EMouseInputID.ScrollLeft;
 		}
 	}
 }

@@ -10,8 +10,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected readonly List<AInputProvider> m_Providers = new List<AInputProvider>();
 
+		public GroupProvider()
+		{
+		}
+
 		public GroupProvider(EProviderListMode mode = EProviderListMode.Or)
-			: base(EDeviceID.Unknown)
 		{
 			Mode = mode;
 		}

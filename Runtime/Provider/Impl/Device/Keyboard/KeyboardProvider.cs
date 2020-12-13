@@ -4,22 +4,25 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class KeyboardProvider: AInputProvider
 	{
-		public Key Key;
+		public Key InputID;
 
-		public KeyboardProvider(Key key)
-			: base(EDeviceID.Keyboard)
+		public KeyboardProvider()
 		{
-			Key = key;
+		}
+
+		public KeyboardProvider(Key inputID)
+		{
+			InputID = inputID;
 		}
 
 		protected override RawInputState OnGetState(InputManager inputManager)
 		{
-			return inputManager.Keyboard.Get(Key).ToRaw();
+			return inputManager.Keyboard.Get(InputID).ToRaw();
 		}
 
 		protected override string ToStringImpl()
 		{
-			return $"{Key}";
+			return $"{InputID}";
 		}
 	}
 }

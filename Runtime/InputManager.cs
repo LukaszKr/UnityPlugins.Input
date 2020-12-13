@@ -52,6 +52,55 @@ namespace ProceduralLevel.UnityPlugins.Input
 			RegisterDevice(AnyGamepad);
 		}
 
+		private void OnDestroy()
+		{
+			OnActiveDeviceChanged.RemoveAllListeners();
+		}
+
+		private void Update()
+		{
+			++m_UpdateTick;
+			DeltaTime = Time.deltaTime;
+
+			UpdateDevices();
+			UpdateActiveLayers();
+		}
+
+		private void UpdateDevices()
+		{
+			EDeviceID newDevice = m_ActiveDevice;
+			bool deviceChanged = false;
+
+			int count = m_InputDevices.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				AInputDevice device = m_InputDevices[x];
+				if(device.Enabled)
+				{
+					device.UpdateState(this);
+					if(!deviceChanged && device.IsActive)
+					{
+						newDevice = device.ID;
+						deviceChanged = true;
+					}
+				}
+			}
+
+			TrySetActiveDevice(newDevice);
+		}
+
+		public void RecordProviders(List<AInputProvider> providers)
+		{
+			providers.Clear();
+			int count = m_InputDevices.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				AInputDevice device = m_InputDevices[x];
+				device.RecordProviders(providers);
+			}
+		}
+
+		#region Device Management
 		public bool RegisterDevice(AInputDevice device, bool priority = false)
 		{
 			if(!m_InputDevices.Contains(device))
@@ -74,69 +123,21 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return m_InputDevices.Remove(device);
 		}
 
-		private void OnDestroy()
+		public void TrySetActiveDevice(EDeviceID deviceID)
 		{
-			OnActiveDeviceChanged.RemoveAllListeners();
-		}
-
-		private void Update()
-		{
-			++m_UpdateTick;
-			DeltaTime = Time.deltaTime;
-
-			UpdateDevices();
-			UpdateActiveLayers();
-		}
-
-		private void UpdateDevices()
-		{
-			EDeviceID oldDevice = m_ActiveDevice;
-			bool deviceChanged = false;
-
-			int count = m_InputDevices.Count;
-			for(int x = 0; x < count; ++x)
+			if(m_ActiveDevice != deviceID)
 			{
-				AInputDevice device = m_InputDevices[x];
-				if(device.Enabled)
-				{
-					device.UpdateState(this);
-					if(!deviceChanged && device.IsActive)
-					{
-						m_ActiveDevice = device.ID;
-						deviceChanged = true;
-					}
-				}
-			}
-			if(oldDevice != m_ActiveDevice)
-			{
-				OnActiveDeviceChanged.Invoke(m_ActiveDevice);
-			}
-		}
-
-		public void SetActiveDevice(EDeviceID id)
-		{
-			if(m_ActiveDevice != id)
-			{
-				m_ActiveDevice = id;
+				Cursor.visible = (deviceID == EDeviceID.Mouse || deviceID == EDeviceID.Keyboard);
+				m_ActiveDevice = deviceID;
 				OnActiveDeviceChanged.Invoke(m_ActiveDevice);
 			}
 		}
 
 		public void SetActiveDevice(AInputDevice device)
 		{
-			SetActiveDevice(device.ID);
+			TrySetActiveDevice(device.ID);
 		}
-
-		public void RecordProviders(List<AInputProvider> providers)
-		{
-			providers.Clear();
-			int count = m_InputDevices.Count;
-			for(int x = 0; x < count; ++x)
-			{
-				AInputDevice device = m_InputDevices[x];
-				device.RecordProviders(providers);
-			}
-		}
+		#endregion
 
 		#region Layers
 		private void UpdateActiveLayers()

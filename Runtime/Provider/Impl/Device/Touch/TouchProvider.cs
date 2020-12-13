@@ -4,8 +4,11 @@
 	{
 		public ETouchID TouchID;
 
+		public TouchProvider()
+		{
+		}
+
 		public TouchProvider(ETouchID touchID)
-			: base(EDeviceID.Touch)
 		{
 			TouchID = touchID;
 		}

@@ -87,7 +87,7 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 		private void DrawDeviceStates()
 		{
 			EditorGUILayout.LabelField("Active Device: "+Target.ActiveDevice.ToString());
-			DrawDeviceButtonState("Keyboard", Target.Keyboard, typeof(Key), 4);
+			DrawDeviceInputState("Keyboard", Target.Keyboard, typeof(Key), 4);
 			DrawMouseState(Target.Mouse);
 			DrawTouchState(Target.Touch);
 			DrawGamepadState("Any Gamepad", Target.AnyGamepad);
@@ -99,7 +99,7 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 
 		private void DrawTouchState(TouchDevice touch)
 		{
-			DrawDeviceButtonState("Touch", touch, typeof(ETouchID), 3);
+			DrawDeviceInputState("Touch", touch, typeof(ETouchID), 3);
 			int count = touch.Count;
 			for(int x = 0; x < count; ++x)
 			{
@@ -111,7 +111,7 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 
 		private void DrawMouseState(MouseDevice mouse)
 		{
-			DrawDeviceButtonState("Mouse", mouse, typeof(EMouseButton), 3);
+			DrawDeviceInputState("Mouse", mouse, typeof(EMouseInputID), 3);
 			EditorGUI.BeginDisabledGroup(true);
 			EditorGUILayout.Vector2Field("Position", mouse.Position);
 			EditorGUILayout.Vector2Field("Position Delta", mouse.PositionDelta);
@@ -121,17 +121,17 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 
 		private void DrawGamepadState(string prefix, AGamepadDevice device)
 		{
-			DrawDeviceButtonState($"{prefix} - {device.GamepadType}, Active: {device.IsActive}", device, typeof(EGamepadButton), 3);
+			DrawDeviceInputState($"{prefix} - {device.GamepadType}, Active: {device.IsActive}", device, typeof(EGamepadInputID), 3);
 			EditorGUI.BeginDisabledGroup(true);
-			DrawAxisPair(device, EGamepadButton.LStickLeft, EGamepadButton.LStickRight);
-			DrawAxisPair(device, EGamepadButton.LStickDown, EGamepadButton.LStickUp);
-			DrawAxisPair(device, EGamepadButton.RStickLeft, EGamepadButton.RStickRight);
-			DrawAxisPair(device, EGamepadButton.RStickDown, EGamepadButton.RStickUp);
-			DrawAxisPair(device, EGamepadButton.LTrigger, EGamepadButton.RTrigger);
+			DrawAxisPair(device, EGamepadInputID.LStickLeft, EGamepadInputID.LStickRight);
+			DrawAxisPair(device, EGamepadInputID.LStickDown, EGamepadInputID.LStickUp);
+			DrawAxisPair(device, EGamepadInputID.RStickLeft, EGamepadInputID.RStickRight);
+			DrawAxisPair(device, EGamepadInputID.RStickDown, EGamepadInputID.RStickUp);
+			DrawAxisPair(device, EGamepadInputID.LTrigger, EGamepadInputID.RTrigger);
 			EditorGUI.EndDisabledGroup();
 		}
 
-		private void DrawAxisPair(AGamepadDevice device, EGamepadButton a, EGamepadButton b)
+		private void DrawAxisPair(AGamepadDevice device, EGamepadInputID a, EGamepadInputID b)
 		{
 			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.LabelField(a.ToString(), GUILayout.Width(LABEL_WIDTH));
@@ -141,7 +141,7 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 			EditorGUILayout.EndHorizontal();
 		}
 
-		private void DrawDeviceButtonState(string name, AInputDevice device, Type enumType, int minLineCount)
+		private void DrawDeviceInputState(string name, AInputDevice device, Type enumType, int minLineCount)
 		{
 			InputState[] inputState = device.GetAllInputState();
 

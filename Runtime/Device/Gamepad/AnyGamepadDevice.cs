@@ -17,29 +17,29 @@ namespace ProceduralLevel.UnityPlugins.Input
 		}
 
 		#region Getters
-		public override InputState Get(EGamepadButton button)
+		public override InputState Get(EGamepadInputID inputID)
 		{
 			if(m_ActiveGamepad != null)
 			{
-				return m_ActiveGamepad.Get(button);
+				return m_ActiveGamepad.Get(inputID);
 			}
 			return new InputState(EInputStatus.Released);
 		}
 
-		public override EInputStatus GetStatus(EGamepadButton button)
+		public override EInputStatus GetStatus(EGamepadInputID inputID)
 		{
 			if(m_ActiveGamepad != null)
 			{
-				return m_ActiveGamepad.GetStatus(button);
+				return m_ActiveGamepad.GetStatus(inputID);
 			}
 			return EInputStatus.Released;
 		}
 
-		public override float GetAxis(EGamepadButton button)
+		public override float GetAxis(EGamepadInputID inputID)
 		{
 			if(m_ActiveGamepad != null)
 			{
-				return m_ActiveGamepad.GetAxis(button);
+				return m_ActiveGamepad.GetAxis(inputID);
 			}
 			return 0f;
 		}
@@ -69,7 +69,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 			if(m_ActiveGamepad != null)
 			{
-				InputState state = m_ActiveGamepad.Get((EGamepadButton)inputID);
+				InputState state = m_ActiveGamepad.Get((EGamepadInputID)inputID);
 				return new RawInputState(state);
 			}
 			return new RawInputState(false);
@@ -94,7 +94,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 					InputState state = m_InputState[x];
 					if(state.IsActive)
 					{
-						providers.Add(new GamepadProvider((EGamepadButton)x));
+						providers.Add(new GamepadProvider((EGamepadInputID)x));
 					}
 				}
 			}

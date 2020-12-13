@@ -18,14 +18,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return source;
 		}
 
-		public static TSource Add<TSource>(this TSource source, EMouseButton button)
+		public static TSource Add<TSource>(this TSource source, EMouseInputID button)
 			where TSource : IProviderContainer
 		{
 			source.AddProvider(new MouseProvider(button));
 			return source;
 		}
 
-		public static TSource Add<TSource>(this TSource source, EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
+		public static TSource Add<TSource>(this TSource source, EGamepadInputID button, EGamepadID gamepadID = EGamepadID.Any)
 			where TSource : IProviderContainer
 		{
 			source.AddProvider(new GamepadProvider(button, gamepadID));

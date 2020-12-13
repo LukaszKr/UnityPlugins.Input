@@ -4,8 +4,11 @@
 	{
 		public int Count;
 
+		public TouchCountProvider()
+		{
+		}
+
 		public TouchCountProvider(int count)
-			: base(EDeviceID.Touch)
 		{
 			Count = count;
 		}

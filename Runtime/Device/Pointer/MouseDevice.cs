@@ -8,8 +8,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 	public class MouseDevice: AInputDevice
 	{
 		public static float AxisDeadZone = 0.19f;
-		public static float ButtonDeadZone = 0.5f;
-		private const int INPUT_COUNT = EMouseButtonExt.MAX_VALUE;
+		private const int INPUT_COUNT = EMouseInputIDExt.MAX_VALUE+1;
 
 		public Vector2 PositionDelta { get; private set; }
 		public Vector2 Position { get; private set; }
@@ -23,17 +22,17 @@ namespace ProceduralLevel.UnityPlugins.Input
 		}
 
 		#region Getters
-		public InputState Get(EMouseButton button)
+		public InputState Get(EMouseInputID inputID)
 		{
-			return m_InputState[(int)button];
+			return m_InputState[(int)inputID];
 		}
 
-		public EInputStatus GetStatus(EMouseButton button)
+		public EInputStatus GetStatus(EMouseInputID inputID)
 		{
-			return m_InputState[(int)button].Status;
+			return m_InputState[(int)inputID].Status;
 		}
 
-		public float GetAxis(EMouseButton button)
+		public float GetAxis(EMouseInputID button)
 		{
 			return m_InputState[(int)button].Axis;
 		}
@@ -43,7 +42,17 @@ namespace ProceduralLevel.UnityPlugins.Input
 		protected override void OnUpdateState(InputManager inputManager)
 		{
 			m_Mouse = Mouse.current;
-			Scroll = (m_Mouse != null ? m_Mouse.scroll.ReadValue() : new Vector2(0f, 0f));
+			if(m_Mouse != null)
+			{
+				Vector2 rawScroll = m_Mouse.scroll.ReadValue();
+				float scrollX = NormalizeScroll(rawScroll.x);
+				float scrollY = NormalizeScroll(rawScroll.y);
+				Scroll = new Vector2(scrollX, scrollY);
+			}
+			else
+			{
+				Scroll = new Vector2(0f, 0f);
+			}
 
 			Vector2 oldPosition = Position;
 
@@ -67,18 +76,18 @@ namespace ProceduralLevel.UnityPlugins.Input
 			{
 				return new RawInputState(false);
 			}
-			EMouseButton button = (EMouseButton)inputID;
+			EMouseInputID button = (EMouseInputID)inputID;
 			switch(button)
 			{
-				case EMouseButton.Left:
+				case EMouseInputID.Left:
 					return new RawInputState(m_Mouse.leftButton.isPressed);
-				case EMouseButton.Right:
+				case EMouseInputID.Right:
 					return new RawInputState(m_Mouse.rightButton.isPressed);
-				case EMouseButton.Middle:
+				case EMouseInputID.Middle:
 					return new RawInputState(m_Mouse.middleButton.isPressed);
-				case EMouseButton.Back:
+				case EMouseInputID.Back:
 					return new RawInputState(m_Mouse.backButton.isPressed);
-				case EMouseButton.Forward:
+				case EMouseInputID.Forward:
 					return new RawInputState(m_Mouse.forwardButton.isPressed);
 				default:
 					if(button.IsAxis())
@@ -90,21 +99,34 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		private float ReadScrollValue(EMouseButton button)
+		private float ReadScrollValue(EMouseInputID button)
 		{
 			switch(button)
 			{
-				case EMouseButton.ScrollForward:
+				case EMouseInputID.ScrollForward:
 					return Math.Max(0f, Scroll.y);
-				case EMouseButton.ScrollBackward:
+				case EMouseInputID.ScrollBackward:
 					return -Math.Min(0f, Scroll.y);
-				case EMouseButton.ScrollRight:
+				case EMouseInputID.ScrollRight:
 					return Math.Max(0f, Scroll.x);
-				case EMouseButton.ScrollLeft:
+				case EMouseInputID.ScrollLeft:
 					return -Math.Min(0f, Scroll.x);
 				default:
 					throw new NotImplementedException();
 			}
+		}
+
+		private float NormalizeScroll(float value)
+		{
+			if(value < -0.01f)
+			{
+				return -1f;
+			}
+			else if(value > 0.01f)
+			{
+				return 1f;
+			}
+			return 0f;
 		}
 
 		protected override void OnSkippedFrame()
@@ -123,7 +145,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 					InputState state = m_InputState[x];
 					if(state.IsActive)
 					{
-						providers.Add(new MouseProvider((EMouseButton)x));
+						providers.Add(new MouseProvider((EMouseInputID)x));
 					}
 				}
 			}

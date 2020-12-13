@@ -2,25 +2,28 @@
 {
 	public class GamepadProvider: AInputProvider
 	{
-		public EGamepadButton Button;
+		public EGamepadInputID InputID;
 		public EGamepadID GamepadID;
 
-		public GamepadProvider(EGamepadButton button, EGamepadID gamepadID = EGamepadID.Any)
-			: base(EDeviceID.Gamepad)
+		public GamepadProvider()
 		{
-			Button = button;
+		}
+
+		public GamepadProvider(EGamepadInputID inputID, EGamepadID gamepadID = EGamepadID.Any)
+		{
+			InputID = inputID;
 			GamepadID = gamepadID;
 		}
 
 		protected override RawInputState OnGetState(InputManager inputManager)
 		{
 			AGamepadDevice gamepad = inputManager.GetGamepad(GamepadID);
-			return gamepad.Get(Button).ToRaw();
+			return gamepad.Get(InputID).ToRaw();
 		}
 
 		protected override string ToStringImpl()
 		{
-			return $"{Button}, {GamepadID}";
+			return $"{InputID}, {GamepadID}";
 		}
 	}
 }

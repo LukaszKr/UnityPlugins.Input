@@ -21,19 +21,19 @@ namespace ProceduralLevel.UnityPlugins.Input
 		}
 
 		#region Getters
-		public override InputState Get(EGamepadButton button)
+		public override InputState Get(EGamepadInputID inputID)
 		{
-			return m_InputState[(int)button];
+			return m_InputState[(int)inputID];
 		}
 
-		public override EInputStatus GetStatus(EGamepadButton button)
+		public override EInputStatus GetStatus(EGamepadInputID inputID)
 		{
-			return m_InputState[(int)button].Status;
+			return m_InputState[(int)inputID].Status;
 		}
 
-		public override float GetAxis(EGamepadButton button)
+		public override float GetAxis(EGamepadInputID inputID)
 		{
-			return m_InputState[(int)button].Axis;
+			return m_InputState[(int)inputID].Axis;
 		}
 		#endregion
 
@@ -54,7 +54,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			{
 				return new RawInputState(false);
 			}
-			EGamepadButton button = (EGamepadButton)inputID;
+			EGamepadInputID button = (EGamepadInputID)inputID;
 			if(button.IsAxis())
 			{
 				float axisValue = ReadAxisValue(button);
@@ -67,31 +67,31 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		private float ReadAxisValue(EGamepadButton button)
+		private float ReadAxisValue(EGamepadInputID button)
 		{
 			switch(button)
 			{
-				case EGamepadButton.LStickRight:
+				case EGamepadInputID.LStickRight:
 					return Math.Max(0f, m_Gamepad.leftStick.ReadValue().x);
-				case EGamepadButton.LStickLeft:
+				case EGamepadInputID.LStickLeft:
 					return -Math.Min(0f, m_Gamepad.leftStick.ReadValue().x);
-				case EGamepadButton.LStickUp:
+				case EGamepadInputID.LStickUp:
 					return Math.Max(0f, m_Gamepad.leftStick.ReadValue().y);
-				case EGamepadButton.LStickDown:
+				case EGamepadInputID.LStickDown:
 					return -Math.Min(0f, m_Gamepad.leftStick.ReadValue().y);
 
-				case EGamepadButton.RStickRight:
+				case EGamepadInputID.RStickRight:
 					return Math.Max(0f, m_Gamepad.rightStick.ReadValue().x);
-				case EGamepadButton.RStickLeft:
+				case EGamepadInputID.RStickLeft:
 					return -Math.Min(0f, m_Gamepad.rightStick.ReadValue().x);
-				case EGamepadButton.RStickUp:
+				case EGamepadInputID.RStickUp:
 					return Math.Max(0f, m_Gamepad.rightStick.ReadValue().y);
-				case EGamepadButton.RStickDown:
+				case EGamepadInputID.RStickDown:
 					return -Math.Min(0f, m_Gamepad.rightStick.ReadValue().y);
 
-				case EGamepadButton.LTrigger:
+				case EGamepadInputID.LTrigger:
 					return m_Gamepad.leftTrigger.ReadValue();
-				case EGamepadButton.RTrigger:
+				case EGamepadInputID.RTrigger:
 					return m_Gamepad.rightTrigger.ReadValue();
 				default:
 					throw new NotImplementedException();

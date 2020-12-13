@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EGamepadButton: byte
+	public enum EGamepadInputID: byte
 	{
 		LStick = 0,
 		RStick = 1,
@@ -38,7 +38,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		RTrigger = 23,
 	}
 
-	public static class EGamepadButtonExt
+	public static class EGamepadInputIDExt
 	{
 		public const int MAX_VALUE = 23;
 
@@ -50,14 +50,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 			GamepadButton.DpadLeft, GamepadButton.DpadRight, GamepadButton.DpadUp, GamepadButton.DpadDown
 		};
 
-		public static GamepadButton ToUnity(this EGamepadButton button)
+		public static GamepadButton ToUnity(this EGamepadInputID button)
 		{
 			return m_Map[(int)button];
 		}
 
-		public static bool IsAxis(this EGamepadButton button)
+		public static bool IsAxis(this EGamepadInputID button)
 		{
-			return button >= EGamepadButton.LStickLeft;
+			return button >= EGamepadInputID.LStickLeft;
 		}
 	}
 }

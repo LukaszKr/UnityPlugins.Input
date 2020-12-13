@@ -18,14 +18,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 		}
 
 		#region Getters
-		public InputState Get(Key key)
+		public InputState Get(Key inputID)
 		{
-			return m_InputState[(int)key];
+			return m_InputState[(int)inputID];
 		}
 
-		public EInputStatus GetStatus(Key key)
+		public EInputStatus GetStatus(Key inputID)
 		{
-			return m_InputState[(int)key].Status;
+			return m_InputState[(int)inputID].Status;
 		}
 		#endregion
 
