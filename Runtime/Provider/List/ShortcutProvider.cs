@@ -5,16 +5,8 @@ using ProceduralLevel.Common.Ext;
 namespace ProceduralLevel.UnityPlugins.Input
 {
 	//AND-List
-	public class ShortcutProvider: AInputProvider
+	public class ShortcutProvider: AListProvider
 	{
-		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
-
-		public ShortcutProvider()
-			: base(EDeviceID.Unknown)
-		{
-
-		}
-
 		protected override RawInputState OnGetState(InputManager inputManager)
 		{
 			float axis = 0f;
@@ -38,11 +30,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 
 			return new RawInputState(true, axis, isRealAxis);
-		}
-
-		protected override string ToStringImpl()
-		{
-			return $"[{Providers.JoinToString()}]";
 		}
 	}
 }

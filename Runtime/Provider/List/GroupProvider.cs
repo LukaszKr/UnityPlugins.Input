@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
 	//OR-List
-	public class GroupProvider: AInputProvider
+	public class GroupProvider: AListProvider
 	{
-		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
-
-		public GroupProvider()
-			: base(EDeviceID.Unknown)
-		{
-
-		}
 
 		protected override RawInputState OnGetState(InputManager inputManager)
 		{
@@ -39,11 +30,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 
 			return new RawInputState(isAnyProviderActive, axis, isRealAxis);
-		}
-
-		protected override string ToStringImpl()
-		{
-			return $"[{Providers.JoinToString()}]";
 		}
 	}
 }
