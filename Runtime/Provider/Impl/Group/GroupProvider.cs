@@ -82,6 +82,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 						isRealAxis = true;
 						axis = Math.Max(data.Axis, axis);
 					}
+					else if(!isRealAxis)
+					{
+						axis = data.Axis;
+					}
 				}
 			}
 
