@@ -1,6 +1,4 @@
-﻿using ProceduralLevel.Common.Buffer;
-
-namespace ProceduralLevel.UnityPlugins.Input
+﻿namespace ProceduralLevel.UnityPlugins.Input
 {
 	public abstract class AInputProvider
 	{

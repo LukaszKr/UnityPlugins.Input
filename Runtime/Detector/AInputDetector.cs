@@ -1,8 +1,11 @@
-﻿namespace ProceduralLevel.UnityPlugins.Input
+﻿using System;
+using System.Collections.Generic;
+
+namespace ProceduralLevel.UnityPlugins.Input
 {
 	public abstract class AInputDetector: ADetector, IProviderContainer
 	{
-		public readonly GroupProvider Providers = new GroupProvider();
+		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
 
 		private RawInputState m_InputState;
 		private bool m_Triggered;
@@ -13,7 +16,7 @@
 
 		protected override void OnUpdate(InputManager inputManager)
 		{
-			m_InputState = Providers.GetState(inputManager);
+			m_InputState = GetState(inputManager);
 			if(m_InputState.IsActive)
 			{
 				m_Triggered = OnInputUpdate(inputManager);
@@ -25,6 +28,36 @@
 			}
 		}
 
+		private RawInputState GetState(InputManager inputManager)
+		{
+			float axis = 0f;
+			bool isRealAxis = false;
+			bool isAnyProviderActive = false;
+
+			int count = Providers.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				AInputProvider provider = Providers[x];
+				RawInputState data = provider.GetState(inputManager);
+				if(data.IsActive)
+				{
+					isAnyProviderActive = true;
+
+					if(data.IsRealAxis)
+					{
+						isRealAxis = true;
+						axis = Math.Max(data.Axis, axis);
+					}
+					else if(!isRealAxis)
+					{
+						axis = data.Axis;
+					}
+				}
+			}
+
+			return new RawInputState(isAnyProviderActive, axis, isRealAxis);
+		}
+
 		protected abstract bool OnInputUpdate(InputManager inputManager);
 		protected abstract void OnInputReset(InputManager inputManager);
 
@@ -32,12 +65,6 @@
 		public void AddProvider(AInputProvider provider)
 		{
 			Providers.Add(provider);
-		}
-
-		public AInputDetector SetGroupMode(EProviderListMode mode)
-		{
-			Providers.Mode = mode;
-			return this;
 		}
 		#endregion
 
