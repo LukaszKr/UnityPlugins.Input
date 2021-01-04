@@ -62,7 +62,15 @@ namespace ProceduralLevel.UnityPlugins.Input
 			++m_UpdateTick;
 			DeltaTime = Time.deltaTime;
 
-			UpdateDevices();
+			bool hasFocus = Application.isFocused;
+			if(hasFocus)
+			{
+				UpdateDevices();
+			}
+			else
+			{
+				ResetDevices();
+			}
 			UpdateActiveLayers();
 		}
 
@@ -87,6 +95,16 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 
 			TrySetActiveDevice(newDevice);
+		}
+
+		private void ResetDevices()
+		{
+			int count = m_InputDevices.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				AInputDevice device = m_InputDevices[x];
+				device.ResetState();
+			}
 		}
 
 		public void RecordProviders(List<AInputProvider> providers)

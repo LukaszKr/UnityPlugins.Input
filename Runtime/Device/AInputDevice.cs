@@ -53,6 +53,18 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
+		public virtual void ResetState()
+		{
+			m_IsActive = false;
+			m_AnyInputActive = false;
+
+			int length = m_InputState.Length;
+			for(int x = 0; x < length; ++x)
+			{
+				m_InputState[x] = new InputState();
+			}
+		}
+
 		protected virtual void OnSkippedFrame() { }
 
 		protected abstract void OnUpdateState(InputManager inputManager);

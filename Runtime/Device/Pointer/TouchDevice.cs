@@ -59,6 +59,13 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
+		public override void ResetState()
+		{
+			base.ResetState();
+
+			Count = 0;
+		}
+
 		protected override RawInputState GetRawState(int rawInputID)
 		{
 			return new RawInputState(Count > 0 && rawInputID < Count);
