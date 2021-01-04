@@ -18,6 +18,12 @@
 			return new RawInputState(inputManager.Touch.Count == Count);
 		}
 
+		protected override int OnCompareTo(AInputProvider other)
+		{
+			TouchCountProvider otherProvider = (TouchCountProvider)other;
+			return Count.CompareTo(otherProvider.Count);
+		}
+
 		protected override string ToStringImpl()
 		{
 			return $"{nameof(Count)}: {Count}";

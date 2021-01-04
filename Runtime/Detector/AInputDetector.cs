@@ -5,11 +5,12 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public abstract class AInputDetector: ADetector, IProviderContainer
 	{
-		public readonly List<AInputProvider> Providers = new List<AInputProvider>();
+		private readonly List<AInputProvider> m_Providers = new List<AInputProvider>();
 
 		private RawInputState m_InputState;
 		private bool m_Triggered;
 
+		public IReadOnlyList<AInputProvider> Providers { get { return m_Providers; } }
 		public RawInputState InputState { get { return m_InputState; } }
 		public override bool Triggered { get { return m_Triggered; } }
 		public float Axis { get { return m_InputState.Axis; } }
@@ -34,10 +35,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 			bool isRealAxis = false;
 			bool isAnyProviderActive = false;
 
-			int count = Providers.Count;
+			int count = m_Providers.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				AInputProvider provider = Providers[x];
+				AInputProvider provider = m_Providers[x];
 				RawInputState data = provider.GetState(inputManager);
 				if(data.IsActive)
 				{
@@ -64,14 +65,19 @@ namespace ProceduralLevel.UnityPlugins.Input
 		#region Providers
 		public void AddProvider(AInputProvider provider)
 		{
-			Providers.Add(provider);
+			m_Providers.Add(provider);
+		}
+
+		public void Sort()
+		{
+			m_Providers.SortProviders();
 		}
 		#endregion
 
 		public override string ToString()
 		{
 			return string.Format("[Triggered: {0}, Axis: {1}, InputProviders: {2}]",
-				Triggered.ToString(), Axis.ToString(), Providers.ToString());
+				Triggered.ToString(), Axis.ToString(), m_Providers.ToString());
 		}
 	}
 }

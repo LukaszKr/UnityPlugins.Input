@@ -21,6 +21,17 @@
 			return gamepad.Get(InputID).ToRaw();
 		}
 
+		protected override int OnCompareTo(AInputProvider other)
+		{
+			GamepadProvider otherProvider = (GamepadProvider)other;
+			int gamepadCompare = GamepadID.CompareTo(otherProvider.GamepadID);
+			if(gamepadCompare == 0)
+			{
+				return InputID.CompareTo(otherProvider.InputID);
+			}
+			return gamepadCompare;
+		}
+
 		protected override string ToStringImpl()
 		{
 			return $"{InputID}, {GamepadID}";

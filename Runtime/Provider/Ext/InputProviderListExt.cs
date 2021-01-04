@@ -1,9 +1,26 @@
-﻿using UnityEngine.InputSystem;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
 	public static class InputProviderListExt
 	{
+		public static void SortProviders(this List<AInputProvider> list)
+		{
+			int count = list.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				AInputProvider provider = list[x];
+				IProviderContainer container = provider as IProviderContainer;
+				if(container != null)
+				{
+					container.Sort();
+				}
+			}
+			list.Sort();
+		}
+
 		public static TSource Add<TSource>(this TSource source, AInputProvider provider)
 			where TSource : IProviderContainer
 		{

@@ -1,6 +1,8 @@
-﻿namespace ProceduralLevel.UnityPlugins.Input
+﻿using System;
+
+namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class AInputProvider
+	public abstract class AInputProvider: IComparable<AInputProvider>
 	{
 		private int m_UpdateTick = 0;
 
@@ -16,6 +18,23 @@
 		}
 
 		protected abstract RawInputState OnGetState(InputManager inputManager);
+
+		public int CompareTo(AInputProvider other)
+		{
+			if(other == this)
+			{
+				return 0;
+			}
+			Type thisType = GetType();
+			Type otherType = other.GetType();
+			if(thisType != otherType)
+			{
+				return thisType.Name.CompareTo(otherType.Name);
+			}
+			return OnCompareTo(other);
+		}
+
+		protected abstract int OnCompareTo(AInputProvider other);
 
 		public override string ToString()
 		{

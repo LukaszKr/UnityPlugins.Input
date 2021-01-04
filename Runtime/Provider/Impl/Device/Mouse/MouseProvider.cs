@@ -18,6 +18,12 @@
 			return inputManager.Mouse.Get(InputID).ToRaw();
 		}
 
+		protected override int OnCompareTo(AInputProvider other)
+		{
+			MouseProvider otherProvider = (MouseProvider)other;
+			return InputID.CompareTo(otherProvider.InputID);
+		}
+
 		protected override string ToStringImpl()
 		{
 			return $"{InputID}";

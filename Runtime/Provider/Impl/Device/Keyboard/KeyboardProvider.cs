@@ -20,6 +20,12 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return inputManager.Keyboard.Get(InputID).ToRaw();
 		}
 
+		protected override int OnCompareTo(AInputProvider other)
+		{
+			KeyboardProvider otherProvider = (KeyboardProvider)other;
+			return InputID.CompareTo(otherProvider.InputID);
+		}
+
 		protected override string ToStringImpl()
 		{
 			return $"{InputID}";

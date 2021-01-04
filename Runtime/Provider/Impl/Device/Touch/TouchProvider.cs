@@ -18,6 +18,12 @@
 			return inputManager.Touch.Get(TouchID).ToRaw();
 		}
 
+		protected override int OnCompareTo(AInputProvider other)
+		{
+			TouchProvider otherProvider = (TouchProvider)other;
+			return TouchID.CompareTo(otherProvider.TouchID);
+		}
+
 		protected override string ToStringImpl()
 		{
 			return $"{TouchID}";
