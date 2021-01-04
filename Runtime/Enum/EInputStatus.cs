@@ -18,7 +18,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		public static bool Contains(this EInputStatus status, EInputStatus other)
 		{
-			return (status & other) == other;
+			return other != 0 && (status & other) == other;
 		}
 
 		public static EInputStatus GetNextStatus(this EInputStatus current, bool isPressed)
