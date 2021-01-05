@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ProceduralLevel.UnityPlugins.Input
+﻿namespace ProceduralLevel.UnityPlugins.Input
 {
 	public abstract class AInputDetector: ADetector, IProviderContainer
 	{
@@ -24,13 +21,22 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			else
 			{
-				OnInputReset(inputManager);
+				OnInputReset();
+				m_Triggered = false;
+			}
+		}
+
+		public override void Validate(InputValidator resolver)
+		{
+			if(!resolver.CanTrigger(this))
+			{
+				OnInputReset();
 				m_Triggered = false;
 			}
 		}
 
 		protected abstract bool OnInputUpdate(InputManager inputManager);
-		protected abstract void OnInputReset(InputManager inputManager);
+		protected abstract void OnInputReset();
 
 		#region Providers
 		public void AddProvider(AInputProvider provider)

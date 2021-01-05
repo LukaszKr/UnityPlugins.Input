@@ -27,6 +27,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		protected readonly List<InputLayer> m_ActiveLayers = new List<InputLayer>();
 		private readonly List<IInputReceiver> m_ToPop = new List<IInputReceiver>();
 		private readonly List<InputLayer> m_ToPush = new List<InputLayer>();
+		private readonly InputValidator m_Validator = new InputValidator();
 		public List<LayerDefinition> LayerDefinitions = new List<LayerDefinition>();
 
 		public virtual Type EnumIDType { get { return null; } }
@@ -164,24 +165,36 @@ namespace ProceduralLevel.UnityPlugins.Input
 			{
 				IInputReceiver receiver = m_ToPop[x];
 				int index = IndexOfReceiver(receiver);
+				InputLayer layer = m_ActiveLayers[index];
+				m_Validator.Remove(layer.Updater);
 				m_ActiveLayers.RemoveAt(index);
 			}
 			m_ToPop.Clear();
 
 			bool canProceed = true;
-			int count = m_ActiveLayers.Count - 1;
+			int count = m_ActiveLayers.Count-1;
+			int lastValid = 0;
 			for(int x = count; x >= 0; --x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
 				layer.IsActive = canProceed;
 				if(canProceed)
 				{
-					layer.Receiver.UpdateInput(this);
+					lastValid = x;
+					layer.Updater.Update(this);
 				}
 				if(layer.Definition.Block)
 				{
 					canProceed = false;
 				}
+			}
+			m_Validator.Update();
+
+			for(int x = count; x >= lastValid; --x)
+			{
+				InputLayer layer = m_ActiveLayers[x];
+				layer.Updater.Validate(m_Validator);
+				layer.Receiver.UpdateInput(this);
 			}
 
 			int toPushCount = m_ToPush.Count;
@@ -250,7 +263,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return -1;
 		}
 
-		public void PushReceiver(IInputReceiver receiver, int layerID)
+		public void PushReceiver(IInputReceiver receiver, DetectorUpdater updater, int layerID)
 		{
 			LayerDefinition definition = GetLayerDefinition(layerID);
 			if(definition == null)
@@ -258,7 +271,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 				Debug.LogException(new ArgumentNullException(string.Format("Layer with ID: {0} was not found.", layerID)));
 			}
 
-			InputLayer newLayer = new InputLayer(receiver, definition);
+			InputLayer newLayer = new InputLayer(receiver, updater, definition);
 			m_ToPush.Add(newLayer);
 		}
 
@@ -272,6 +285,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 				}
 				return;
 			}
+
+			m_Validator.Add(newLayer.Updater);
 
 			int count = m_ActiveLayers.Count;
 			for(int x = 0; x != count; ++x)

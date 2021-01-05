@@ -29,6 +29,10 @@
 			}
 		}
 
+		public override void Validate(InputValidator resolver)
+		{
+		}
+
 		protected abstract bool IsGestureActive(TouchDevice touch);
 		protected abstract void StartGesture(TouchDevice touch);
 		protected abstract bool UpdateGesture(TouchDevice touch);

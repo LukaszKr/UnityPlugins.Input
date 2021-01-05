@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class TouchProvider: AInputProvider
+	public class TouchProvider: ADeviceInputProvider
 	{
 		public ETouchID TouchID;
 

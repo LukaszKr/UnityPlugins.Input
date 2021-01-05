@@ -6,9 +6,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		public override Type EnumIDType { get { return typeof(ELayerID); } }
 
-		public void PushReceiver(IInputReceiver receiver, ELayerID layerID)
+		public void PushReceiver(IInputReceiver receiver, DetectorUpdater updater, ELayerID layerID)
 		{
-			PushReceiver(receiver, IDToInt(layerID));
+			PushReceiver(receiver, updater, IDToInt(layerID));
 		}
 
 		protected virtual int IDToInt(ELayerID id)

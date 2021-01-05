@@ -16,6 +16,8 @@
 			}
 		}
 
+		public abstract void Validate(InputValidator resolver);
+
 		protected abstract void OnUpdate(InputManager inputManager);
 	}
 }

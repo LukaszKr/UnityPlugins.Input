@@ -6,6 +6,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		private List<ADetector> m_Detectors = new List<ADetector>();
 
+		public IReadOnlyList<ADetector> Detectors { get { return m_Detectors; } }
+
 		public DetectorUpdater(params ADetector[] detectors)
 		{
 			m_Detectors.AddRange(detectors);
@@ -22,6 +24,15 @@ namespace ProceduralLevel.UnityPlugins.Input
 			for(int x = 0; x < count; ++x)
 			{
 				m_Detectors[x].Update(inputManager);
+			}
+		}
+
+		public void Validate(InputValidator validator)
+		{
+			int count = m_Detectors.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				m_Detectors[x].Validate(validator);
 			}
 		}
 	}

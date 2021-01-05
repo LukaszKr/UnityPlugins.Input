@@ -3,12 +3,14 @@
 	public sealed class InputLayer
 	{
 		public IInputReceiver Receiver;
+		public readonly DetectorUpdater Updater;
 		public LayerDefinition Definition;
 		public bool IsActive;
 
-		public InputLayer(IInputReceiver receiver, LayerDefinition definition)
+		public InputLayer(IInputReceiver receiver, DetectorUpdater updater, LayerDefinition definition)
 		{
 			Receiver = receiver;
+			Updater = updater;
 			Definition = definition;
 		}
 

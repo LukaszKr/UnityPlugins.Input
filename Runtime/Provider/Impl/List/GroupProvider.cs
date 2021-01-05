@@ -4,6 +4,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class GroupProvider: AListProvider
 	{
+		private AInputProvider m_UsedProvider;
+
+		public AInputProvider UsedProvider { get { return m_UsedProvider; } }
+
 		public GroupProvider()
 		{
 
@@ -14,6 +18,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			float axis = 0f;
 			bool isRealAxis = false;
 			bool isAnyProviderActive = false;
+			m_UsedProvider = null;
 
 			int count = m_Providers.Count;
 			for(int x = 0; x < count; ++x)
@@ -23,7 +28,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 				if(data.IsActive)
 				{
 					isAnyProviderActive = true;
-
+					m_UsedProvider = provider;
 					if(data.IsRealAxis)
 					{
 						isRealAxis = true;

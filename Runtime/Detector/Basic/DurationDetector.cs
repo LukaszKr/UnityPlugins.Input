@@ -10,7 +10,7 @@
 			return true;
 		}
 
-		protected override void OnInputReset(InputManager inputManager)
+		protected override void OnInputReset()
 		{
 			Duration = 0f;
 		}

@@ -14,7 +14,7 @@
 			return false;
 		}
 
-		protected override void OnInputReset(InputManager inputManager)
+		protected override void OnInputReset()
 		{
 			m_Fired = false;
 		}

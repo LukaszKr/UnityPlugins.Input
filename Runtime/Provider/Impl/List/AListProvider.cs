@@ -18,6 +18,43 @@ namespace ProceduralLevel.UnityPlugins.Input
 			m_Providers.SortProviders();
 		}
 
+		public override bool Contains(AInputProvider provider)
+		{
+			AListProvider listProvider = provider as AListProvider;
+			if(listProvider != null)
+			{
+				List<AInputProvider> toCheckList = listProvider.m_Providers;
+				int toCheckCount = toCheckList.Count;
+				for(int x = 0; x < toCheckCount; ++x)
+				{
+					AInputProvider toCheck = toCheckList[x];
+					if(!ContainsProvider(toCheck))
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+			else
+			{
+				return ContainsProvider(provider);
+			}
+		}
+
+		private bool ContainsProvider(AInputProvider provider)
+		{
+			int count = m_Providers.Count;
+			for(int x = 0; x < count; ++x) 
+			{
+				AInputProvider ownedProvider = m_Providers[x];
+				if(ownedProvider.Contains(provider))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		protected override int OnCompareTo(AInputProvider other)
 		{
 			AListProvider otherProvider = (AListProvider)other;

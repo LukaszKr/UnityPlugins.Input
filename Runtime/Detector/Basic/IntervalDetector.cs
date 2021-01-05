@@ -44,9 +44,9 @@
 			return updated;
 		}
 
-		protected override void OnInputReset(InputManager inputManager)
+		protected override void OnInputReset()
 		{
-			base.OnInputReset(inputManager);
+			base.OnInputReset();
 
 			m_PreviousTrigger = 0f;
 			m_NextTrigger = m_Intervals[0];

@@ -26,9 +26,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return false;
 		}
 
-		protected override void OnInputReset(InputManager inputManager)
+		protected override void OnInputReset()
 		{
-			base.OnInputReset(inputManager);
+			base.OnInputReset();
 			m_Detected = false;
 		}
 

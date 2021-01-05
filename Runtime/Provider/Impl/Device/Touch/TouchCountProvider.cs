@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class TouchCountProvider: AInputProvider
+	public class TouchCountProvider: ADeviceInputProvider
 	{
 		public int Count;
 

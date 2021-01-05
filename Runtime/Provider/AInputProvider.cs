@@ -30,6 +30,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected abstract RawInputState GetState(InputManager inputManager);
 
+		public abstract bool Contains(AInputProvider provider);
+
 		public int CompareTo(AInputProvider other)
 		{
 			if(other == this)
