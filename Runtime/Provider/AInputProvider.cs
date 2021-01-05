@@ -5,19 +5,30 @@ namespace ProceduralLevel.UnityPlugins.Input
 	public abstract class AInputProvider: IComparable<AInputProvider>
 	{
 		private int m_UpdateTick = 0;
+		private RawInputState m_State;
 
-		public RawInputState GetState(InputManager inputManager)
+		public RawInputState State { get { return m_State; } }
+
+		public RawInputState UpdateState(InputManager inputManager)
 		{
 			int oldTick = m_UpdateTick;
 			m_UpdateTick = inputManager.UpdateTick;
+			if(oldTick == m_UpdateTick)
+			{
+				return m_State;
+			}
 			if(oldTick != m_UpdateTick-1)
 			{
-				return new RawInputState(false);
+				m_State = new RawInputState(false);
 			}
-			return OnGetState(inputManager);
+			else
+			{
+				m_State = GetState(inputManager);
+			}
+			return m_State;
 		}
 
-		protected abstract RawInputState OnGetState(InputManager inputManager);
+		protected abstract RawInputState GetState(InputManager inputManager);
 
 		public int CompareTo(AInputProvider other)
 		{

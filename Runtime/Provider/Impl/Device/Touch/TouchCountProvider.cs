@@ -13,7 +13,7 @@
 			Count = count;
 		}
 
-		protected override RawInputState OnGetState(InputManager inputManager)
+		protected override RawInputState GetState(InputManager inputManager)
 		{
 			return new RawInputState(inputManager.Touch.Count == Count);
 		}

@@ -15,7 +15,7 @@
 			GamepadID = gamepadID;
 		}
 
-		protected override RawInputState OnGetState(InputManager inputManager)
+		protected override RawInputState GetState(InputManager inputManager)
 		{
 			AGamepadDevice gamepad = inputManager.GetGamepad(GamepadID);
 			return gamepad.Get(InputID).ToRaw();
