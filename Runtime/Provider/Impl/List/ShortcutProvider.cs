@@ -2,9 +2,9 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class ShorcutProvider: AListProvider
+	public class ShortcutProvider: AListProvider
 	{
-		public ShorcutProvider()
+		public ShortcutProvider()
 		{
 		}
 
