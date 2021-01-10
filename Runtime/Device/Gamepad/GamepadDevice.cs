@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public partial class GamepadDevice: AGamepadDevice
 	{
-		public static float AxisDeadZone = 0.19f;
+		public float AxisDeadZone = 0.19f;
 
 		private Gamepad m_Gamepad;
 		private EGamepadType m_GamepadType = EGamepadType.Generic;

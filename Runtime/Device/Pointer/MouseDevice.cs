@@ -7,9 +7,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class MouseDevice: AInputDevice
 	{
-		public static float MoveAxisDeadZone = 0.02f;
-		public static float MouseSensitivityX = 350f;
-		public static float MouseSensitivityY = 350f;
+		public float MoveAxisDeadZone = 0.02f;
+		public float DeltaSensitivityX = 350f;
+		public float DeltaSensitivityY = 350f;
+		public float ScrollSensitivity = 5f;
 
 		public Vector2 PositionDelta { get; private set; }
 		public Vector2 Delta { get; private set; }
@@ -47,8 +48,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 			if(m_Mouse != null)
 			{
 				Vector2 rawScroll = m_Mouse.scroll.ReadValue();
-				float scrollX = NormalizeScroll(rawScroll.x);
-				float scrollY = NormalizeScroll(rawScroll.y);
+				float scrollX = NormalizeScroll(rawScroll.x)*ScrollSensitivity;
+				float scrollY = NormalizeScroll(rawScroll.y)*ScrollSensitivity;
 				Scroll = new Vector2(scrollX, scrollY);
 			}
 			else
@@ -69,8 +70,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 				PositionDelta = Vector2.zero;
 			}
 
-			float deltaX = (PositionDelta.x/screenRect.width)*MouseSensitivityX;
-			float deltaY = (PositionDelta.y/screenRect.height)*MouseSensitivityY;
+			float deltaX = (PositionDelta.x/screenRect.width)*DeltaSensitivityX;
+			float deltaY = (PositionDelta.y/screenRect.height)*DeltaSensitivityY;
 			Delta = new Vector2(deltaX, deltaY);
 
 			m_IsActive |= PositionDelta.sqrMagnitude > 0.1f;
