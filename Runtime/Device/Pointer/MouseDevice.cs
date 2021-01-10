@@ -137,9 +137,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 				case EMouseInputID.MoveRight:
 					return PositionDelta.x;
 				case EMouseInputID.MoveUp:
-					return -PositionDelta.y;
-				case EMouseInputID.MoveDown:
 					return PositionDelta.y;
+				case EMouseInputID.MoveDown:
+					return -PositionDelta.y;
 				default:
 					throw new NotImplementedException();
 			}
