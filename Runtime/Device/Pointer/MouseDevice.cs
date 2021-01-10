@@ -116,9 +116,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			switch(inputID)
 			{
 				case EMouseInputID.ScrollForward:
-					return -Math.Max(0f, Scroll.y);
+					return Math.Max(0f, Scroll.y);
 				case EMouseInputID.ScrollBackward:
-					return Math.Min(0f, Scroll.y);
+					return -Math.Min(0f, Scroll.y);
 				case EMouseInputID.ScrollRight:
 					return Math.Max(0f, Scroll.x);
 				case EMouseInputID.ScrollLeft:
