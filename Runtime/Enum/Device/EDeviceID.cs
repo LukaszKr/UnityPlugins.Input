@@ -1,4 +1,5 @@
 ﻿using System;
+using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -14,6 +15,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 	public static class EDeviceIDExt
 	{
+		public static readonly EnumExt<EDeviceID> Meta = new EnumExt<EDeviceID>();
+
 		public static EDeviceGroup ToGroup(this EDeviceID id)
 		{
 			switch(id)

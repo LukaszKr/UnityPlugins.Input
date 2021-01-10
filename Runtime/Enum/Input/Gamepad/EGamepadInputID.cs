@@ -1,4 +1,5 @@
-﻿using UnityEngine.InputSystem.LowLevel;
+﻿using ProceduralLevel.Common.Ext;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -35,12 +36,12 @@ namespace ProceduralLevel.UnityPlugins.Input
 		RStickDown = 21,
 
 		LTrigger = 22,
-		RTrigger = 23,
+		RTrigger = 23
 	}
 
 	public static class EGamepadInputIDExt
 	{
-		public const int MAX_VALUE = 23;
+		public static readonly EnumExt<EGamepadInputID> Meta = new EnumExt<EGamepadInputID>();
 
 		private static readonly GamepadButton[] m_Map = new GamepadButton[] {
 			GamepadButton.LeftStick, GamepadButton.RightStick,

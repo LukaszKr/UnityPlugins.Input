@@ -1,4 +1,5 @@
-﻿using UnityEngine.InputSystem;
+﻿using ProceduralLevel.Common.Ext;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XInput;
 
 namespace ProceduralLevel.UnityPlugins.Input
@@ -22,6 +23,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public const string DUALSHOCK3 = "DualShock3GamepadHID";
 		public const string DUALSHOCK4 = "DualShock4GamepadHID";
 		public const string SWITCH_PRO = "SwitchProControllerHID";
+
+		public static readonly EnumExt<EGamepadType> Meta = new EnumExt<EGamepadType>();
 
 		public static bool IsXbox(this EGamepadType type)
 		{

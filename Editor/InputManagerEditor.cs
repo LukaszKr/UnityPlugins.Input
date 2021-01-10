@@ -115,6 +115,7 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 			EditorGUI.BeginDisabledGroup(true);
 			EditorGUILayout.Vector2Field("Position", mouse.Position);
 			EditorGUILayout.Vector2Field("Position Delta", mouse.PositionDelta);
+			EditorGUILayout.Vector2Field("Delta", mouse.Delta);
 			EditorGUILayout.Vector2Field("Scroll", mouse.Scroll);
 			EditorGUI.EndDisabledGroup();
 		}

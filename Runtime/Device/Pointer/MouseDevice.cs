@@ -7,17 +7,19 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class MouseDevice: AInputDevice
 	{
-		public static float AxisDeadZone = 0.19f;
-		private const int INPUT_COUNT = EMouseInputIDExt.MAX_VALUE+1;
+		public static float MoveAxisDeadZone = 0.02f;
+		public static float MouseSensitivityX = 350f;
+		public static float MouseSensitivityY = 350f;
 
 		public Vector2 PositionDelta { get; private set; }
+		public Vector2 Delta { get; private set; }
 		public Vector2 Position { get; private set; }
 		public Vector2 Scroll { get; private set; }
 
 		private Mouse m_Mouse;
 
 		public MouseDevice()
-			: base(EDeviceID.Mouse, INPUT_COUNT)
+			: base(EDeviceID.Mouse, EMouseInputIDExt.Meta.MaxValue+1)
 		{
 		}
 
@@ -67,6 +69,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 				PositionDelta = Vector2.zero;
 			}
 
+			float deltaX = (PositionDelta.x/screenRect.width)*MouseSensitivityX;
+			float deltaY = (PositionDelta.y/screenRect.height)*MouseSensitivityY;
+			Delta = new Vector2(deltaX, deltaY);
+
 			m_IsActive |= PositionDelta.sqrMagnitude > 0.1f;
 		}
 
@@ -93,24 +99,46 @@ namespace ProceduralLevel.UnityPlugins.Input
 					if(inputID.IsScroll())
 					{
 						float scrollValue = ReadScrollValue(inputID);
-						return new RawInputState(scrollValue >= AxisDeadZone, scrollValue);
+						return new RawInputState(scrollValue >= 0.01f, scrollValue);
+					}
+					else if(inputID.IsMove())
+					{
+						float moveValue = ReadMoveValue(inputID);
+						return new RawInputState(moveValue >= MoveAxisDeadZone, moveValue);
 					}
 					throw new NotImplementedException();
 			}
 		}
 
-		private float ReadScrollValue(EMouseInputID button)
+		private float ReadScrollValue(EMouseInputID inputID)
 		{
-			switch(button)
+			switch(inputID)
 			{
 				case EMouseInputID.ScrollForward:
-					return Math.Max(0f, Scroll.y);
+					return -Math.Max(0f, Scroll.y);
 				case EMouseInputID.ScrollBackward:
-					return -Math.Min(0f, Scroll.y);
+					return Math.Min(0f, Scroll.y);
 				case EMouseInputID.ScrollRight:
 					return Math.Max(0f, Scroll.x);
 				case EMouseInputID.ScrollLeft:
 					return -Math.Min(0f, Scroll.x);
+				default:
+					throw new NotImplementedException();
+			}
+		}
+
+		private float ReadMoveValue(EMouseInputID inputID)
+		{
+			switch(inputID)
+			{
+				case EMouseInputID.MoveLeft:
+					return -PositionDelta.x;
+				case EMouseInputID.MoveRight:
+					return PositionDelta.x;
+				case EMouseInputID.MoveUp:
+					return -PositionDelta.y;
+				case EMouseInputID.MoveDown:
+					return PositionDelta.y;
 				default:
 					throw new NotImplementedException();
 			}

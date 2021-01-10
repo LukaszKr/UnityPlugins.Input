@@ -1,4 +1,5 @@
 ﻿using System;
+using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -16,6 +17,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 	public static class EInputStatusExt
 	{
+		public static readonly EnumExt<EInputStatus> Meta = new EnumExt<EInputStatus>();
+
 		public static bool Contains(this EInputStatus status, EInputStatus other)
 		{
 			return other != 0 && (status & other) == other;

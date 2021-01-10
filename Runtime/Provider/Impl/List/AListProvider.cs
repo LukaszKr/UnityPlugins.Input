@@ -44,7 +44,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		private bool ContainsProvider(AInputProvider provider)
 		{
 			int count = m_Providers.Count;
-			for(int x = 0; x < count; ++x) 
+			for(int x = 0; x < count; ++x)
 			{
 				AInputProvider ownedProvider = m_Providers[x];
 				if(ownedProvider.Contains(provider))

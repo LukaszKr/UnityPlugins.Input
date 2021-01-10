@@ -9,7 +9,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public abstract Gamepad UnityGamepad { get; }
 		public abstract EGamepadType GamepadType { get; }
 
-		public AGamepadDevice(EGamepadID gamepadID) : base(EDeviceID.Gamepad, EGamepadInputIDExt.MAX_VALUE+1)
+		public AGamepadDevice(EGamepadID gamepadID) 
+			: base(EDeviceID.Gamepad, EGamepadInputIDExt.Meta.MaxValue+1)
 		{
 			GamepadID = gamepadID;
 		}

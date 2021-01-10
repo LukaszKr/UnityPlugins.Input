@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -13,6 +13,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 	public static class EGamepadIDExt
 	{
-		public static readonly EGamepadID[] Values = (EGamepadID[])Enum.GetValues(typeof(EGamepadID));
+		public static readonly EnumExt<EGamepadID> Meta = new EnumExt<EGamepadID>();
 	}
 }
