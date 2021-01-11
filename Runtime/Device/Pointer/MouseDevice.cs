@@ -8,8 +8,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 	public class MouseDevice: AInputDevice
 	{
 		public float MoveAxisDeadZone = 0.02f;
-		public float DeltaSensitivityX = 100f;
-		public float DeltaSensitivityY = 100f;
+		public float DeltaSensitivityX = 200f;
+		public float DeltaSensitivityY = 200f;
 		public float ScrollSensitivity = 5f;
 
 		public Vector2 PositionDelta { get; private set; }
@@ -133,13 +133,13 @@ namespace ProceduralLevel.UnityPlugins.Input
 			switch(inputID)
 			{
 				case EMouseInputID.MoveLeft:
-					return -PositionDelta.x;
+					return -Delta.x;
 				case EMouseInputID.MoveRight:
-					return PositionDelta.x;
+					return Delta.x;
 				case EMouseInputID.MoveUp:
-					return PositionDelta.y;
+					return Delta.y;
 				case EMouseInputID.MoveDown:
-					return -PositionDelta.y;
+					return -Delta.y;
 				default:
 					throw new NotImplementedException();
 			}
