@@ -28,7 +28,7 @@
 
 		public override void Validate(InputValidator resolver)
 		{
-			if(!resolver.CanTrigger(this))
+			if(resolver.IsBlocked(this))
 			{
 				OnInputReset();
 				m_Triggered = false;

@@ -84,7 +84,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		public bool CanTrigger(AInputDetector inputDetector)
+		public bool IsBlocked(AInputDetector inputDetector)
 		{
 			if(inputDetector.Triggered)
 			{
@@ -96,11 +96,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 					{
 						if(otherProvider.Contains(provider))
 						{
-							return false;
+							return true;
 						}
 					}
 				}
-				return true;
 			}
 			return false;
 		}
