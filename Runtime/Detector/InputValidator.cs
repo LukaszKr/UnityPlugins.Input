@@ -13,17 +13,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		private readonly AInputProvider[] m_ActiveBuffer = new AInputProvider[BUFFER_LENGTH];
 		private bool m_ShouldWipeBuffer;
 
-		public void Add(AInputDetector detector)
-		{
-			m_Detectors.Add(detector);
-		}
-
-		public void Remove(AInputDetector detector)
-		{
-			m_Detectors.Remove(detector);
-			m_ShouldWipeBuffer = true;
-		}
-
 		public void Add(DetectorUpdater updater)
 		{
 			m_Updaters.Add(updater);
@@ -89,7 +78,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 			if(inputDetector.Triggered)
 			{
 				AInputProvider provider = inputDetector.Group.UsedProvider;
-				bool isHighPriority = false;
 				for(int x = 0; x < m_BufferLength; ++x)
 				{
 					AInputProvider otherProvider = m_ActiveBuffer[x];
@@ -99,15 +87,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 						{
 							//if providers are the same - allow one that was added first to trigger
 							//otherwise mark as blocked
-							if(!isHighPriority || otherProvider.CompareTo(provider) != 0)
+							if(otherProvider.CompareTo(provider) != 0)
 							{
 								return true;
 							}
 						}
-					}
-					else 
-					{
-						isHighPriority = true;
 					}
 				}
 			}
