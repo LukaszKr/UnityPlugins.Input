@@ -89,6 +89,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			if(inputDetector.Triggered)
 			{
 				AInputProvider provider = inputDetector.Group.UsedProvider;
+				bool isHighPriority = false;
 				for(int x = 0; x < m_BufferLength; ++x)
 				{
 					AInputProvider otherProvider = m_ActiveBuffer[x];
@@ -96,8 +97,17 @@ namespace ProceduralLevel.UnityPlugins.Input
 					{
 						if(otherProvider.Contains(provider))
 						{
-							return true;
+							//if providers are the same - allow one that was added first to trigger
+							//otherwise mark as blocked
+							if(!isHighPriority || otherProvider.CompareTo(provider) != 0)
+							{
+								return true;
+							}
 						}
+					}
+					else 
+					{
+						isHighPriority = true;
 					}
 				}
 			}
