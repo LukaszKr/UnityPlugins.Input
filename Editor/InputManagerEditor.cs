@@ -99,7 +99,7 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 
 		private void DrawTouchState(TouchDevice touch)
 		{
-			DrawDeviceInputState("Touch", touch, typeof(ETouchID), 3);
+			DrawDeviceInputState("Touch", touch, typeof(ETouchInputID), 3);
 			int count = touch.Count;
 			for(int x = 0; x < count; ++x)
 			{

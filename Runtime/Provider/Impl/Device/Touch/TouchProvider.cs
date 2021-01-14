@@ -2,13 +2,13 @@
 {
 	public class TouchProvider: ADeviceInputProvider
 	{
-		public ETouchID TouchID;
+		public ETouchInputID TouchID;
 
 		public TouchProvider()
 		{
 		}
 
-		public TouchProvider(ETouchID touchID)
+		public TouchProvider(ETouchInputID touchID)
 		{
 			TouchID = touchID;
 		}

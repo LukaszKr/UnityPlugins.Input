@@ -19,13 +19,13 @@ namespace ProceduralLevel.UnityPlugins.Input
 		}
 
 		#region Getters
-		public InputState Get(ETouchID touchID)
+		public InputState Get(ETouchInputID touchID)
 		{
 			int index = (int)touchID;
 			return m_InputState[index];
 		}
 
-		public EInputStatus GetStatus(ETouchID touchID)
+		public EInputStatus GetStatus(ETouchInputID touchID)
 		{
 			int index = (int)touchID;
 			return m_InputState[index].Status;
@@ -79,7 +79,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 				int touchCount = Count;
 				for(int x = 0; x < touchCount; ++x)
 				{
-					providers.Add(new TouchProvider((ETouchID)x));
+					providers.Add(new TouchProvider((ETouchInputID)x));
 				}
 			}
 		}

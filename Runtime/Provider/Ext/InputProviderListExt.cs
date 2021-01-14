@@ -48,7 +48,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return source;
 		}
 
-		public static TSource Add<TSource>(this TSource source, ETouchID touchID)
+		public static TSource Add<TSource>(this TSource source, ETouchInputID touchID)
 			where TSource : IProviderContainer
 		{
 			source.AddProvider(new TouchProvider(touchID));

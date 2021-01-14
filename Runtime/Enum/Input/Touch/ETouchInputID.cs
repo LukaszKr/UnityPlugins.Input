@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum ETouchID: byte
+	public enum ETouchInputID: byte
 	{
 		Touch01 = 0,
 		Touch02 = 1,
@@ -11,8 +11,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 		Touch05 = 4,
 	}
 
-	public static class ETouchIDExt
+	public static class ETouchInputIDExt
 	{
-		public static readonly EnumExt<ETouchID> Meta = new EnumExt<ETouchID>();
+		public static readonly EnumExt<ETouchInputID> Meta = new EnumExt<ETouchInputID>();
 	}
 }
