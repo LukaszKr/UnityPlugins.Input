@@ -12,12 +12,14 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public float DeltaSensitivityY = 200f;
 		public float ScrollSensitivity = 5f;
 
-		public Vector2 PositionDelta { get; private set; }
+		private Mouse m_Mouse;
+
+		public Vector2 ScreenDelta { get; private set; }
+		public Vector2 RawDelta { get; private set; }
 		public Vector2 Delta { get; private set; }
+
 		public Vector2 Position { get; private set; }
 		public Vector2 Scroll { get; private set; }
-
-		private Mouse m_Mouse;
 
 		public MouseDevice()
 			: base(EDeviceID.Mouse, EMouseInputIDExt.Meta.MaxValue+1)
@@ -63,18 +65,19 @@ namespace ProceduralLevel.UnityPlugins.Input
 			Rect screenRect = new Rect(0f, 0f, Screen.width,  Screen.height); //probably won't work with dual screens
 			if(screenRect.Contains(oldPosition)) //prevent massive delta changes when out of focus 
 			{
-				PositionDelta = Position-oldPosition;
+				ScreenDelta = Position-oldPosition;
 			}
 			else
 			{
-				PositionDelta = Vector2.zero;
+				ScreenDelta = Vector2.zero;
 			}
 
-			float deltaX = (PositionDelta.x/screenRect.width)*DeltaSensitivityX;
-			float deltaY = (PositionDelta.y/screenRect.height)*DeltaSensitivityY;
-			Delta = new Vector2(deltaX, deltaY);
+			float deltaX = (ScreenDelta.x/screenRect.width);
+			float deltaY = (ScreenDelta.y/screenRect.height);
+			RawDelta = new Vector2(deltaX, deltaY);
+			Delta = new Vector2(deltaX*DeltaSensitivityX, deltaY*DeltaSensitivityY);
 
-			m_IsActive |= PositionDelta.sqrMagnitude > 0.1f;
+			m_IsActive |= ScreenDelta.sqrMagnitude > 0.1f;
 		}
 
 		protected override RawInputState GetRawState(int rawInputID)

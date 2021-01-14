@@ -114,7 +114,8 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 			DrawDeviceInputState("Mouse", mouse, typeof(EMouseInputID), 3);
 			EditorGUI.BeginDisabledGroup(true);
 			EditorGUILayout.Vector2Field("Position", mouse.Position);
-			EditorGUILayout.Vector2Field("Position Delta", mouse.PositionDelta);
+			EditorGUILayout.Vector2Field("Screen Delta", mouse.ScreenDelta);
+			EditorGUILayout.Vector2Field("Raw Delta", mouse.RawDelta);
 			EditorGUILayout.Vector2Field("Delta", mouse.Delta);
 			EditorGUILayout.Vector2Field("Scroll", mouse.Scroll);
 			EditorGUI.EndDisabledGroup();
