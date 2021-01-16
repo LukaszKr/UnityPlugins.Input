@@ -6,7 +6,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 	{
 		private const int BUFFER_LENGTH = 64;
 
-		private readonly List<AInputDetector> m_Detectors = new List<AInputDetector>();
 		private readonly List<DetectorUpdater> m_Updaters = new List<DetectorUpdater>();
 
 		private int m_BufferLength = 0;
@@ -29,8 +28,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 			TryWipeBuffer();
 
 			m_BufferLength = 0;
-
-			Update(m_Detectors);
 
 			int updaterCount = m_Updaters.Count;
 			for(int x = 0; x < updaterCount; ++x)
