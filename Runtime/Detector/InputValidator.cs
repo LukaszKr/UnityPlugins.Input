@@ -12,6 +12,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 		private readonly AInputProvider[] m_ActiveBuffer = new AInputProvider[BUFFER_LENGTH];
 		private bool m_ShouldWipeBuffer;
 
+		public bool Enabled = true;
+
 		public void Add(DetectorUpdater updater)
 		{
 			m_Updaters.Add(updater);
@@ -25,6 +27,11 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		public void Update()
 		{
+			if(!Enabled)
+			{
+				return;
+			}
+
 			TryWipeBuffer();
 
 			m_BufferLength = 0;
@@ -74,6 +81,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 			if(inputDetector.Triggered)
 			{
+				bool foundSelf = false;
 				AInputProvider provider = inputDetector.Group.UsedProvider;
 				for(int x = 0; x < m_BufferLength; ++x)
 				{
@@ -82,13 +90,16 @@ namespace ProceduralLevel.UnityPlugins.Input
 					{
 						if(otherProvider.Contains(provider))
 						{
-							//if providers are the same - allow one that was added first to trigger
-							//otherwise mark as blocked
-							if(otherProvider.CompareTo(provider) != 0)
+							if(foundSelf && otherProvider.CompareTo(provider) == 0)
 							{
-								return true;
+								continue;
 							}
+							return true;
 						}
+					}
+					else
+					{
+						foundSelf = true;
 					}
 				}
 			}

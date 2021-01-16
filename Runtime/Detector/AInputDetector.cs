@@ -11,8 +11,18 @@
 		public override bool Triggered { get { return m_Triggered; } }
 		public float Axis { get { return m_InputState.Axis; } }
 
+		public bool Enabled = true;
+
 		protected override void OnUpdate(InputManager inputManager)
 		{
+			if(!Enabled)
+			{
+				if(m_Triggered)
+				{
+					ResetState();
+				}
+				return;
+			}
 			m_InputState = Group.UpdateState(inputManager);
 
 			if(m_InputState.IsActive)
@@ -21,8 +31,7 @@
 			}
 			else
 			{
-				OnInputReset();
-				m_Triggered = false;
+				ResetState();
 			}
 		}
 
@@ -30,9 +39,14 @@
 		{
 			if(resolver.IsBlocked(this))
 			{
-				OnInputReset();
-				m_Triggered = false;
+				ResetState();
 			}
+		}
+
+		private void ResetState()
+		{
+			OnInputReset();
+			m_Triggered = false;
 		}
 
 		protected abstract bool OnInputUpdate(InputManager inputManager);
