@@ -58,7 +58,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			OnActiveDeviceChanged.RemoveAllListeners();
 		}
 
-		private void Update()
+		protected virtual void Update()
 		{
 			++m_UpdateTick;
 			DeltaTime = Time.deltaTime;
