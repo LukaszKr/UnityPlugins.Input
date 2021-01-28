@@ -14,7 +14,8 @@ namespace ProceduralLevel.UnityPluginsEditor.Input
 
 		private InputManager m_Manager;
 
-		public LayerDefinitionScrollView(InputManager manager, string name) : base(manager.LayerDefinitions)
+		public LayerDefinitionScrollView(InputManager manager, string name)
+			: base(manager.LayerDefinitions)
 		{
 			m_Rects = new Rect[m_ColRatios.Length];
 

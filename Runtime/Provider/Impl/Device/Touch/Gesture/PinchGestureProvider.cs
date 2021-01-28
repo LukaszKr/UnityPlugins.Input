@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ProceduralLevel.UnityPlugins.Input
+﻿namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class PinchGestureProvider: ADeviceInputProvider
 	{
