@@ -20,6 +20,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			new GamepadDevice(EGamepadID.P4)
 		};
 		public readonly AnyGamepadDevice AnyGamepad = new AnyGamepadDevice();
+		public readonly SwitchJoyConDevice JoyCon = new SwitchJoyConDevice();
 
 		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
 
@@ -51,6 +52,23 @@ namespace ProceduralLevel.UnityPlugins.Input
 				RegisterDevice(Gamepads[x]);
 			}
 			RegisterDevice(AnyGamepad);
+
+			#if UNITY_SWITCH
+			InitializeSwitch();
+			#endif
+		}
+
+		private void InitializeSwitch()
+		{
+			RegisterDevice(JoyCon);
+			int length = Gamepads.Length;
+			for(int x = 0; x < length; ++x)
+			{
+				UnregisterDevice(Gamepads[x]);
+			}
+			UnregisterDevice(AnyGamepad);
+			JoyCon.Initialize();
+			SetActiveDevice(JoyCon);
 		}
 
 		private void OnDestroy()
@@ -119,7 +137,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 
-		#region Device Management
+#region Device Management
 		public bool RegisterDevice(AInputDevice device, bool priority = false)
 		{
 			if(!m_InputDevices.Contains(device))
@@ -156,9 +174,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 			TrySetActiveDevice(device.ID);
 		}
-		#endregion
+#endregion
 
-		#region Layers
+#region Layers
 		private void UpdateActiveLayers()
 		{
 			for(int x = m_ToPop.Count-1; x >= 0; --x)
@@ -224,9 +242,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			return null;
 		}
-		#endregion
+#endregion
 
-		#region Receiver
+#region Receiver
 		public bool PopReceiver(IInputReceiver receiver)
 		{
 			int index = IndexOfReceiver(receiver);
@@ -300,9 +318,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			m_ActiveLayers.Add(newLayer);
 		}
-		#endregion
+#endregion
 
-		#region Gamepad
+#region Gamepad
 		public AGamepadDevice GetGamepad(EGamepadID id)
 		{
 			if(id == EGamepadID.Any)
@@ -332,7 +350,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			return gamepads[intID];
 		}
-		#endregion
+#endregion
 
 		protected void DrawDebugGUI()
 		{

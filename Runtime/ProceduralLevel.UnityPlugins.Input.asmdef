@@ -1,8 +1,9 @@
 {
     "name": "ProceduralLevel.UnityPlugins.Input",
     "references": [
-        "GUID:09255ba187395ca4f8dfdd7bb760b467",
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "NintendoSwitchSDK",
+        "Unity.InputSystem",
+        "ProceduralLevel.UnityPluginsEditor.ExtendedEditor"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -13,5 +14,6 @@
     ],
     "autoReferenced": false,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }
