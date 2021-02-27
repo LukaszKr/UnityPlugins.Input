@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProceduralLevel.UnityPlugins.Input;
-using ProceduralLevel.UnityPluginsEditor.ExtendedEditor;
+using ProceduralLevel.UnityPlugins.ExtendedEditor.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace ProceduralLevel.UnityPluginsEditor.Input
+namespace ProceduralLevel.UnityPlugins.Input.Editor
 {
 	[CustomEditor(typeof(InputManager), true)]
 	public class InputManagerEditor: AExtendedEditor<InputManager>

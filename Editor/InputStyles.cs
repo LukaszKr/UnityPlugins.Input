@@ -1,7 +1,7 @@
-﻿using ProceduralLevel.UnityPluginsEditor.ExtendedEditor;
+﻿using ProceduralLevel.UnityPlugins.ExtendedEditor.Editor;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPluginsEditor.Input
+namespace ProceduralLevel.UnityPlugins.Input.Editor
 {
 	public static class InputStyles
 	{

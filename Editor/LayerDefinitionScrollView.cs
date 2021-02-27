@@ -1,11 +1,11 @@
 ﻿using System;
 using ProceduralLevel.UnityPlugins.Common;
 using ProceduralLevel.UnityPlugins.Input;
-using ProceduralLevel.UnityPluginsEditor.ExtendedEditor;
+using ProceduralLevel.UnityPlugins.ExtendedEditor.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPluginsEditor.Input
+namespace ProceduralLevel.UnityPlugins.Input.Editor
 {
 	public class LayerDefinitionScrollView: ScrollView<LayerDefinition>
 	{
