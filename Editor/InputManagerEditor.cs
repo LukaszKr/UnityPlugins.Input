@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProceduralLevel.UnityPlugins.Input;
 using ProceduralLevel.UnityPlugins.ExtendedEditor.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -13,11 +12,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 	{
 		private const int LABEL_WIDTH = 100;
 
-		private LayerDefinitionScrollView m_LayerScroll;
-
 		protected override void Initialize()
 		{
-			m_LayerScroll = new LayerDefinitionScrollView(Target, nameof(InputManager.LayerDefinitions));
 		}
 
 		public override bool RequiresConstantRepaint()
@@ -47,8 +43,33 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void DrawDefinitions()
 		{
-			Rect rect = GUILayoutUtility.GetRect(Width, 150);
-			m_LayerScroll.Draw(rect);
+			List<LayerDefinition> layers = Target.LayerDefinitions;
+			int count = layers.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				LayerDefinition layer = layers[x];
+				DrawLayer(layer);
+			}
+		}
+
+		private void DrawLayer(LayerDefinition layer)
+		{
+			EditorGUILayout.BeginHorizontal("box");
+			EditorGUILayout.LabelField("ID", GUILayout.Width(24));
+			Type type = Target.EnumIDType;
+			if(type != null)
+			{
+				EditorGUILayout.LabelField(Enum.GetName(type, layer.ID));
+			}
+			else
+			{
+				layer.ID = EditorGUILayout.IntField(layer.ID);
+			}
+
+			EditorGUILayout.LabelField("Priority", GUILayout.Width(72));
+			layer.Priority = EditorGUILayout.IntField(layer.Priority);
+			layer.Block = EditorGUILayout.ToggleLeft("Block", layer.Block);
+			EditorGUILayout.EndHorizontal();
 		}
 
 		private void DrawActiveLayers()
