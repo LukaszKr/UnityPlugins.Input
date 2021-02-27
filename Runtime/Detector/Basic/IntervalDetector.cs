@@ -31,7 +31,7 @@
 			}
 		}
 
-		protected override bool OnInputUpdate(InputManager inputManager)
+		protected override bool OnInputUpdate(AInputManager inputManager)
 		{
 			base.OnInputUpdate(inputManager);
 

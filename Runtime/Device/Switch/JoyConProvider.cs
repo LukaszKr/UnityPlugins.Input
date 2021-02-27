@@ -9,7 +9,7 @@
 			InputID = button;
 		}
 
-		protected override RawInputState GetState(InputManager inputManager)
+		protected override RawInputState GetState(AInputManager inputManager)
 		{
 			return inputManager.JoyCon.Get(InputID).ToRaw();
 		}

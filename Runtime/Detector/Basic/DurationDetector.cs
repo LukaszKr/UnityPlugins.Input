@@ -4,7 +4,7 @@
 	{
 		public float Duration { get; private set; }
 
-		protected override bool OnInputUpdate(InputManager inputManager)
+		protected override bool OnInputUpdate(AInputManager inputManager)
 		{
 			Duration += inputManager.DeltaTime;
 			return true;

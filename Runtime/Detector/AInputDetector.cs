@@ -13,7 +13,7 @@
 
 		public bool Enabled = true;
 
-		protected override void OnUpdate(InputManager inputManager)
+		protected override void OnUpdate(AInputManager inputManager)
 		{
 			if(!Enabled)
 			{
@@ -49,7 +49,7 @@
 			m_Triggered = false;
 		}
 
-		protected abstract bool OnInputUpdate(InputManager inputManager);
+		protected abstract bool OnInputUpdate(AInputManager inputManager);
 		protected abstract void OnInputReset();
 
 		#region Providers

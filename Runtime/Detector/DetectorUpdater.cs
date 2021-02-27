@@ -18,7 +18,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			m_Detectors.AddRange(detectors);
 		}
 
-		public void Update(InputManager inputManager)
+		public void Update(AInputManager inputManager)
 		{
 			int count = m_Detectors.Count;
 			for(int x = 0; x < count; ++x)

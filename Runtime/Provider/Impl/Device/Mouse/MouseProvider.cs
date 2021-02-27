@@ -13,7 +13,7 @@
 			InputID = inputID;
 		}
 
-		protected override RawInputState GetState(InputManager inputManager)
+		protected override RawInputState GetState(AInputManager inputManager)
 		{
 			return inputManager.Mouse.Get(InputID).ToRaw();
 		}

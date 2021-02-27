@@ -4,7 +4,7 @@
 	{
 		private bool m_Fired = false;
 
-		protected override bool OnInputUpdate(InputManager inputManager)
+		protected override bool OnInputUpdate(AInputManager inputManager)
 		{
 			if(!m_Fired)
 			{

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class InputManager: MonoBehaviour
+	public abstract class AInputManager: MonoBehaviour
 	{
 		public readonly KeyboardDevice Keyboard = new KeyboardDevice();
 		public readonly MouseDevice Mouse = new MouseDevice();
@@ -31,7 +31,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		private readonly InputValidator m_Validator = new InputValidator();
 		public List<LayerDefinition> LayerDefinitions = new List<LayerDefinition>();
 
-		public virtual Type EnumIDType { get { return null; } }
+		public abstract Type IDType { get; }
 		public float DeltaTime { get; private set; }
 		public int UpdateTick { get { return m_UpdateTick; } }
 

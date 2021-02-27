@@ -13,7 +13,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		}
 
-		protected override RawInputState GetState(InputManager inputManager)
+		protected override RawInputState GetState(AInputManager inputManager)
 		{
 			float axis = 0f;
 			bool isRealAxis = false;

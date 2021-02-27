@@ -46,7 +46,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		#endregion
 
 		#region Update State
-		protected override void OnUpdateState(InputManager inputManager)
+		protected override void OnUpdateState(AInputManager inputManager)
 		{
 			GamepadDevice[] gamepads = inputManager.Gamepads;
 			int length = gamepads.Length;

@@ -13,7 +13,7 @@
 			TouchID = touchID;
 		}
 
-		protected override RawInputState GetState(InputManager inputManager)
+		protected override RawInputState GetState(AInputManager inputManager)
 		{
 			return inputManager.Touch.Get(TouchID).ToRaw();
 		}

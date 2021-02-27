@@ -9,7 +9,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		public RawInputState State { get { return m_State; } }
 
-		public RawInputState UpdateState(InputManager inputManager)
+		public RawInputState UpdateState(AInputManager inputManager)
 		{
 			int oldTick = m_UpdateTick;
 			m_UpdateTick = inputManager.UpdateTick;
@@ -28,7 +28,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return m_State;
 		}
 
-		protected abstract RawInputState GetState(InputManager inputManager);
+		protected abstract RawInputState GetState(AInputManager inputManager);
 
 		public abstract bool Contains(AInputProvider provider);
 

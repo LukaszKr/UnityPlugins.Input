@@ -28,7 +28,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return m_InputState;
 		}
 
-		public void UpdateState(InputManager inputManager)
+		public void UpdateState(AInputManager inputManager)
 		{
 			m_IsActive = false;
 			m_AnyInputActive = false;
@@ -67,7 +67,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected virtual void OnSkippedFrame() { }
 
-		protected abstract void OnUpdateState(InputManager inputManager);
+		protected abstract void OnUpdateState(AInputManager inputManager);
 		protected abstract RawInputState GetRawState(int rawInputID);
 
 		public abstract void RecordProviders(List<AInputProvider> providers);

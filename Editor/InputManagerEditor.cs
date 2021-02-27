@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input.Editor
 {
-	[CustomEditor(typeof(InputManager), true)]
-	public class InputManagerEditor: AExtendedEditor<InputManager>
+	[CustomEditor(typeof(AInputManager), true)]
+	public class InputManagerEditor: AExtendedEditor<AInputManager>
 	{
 		private const int LABEL_WIDTH = 100;
 
@@ -24,7 +24,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 		protected override void Draw()
 		{
 			DrawManagerSetup();
-			DrawDefinitions();
+			DrawLayerDefinitions();
 			DrawActiveLayers();
 			DrawDeviceStates();
 		}
@@ -41,8 +41,11 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 			EditorGUILayout.EndHorizontal();
 		}
 
-		private void DrawDefinitions()
+		private void DrawLayerDefinitions()
 		{
+			EditorGUILayout.BeginVertical("box");
+			EditorGUILayout.LabelField("Layers", EditorStyles.boldLabel);
+
 			List<LayerDefinition> layers = Target.LayerDefinitions;
 			int count = layers.Count;
 			for(int x = 0; x < count; ++x)
@@ -50,22 +53,15 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 				LayerDefinition layer = layers[x];
 				DrawLayer(layer);
 			}
+			EditorGUILayout.EndVertical();
 		}
 
 		private void DrawLayer(LayerDefinition layer)
 		{
 			EditorGUILayout.BeginHorizontal("box");
 			EditorGUILayout.LabelField("ID", GUILayout.Width(24));
-			Type type = Target.EnumIDType;
-			if(type != null)
-			{
-				EditorGUILayout.LabelField(Enum.GetName(type, layer.ID));
-			}
-			else
-			{
-				layer.ID = EditorGUILayout.IntField(layer.ID);
-			}
-
+			Type type = Target.IDType;
+			EditorGUILayout.LabelField(Enum.GetName(type, layer.ID));
 			EditorGUILayout.LabelField("Priority", GUILayout.Width(72));
 			layer.Priority = EditorGUILayout.IntField(layer.Priority);
 			layer.Block = EditorGUILayout.ToggleLeft("Block", layer.Block);
@@ -85,13 +81,6 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 					DrawInputLayer(layer);
 				}
 				EditorGUILayout.EndVertical();
-			}
-			if(Target.EnumIDType == null)
-			{
-				if(GUILayout.Button("Add Layer"))
-				{
-					Target.LayerDefinitions.Add(new LayerDefinition(0, 0, false));
-				}
 			}
 		}
 
@@ -190,7 +179,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void UpdateDefinitionList()
 		{
-			Type type = Target.EnumIDType;
+			Type type = Target.IDType;
 			if(type != null)
 			{
 				Array values = Enum.GetValues(type);
