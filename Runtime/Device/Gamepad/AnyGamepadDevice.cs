@@ -50,7 +50,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		#region Update State
 		protected override void OnUpdateState(AInputManager inputManager)
 		{
-			GamepadDevice[] gamepads = inputManager.Gamepads;
+			GamepadDevice[] gamepads = GamepadDevice.Gamepads;
 			int length = gamepads.Length;
 			for(int x = 0; x < length; ++x)
 			{

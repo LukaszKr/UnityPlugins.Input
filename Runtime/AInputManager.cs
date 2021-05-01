@@ -10,13 +10,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public abstract class AInputManager: MonoBehaviour
 	{
-		public readonly GamepadDevice[] Gamepads = new GamepadDevice[] {
-			new GamepadDevice(EGamepadID.P1),
-			new GamepadDevice(EGamepadID.P2),
-			new GamepadDevice(EGamepadID.P3),
-			new GamepadDevice(EGamepadID.P4)
-		};
-
 		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
 
 		private int m_UpdateTick;
@@ -41,10 +34,10 @@ namespace ProceduralLevel.UnityPlugins.Input
 			RegisterDevice(KeyboardDevice.Instance);
 			RegisterDevice(MouseDevice.Instance);
 
-			int length = Gamepads.Length;
+			int length = GamepadDevice.Gamepads.Length;
 			for(int x = 0; x < length; ++x)
 			{
-				RegisterDevice(Gamepads[x]);
+				RegisterDevice(GamepadDevice.Gamepads[x]);
 			}
 			RegisterDevice(AnyGamepadDevice.Instance);
 		}

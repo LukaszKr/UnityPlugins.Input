@@ -100,11 +100,15 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 			DrawDeviceInputState("Keyboard", KeyboardDevice.Instance, typeof(Key), 4);
 			DrawMouseState(MouseDevice.Instance);
 			DrawTouchState(TouchDevice.Instance);
-			DrawGamepadState("Any Gamepad", AnyGamepadDevice.Instance);
-			DrawGamepadState("P1", Target.Gamepads[0]);
-			DrawGamepadState("P2", Target.Gamepads[1]);
-			DrawGamepadState("P3", Target.Gamepads[2]);
-			DrawGamepadState("P4", Target.Gamepads[3]);
+
+			EGamepadID[] gamepadIDs = EGamepadIDExt.Meta.Values;
+			int length = gamepadIDs.Length;
+			for(int x = 0; x < length; ++x)
+			{
+				EGamepadID id = gamepadIDs[x];
+				AGamepadDevice gamepad = id.GetGamepad();
+				DrawGamepadState(id.ToString(), gamepad);
+			}
 		}
 
 		private void DrawTouchState(TouchDevice touch)
@@ -133,7 +137,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void DrawGamepadState(string prefix, AGamepadDevice device)
 		{
-			DrawDeviceInputState($"{prefix} - {device.GamepadType}, Active: {device.IsActive}", device, typeof(EGamepadInputID), 3);
+			DrawDeviceInputState($"{prefix} Gamepad - {device.GamepadType}, Active: {device.IsActive}", device, typeof(EGamepadInputID), 3);
 			EditorGUI.BeginDisabledGroup(true);
 			DrawAxisPair(device, EGamepadInputID.LStickLeft, EGamepadInputID.LStickRight);
 			DrawAxisPair(device, EGamepadInputID.LStickDown, EGamepadInputID.LStickUp);
