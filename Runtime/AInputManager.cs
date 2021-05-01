@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using ProceduralLevel.Common.Event;
 using ProceduralLevel.Common.Ext;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -20,7 +18,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public List<LayerDefinition> LayerDefinitions = new List<LayerDefinition>();
 
 		public abstract Type IDType { get; }
-		public int UpdateTick { get { return m_UpdateTick; } }
 
 		private EDeviceID m_ActiveDevice = EDeviceID.Mouse;
 		public EDeviceID ActiveDevice { get { return m_ActiveDevice; } }
