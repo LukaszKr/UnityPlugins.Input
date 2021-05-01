@@ -10,7 +10,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		Mouse = 2,
 		Touch = 3,
 		Gamepad = 4,
-		SwitchGamepad = 5
 	}
 
 	public static class EDeviceIDExt
@@ -27,7 +26,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 				case EDeviceID.Touch:
 					return EDeviceGroup.Touch;
 				case EDeviceID.Gamepad:
-				case EDeviceID.SwitchGamepad:
 					return EDeviceGroup.Gamepad;
 				default:
 					throw new NotSupportedException();

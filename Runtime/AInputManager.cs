@@ -20,7 +20,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 			new GamepadDevice(EGamepadID.P4)
 		};
 		public readonly AnyGamepadDevice AnyGamepad = new AnyGamepadDevice();
-		public readonly SwitchJoyConDevice JoyCon = new SwitchJoyConDevice();
 
 		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
 
@@ -40,7 +39,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		public readonly CustomEvent<EDeviceID> OnActiveDeviceChanged = new CustomEvent<EDeviceID>();
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			RegisterDevice(Touch);
 			RegisterDevice(Keyboard);
@@ -52,23 +51,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 				RegisterDevice(Gamepads[x]);
 			}
 			RegisterDevice(AnyGamepad);
-
-#if UNITY_SWITCH
-			InitializeSwitch();
-#endif
-		}
-
-		private void InitializeSwitch()
-		{
-			RegisterDevice(JoyCon);
-			int length = Gamepads.Length;
-			for(int x = 0; x < length; ++x)
-			{
-				UnregisterDevice(Gamepads[x]);
-			}
-			UnregisterDevice(AnyGamepad);
-			JoyCon.Initialize();
-			SetActiveDevice(JoyCon);
 		}
 
 		private void OnDestroy()
