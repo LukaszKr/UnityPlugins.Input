@@ -31,9 +31,9 @@
 			}
 		}
 
-		protected override bool OnInputUpdate(AInputManager inputManager)
+		protected override bool OnInputUpdate()
 		{
-			base.OnInputUpdate(inputManager);
+			base.OnInputUpdate();
 
 			bool updated = false;
 			while(Duration >= m_NextTrigger)

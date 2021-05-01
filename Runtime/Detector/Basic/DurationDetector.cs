@@ -1,12 +1,14 @@
-﻿namespace ProceduralLevel.UnityPlugins.Input
+﻿using UnityEngine;
+
+namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class DurationDetector: AInputDetector
 	{
 		public float Duration { get; private set; }
 
-		protected override bool OnInputUpdate(AInputManager inputManager)
+		protected override bool OnInputUpdate()
 		{
-			Duration += inputManager.DeltaTime;
+			Duration += Time.deltaTime;
 			return true;
 		}
 

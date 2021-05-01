@@ -14,9 +14,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			Delay = delay;
 		}
 
-		protected override bool OnInputUpdate(AInputManager inputManager)
+		protected override bool OnInputUpdate()
 		{
-			base.OnInputUpdate(inputManager);
+			base.OnInputUpdate();
 
 			if(!m_Detected && Duration >= Delay)
 			{

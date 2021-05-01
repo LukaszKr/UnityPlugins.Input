@@ -20,7 +20,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		public List<LayerDefinition> LayerDefinitions = new List<LayerDefinition>();
 
 		public abstract Type IDType { get; }
-		public float DeltaTime { get; private set; }
 		public int UpdateTick { get { return m_UpdateTick; } }
 
 		private EDeviceID m_ActiveDevice = EDeviceID.Mouse;
@@ -50,7 +49,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		protected virtual void Update()
 		{
 			++m_UpdateTick;
-			DeltaTime = Time.deltaTime;
 
 			bool hasFocus = Application.isFocused;
 			if(hasFocus)

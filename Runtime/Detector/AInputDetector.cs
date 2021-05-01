@@ -27,7 +27,7 @@
 
 			if(m_InputState.IsActive)
 			{
-				m_Triggered = OnInputUpdate(inputManager);
+				m_Triggered = OnInputUpdate();
 			}
 			else
 			{
@@ -49,7 +49,7 @@
 			m_Triggered = false;
 		}
 
-		protected abstract bool OnInputUpdate(AInputManager inputManager);
+		protected abstract bool OnInputUpdate();
 		protected abstract void OnInputReset();
 
 		#region Providers
