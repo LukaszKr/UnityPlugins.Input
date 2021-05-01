@@ -4,7 +4,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class InputManager<ELayerID>: AInputManager
 	{
-		public override Type IDType { get { return typeof(ELayerID); } }
+		public override Type LayerIDType { get { return typeof(ELayerID); } }
 
 		public void PushReceiver(IInputReceiver receiver, DetectorUpdater updater, ELayerID layerID)
 		{

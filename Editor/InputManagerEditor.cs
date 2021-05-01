@@ -60,7 +60,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 		{
 			EditorGUILayout.BeginHorizontal("box");
 			EditorGUILayout.LabelField("ID", GUILayout.Width(24));
-			Type type = Target.IDType;
+			Type type = Target.LayerIDType;
 			EditorGUILayout.LabelField(Enum.GetName(type, layer.ID));
 			EditorGUILayout.LabelField("Priority", GUILayout.Width(72));
 			layer.Priority = EditorGUILayout.IntField(layer.Priority);
@@ -183,7 +183,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void UpdateDefinitionList()
 		{
-			Type type = Target.IDType;
+			Type type = Target.LayerIDType;
 			if(type != null)
 			{
 				Array values = Enum.GetValues(type);

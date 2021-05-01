@@ -17,7 +17,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		private readonly InputValidator m_Validator = new InputValidator();
 		public List<LayerDefinition> LayerDefinitions = new List<LayerDefinition>();
 
-		public abstract Type IDType { get; }
+		public abstract Type LayerIDType { get; }
 
 		private EDeviceID m_ActiveDevice = EDeviceID.Mouse;
 		public EDeviceID ActiveDevice { get { return m_ActiveDevice; } }
