@@ -1,10 +1,10 @@
 {
 	"name": "procedurallevel.unityplugins.input",
-	"version": "1.4.1",
+	"version": "1.5.0",
 	"displayName": "Input",
 	"description": "",
 	"unity": "2019.4",
-	"unityRelease": "9f1",
+	"unityRelease": "23f1",
 	"dependencies": {
 	},
 	"keywords": [
