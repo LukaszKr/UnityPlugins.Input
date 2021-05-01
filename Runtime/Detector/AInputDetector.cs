@@ -13,7 +13,7 @@
 
 		public bool Enabled = true;
 
-		protected override void OnUpdate(AInputManager inputManager)
+		protected override void OnUpdate(int updateTick)
 		{
 			if(!Enabled)
 			{
@@ -23,7 +23,7 @@
 				}
 				return;
 			}
-			m_InputState = Group.UpdateState(inputManager.UpdateTick);
+			m_InputState = Group.UpdateState(updateTick);
 
 			if(m_InputState.IsActive)
 			{

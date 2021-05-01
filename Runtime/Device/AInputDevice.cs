@@ -28,18 +28,17 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return m_InputState;
 		}
 
-		public void UpdateState(AInputManager inputManager)
+		public void UpdateState(int updateTick)
 		{
 			m_IsActive = false;
 			m_AnyInputActive = false;
 
-			int updateTick = inputManager.UpdateTick;
 			if(m_LastUpdateTick+1 != updateTick)
 			{
 				OnSkippedFrame();
 			}
 			m_LastUpdateTick = updateTick;
-			OnUpdateState(inputManager);
+			OnUpdateState();
 
 			int length = m_InputState.Length;
 			for(int rawInputID = 0; rawInputID < length; ++rawInputID)
@@ -67,7 +66,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected virtual void OnSkippedFrame() { }
 
-		protected abstract void OnUpdateState(AInputManager inputManager);
+		protected abstract void OnUpdateState();
 		protected abstract RawInputState GetRawState(int rawInputID);
 
 		public abstract void RecordProviders(List<AInputProvider> providers);

@@ -39,7 +39,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		#region Update State
 
-		protected override void OnUpdateState(AInputManager inputManager)
+		protected override void OnUpdateState()
 		{
 			Touchscreen touchScreen = Touchscreen.current;
 			if(touchScreen != null)

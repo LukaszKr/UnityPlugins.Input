@@ -73,7 +73,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 				AInputDevice device = m_InputDevices[x];
 				if(device.Enabled)
 				{
-					device.UpdateState(this);
+					device.UpdateState(m_UpdateTick);
 					if(!deviceChanged && device.IsActive)
 					{
 						newDevice = device.ID;
@@ -168,7 +168,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 				if(canProceed)
 				{
 					lastValid = x;
-					layer.Updater.Update(this);
+					layer.Updater.Update(m_UpdateTick);
 				}
 				if(layer.Definition.Block)
 				{
@@ -286,20 +286,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 				}
 			}
 			m_ActiveLayers.Add(newLayer);
-		}
-		#endregion
-
-		#region Gamepad
-		public Gamepad GetUnityGamepad(EGamepadID id)
-		{
-			ReadOnlyArray<Gamepad> gamepads = Gamepad.all;
-			int count = gamepads.Count;
-			int intID = (int)id-1;
-			if(intID < 0 || count <= intID)
-			{
-				return null;
-			}
-			return gamepads[intID];
 		}
 		#endregion
 

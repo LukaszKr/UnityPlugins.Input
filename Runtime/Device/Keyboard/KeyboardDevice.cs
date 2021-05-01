@@ -32,7 +32,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		#endregion
 
 		#region UpdateState
-		protected override void OnUpdateState(AInputManager inputManager)
+		protected override void OnUpdateState()
 		{
 			m_Keyboard = Keyboard.current;
 		}

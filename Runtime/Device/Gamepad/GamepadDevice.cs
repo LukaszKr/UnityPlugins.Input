@@ -46,9 +46,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 		#endregion
 
 		#region Update State
-		protected override void OnUpdateState(AInputManager inputManager)
+		protected override void OnUpdateState()
 		{
-			m_Gamepad = inputManager.GetUnityGamepad(GamepadID);
+			m_Gamepad = GamepadID.GetUnityGamepad();
 
 			if(m_Gamepad != null)
 			{

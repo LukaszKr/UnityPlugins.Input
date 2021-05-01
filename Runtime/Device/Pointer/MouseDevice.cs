@@ -46,7 +46,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		#endregion
 
 		#region Update State
-		protected override void OnUpdateState(AInputManager inputManager)
+		protected override void OnUpdateState()
 		{
 			m_Mouse = Mouse.current;
 			if(m_Mouse != null)

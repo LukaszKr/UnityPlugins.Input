@@ -1,4 +1,6 @@
 ﻿using ProceduralLevel.Common.Ext;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
@@ -24,6 +26,18 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 			GamepadDevice[] gamepads = GamepadDevice.Gamepads;
 			return gamepads[(int)id-1];
+		}
+
+		public static Gamepad GetUnityGamepad(this EGamepadID id)
+		{
+			ReadOnlyArray<Gamepad> gamepads = Gamepad.all;
+			int count = gamepads.Count;
+			int intID = (int)id-1;
+			if(intID < 0 || count <= intID)
+			{
+				return null;
+			}
+			return gamepads[intID];
 		}
 	}
 }

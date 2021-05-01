@@ -6,18 +6,17 @@
 
 		public abstract bool Triggered { get; }
 
-		public void Update(AInputManager inputManager)
+		public void Update(int updateTick)
 		{
-			int updateTick = inputManager.UpdateTick;
 			if(m_LastUpdateTick != updateTick)
 			{
 				m_LastUpdateTick = updateTick;
-				OnUpdate(inputManager);
+				OnUpdate(updateTick);
 			}
 		}
 
 		public abstract void Validate(InputValidator resolver);
 
-		protected abstract void OnUpdate(AInputManager inputManager);
+		protected abstract void OnUpdate(int updateTick);
 	}
 }
