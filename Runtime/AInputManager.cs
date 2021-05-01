@@ -10,16 +10,12 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public abstract class AInputManager: MonoBehaviour
 	{
-		public readonly KeyboardDevice Keyboard = new KeyboardDevice();
-		public readonly MouseDevice Mouse = new MouseDevice();
-		public readonly TouchDevice Touch = new TouchDevice();
 		public readonly GamepadDevice[] Gamepads = new GamepadDevice[] {
 			new GamepadDevice(EGamepadID.P1),
 			new GamepadDevice(EGamepadID.P2),
 			new GamepadDevice(EGamepadID.P3),
 			new GamepadDevice(EGamepadID.P4)
 		};
-		public readonly AnyGamepadDevice AnyGamepad = new AnyGamepadDevice();
 
 		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
 
@@ -41,16 +37,16 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected virtual void Awake()
 		{
-			RegisterDevice(Touch);
-			RegisterDevice(Keyboard);
-			RegisterDevice(Mouse);
+			RegisterDevice(TouchDevice.Instance);
+			RegisterDevice(KeyboardDevice.Instance);
+			RegisterDevice(MouseDevice.Instance);
 
 			int length = Gamepads.Length;
 			for(int x = 0; x < length; ++x)
 			{
 				RegisterDevice(Gamepads[x]);
 			}
-			RegisterDevice(AnyGamepad);
+			RegisterDevice(AnyGamepadDevice.Instance);
 		}
 
 		private void OnDestroy()
@@ -303,24 +299,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		#endregion
 
 		#region Gamepad
-		public AGamepadDevice GetGamepad(EGamepadID id)
-		{
-			if(id == EGamepadID.Any)
-			{
-				return AnyGamepad;
-			}
-			int length = Gamepads.Length;
-			for(int x = 0; x < length; ++x)
-			{
-				AGamepadDevice gamepad = Gamepads[x];
-				if(gamepad.GamepadID == id)
-				{
-					return gamepad;
-				}
-			}
-			return null;
-		}
-
 		public Gamepad GetUnityGamepad(EGamepadID id)
 		{
 			ReadOnlyArray<Gamepad> gamepads = Gamepad.all;
@@ -336,8 +314,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected void DrawDebugGUI()
 		{
-			TouchData[] touches = Touch.Touches;
-			int touchCount = Touch.Count;
+			TouchDevice touchDevice = TouchDevice.Instance;
+			TouchData[] touches = touchDevice.Touches;
+			int touchCount = touchDevice.Count;
 			for(int x = 0; x < touchCount; ++x)
 			{
 				TouchData touch = touches[x];

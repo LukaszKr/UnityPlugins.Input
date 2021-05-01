@@ -5,6 +5,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class KeyboardDevice: AInputDevice
 	{
+		public static readonly KeyboardDevice Instance = new KeyboardDevice();
+
 		private const int INPUT_COUNT = 111;
 		private Keyboard m_Keyboard = null;
 

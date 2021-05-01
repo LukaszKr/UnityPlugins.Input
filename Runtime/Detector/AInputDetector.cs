@@ -23,7 +23,7 @@
 				}
 				return;
 			}
-			m_InputState = Group.UpdateState(inputManager);
+			m_InputState = Group.UpdateState(inputManager.UpdateTick);
 
 			if(m_InputState.IsActive)
 			{

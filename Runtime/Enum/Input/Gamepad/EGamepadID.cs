@@ -14,5 +14,16 @@ namespace ProceduralLevel.UnityPlugins.Input
 	public static class EGamepadIDExt
 	{
 		public static readonly EnumExt<EGamepadID> Meta = new EnumExt<EGamepadID>();
+
+		public static AGamepadDevice GetGamepad(this EGamepadID id)
+		{
+			if(id == EGamepadID.Any)
+			{
+				return AnyGamepadDevice.Instance;
+			}
+
+			GamepadDevice[] gamepads = GamepadDevice.Gamepads;
+			return gamepads[(int)id-1];
+		}
 	}
 }

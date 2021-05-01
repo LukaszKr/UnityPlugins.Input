@@ -5,6 +5,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class AnyGamepadDevice: AGamepadDevice
 	{
+		public static readonly AnyGamepadDevice Instance = new AnyGamepadDevice();
+
 		private GamepadDevice m_ActiveGamepad;
 
 		public override Gamepad UnityGamepad { get { return m_ActiveGamepad?.UnityGamepad; } }

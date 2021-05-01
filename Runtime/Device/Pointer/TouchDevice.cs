@@ -8,6 +8,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class TouchDevice: APointerDevice
 	{
+		public static readonly TouchDevice Instance = new TouchDevice();
+
 		private const int TOUCH_COUNT = 5;
 
 		public float DeltaSensitivityX = 200f;

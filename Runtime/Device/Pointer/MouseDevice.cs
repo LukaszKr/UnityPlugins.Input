@@ -7,6 +7,8 @@ namespace ProceduralLevel.UnityPlugins.Input
 {
 	public class MouseDevice: AInputDevice
 	{
+		public static readonly MouseDevice Instance = new MouseDevice();
+
 		public float MoveAxisDeadZone = 0.02f;
 		public float DeltaSensitivityX = 200f;
 		public float DeltaSensitivityY = 200f;

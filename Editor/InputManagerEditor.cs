@@ -97,10 +97,10 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 		private void DrawDeviceStates()
 		{
 			EditorGUILayout.LabelField("Active Device: "+Target.ActiveDevice.ToString());
-			DrawDeviceInputState("Keyboard", Target.Keyboard, typeof(Key), 4);
-			DrawMouseState(Target.Mouse);
-			DrawTouchState(Target.Touch);
-			DrawGamepadState("Any Gamepad", Target.AnyGamepad);
+			DrawDeviceInputState("Keyboard", KeyboardDevice.Instance, typeof(Key), 4);
+			DrawMouseState(MouseDevice.Instance);
+			DrawTouchState(TouchDevice.Instance);
+			DrawGamepadState("Any Gamepad", AnyGamepadDevice.Instance);
 			DrawGamepadState("P1", Target.Gamepads[0]);
 			DrawGamepadState("P2", Target.Gamepads[1]);
 			DrawGamepadState("P3", Target.Gamepads[2]);

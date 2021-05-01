@@ -8,7 +8,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 		}
 
-		protected override RawInputState GetState(AInputManager inputManager)
+		protected override RawInputState GetState()
 		{
 			float axis = 0f;
 			bool isRealAxis = false;
@@ -17,7 +17,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 			for(int x = 0; x < count; ++x)
 			{
 				AInputProvider provider = m_Providers[x];
-				RawInputState data = provider.UpdateState(inputManager);
+				RawInputState data = provider.UpdateState(m_UpdateTick);
 				if(!data.IsActive)
 				{
 					return new RawInputState(false);

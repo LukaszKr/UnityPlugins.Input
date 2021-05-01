@@ -15,9 +15,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			InputID = inputID;
 		}
 
-		protected override RawInputState GetState(AInputManager inputManager)
+		protected override RawInputState GetState()
 		{
-			return inputManager.Keyboard.Get(InputID).ToRaw();
+			return KeyboardDevice.Instance.Get(InputID).ToRaw();
 		}
 
 		protected override int OnCompareTo(AInputProvider other)

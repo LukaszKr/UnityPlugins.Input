@@ -6,9 +6,9 @@
 		{
 		}
 
-		protected override RawInputState GetState(AInputManager inputManager)
+		protected override RawInputState GetState()
 		{
-			TouchDevice touch = inputManager.Touch;
+			TouchDevice touch = TouchDevice.Instance;
 			if(touch.Count == 2)
 			{
 				//TouchData touch1 = touch.Touches[0];

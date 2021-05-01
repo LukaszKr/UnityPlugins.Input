@@ -13,9 +13,9 @@
 			TouchID = touchID;
 		}
 
-		protected override RawInputState GetState(AInputManager inputManager)
+		protected override RawInputState GetState()
 		{
-			return inputManager.Touch.Get(TouchID).ToRaw();
+			return TouchDevice.Instance.Get(TouchID).ToRaw();
 		}
 
 		protected override int OnCompareTo(AInputProvider other)
