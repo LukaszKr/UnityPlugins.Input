@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input.Editor
 {
-	[CustomEditor(typeof(AInputManager), true)]
-	public class InputManagerEditor: AExtendedEditor<AInputManager>
+	[CustomEditor(typeof(InputManager), true)]
+	public class InputManagerEditor: AExtendedEditor<InputManager>
 	{
 		private const int LABEL_WIDTH = 100;
 
@@ -23,55 +23,16 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		protected override void Draw()
 		{
-			DrawManagerSetup();
-			DrawLayerDefinitions();
 			DrawActiveLayers();
 			DrawDeviceStates();
-		}
-
-		private void DrawManagerSetup()
-		{
-			EditorGUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-
-			if(GUILayout.Button("Update Layer List"))
-			{
-				UpdateDefinitionList();
-			}
-			EditorGUILayout.EndHorizontal();
-		}
-
-		private void DrawLayerDefinitions()
-		{
-			EditorGUILayout.BeginVertical("box");
-			EditorGUILayout.LabelField("Layers", EditorStyles.boldLabel);
-
-			List<LayerDefinition> layers = Target.LayerDefinitions;
-			int count = layers.Count;
-			for(int x = 0; x < count; ++x)
-			{
-				LayerDefinition layer = layers[x];
-				DrawLayer(layer);
-			}
-			EditorGUILayout.EndVertical();
-		}
-
-		private void DrawLayer(LayerDefinition layer)
-		{
-			EditorGUILayout.BeginHorizontal("box");
-			EditorGUILayout.LabelField("ID", GUILayout.Width(24));
-			Type type = Target.LayerIDType;
-			EditorGUILayout.LabelField(Enum.GetName(type, layer.ID));
-			EditorGUILayout.LabelField("Priority", GUILayout.Width(72));
-			layer.Priority = EditorGUILayout.IntField(layer.Priority);
-			layer.Block = EditorGUILayout.ToggleLeft("Block", layer.Block);
-			EditorGUILayout.EndHorizontal();
 		}
 
 		private void DrawActiveLayers()
 		{
 			List<InputLayer> activeLayers = Target.GetActiveLayers();
 			int count = (activeLayers != null? activeLayers.Count: 0);
+			EditorGUILayout.BeginVertical("box");
+			EditorGUILayout.LabelField($"Active Input Layers({count})", EditorStyles.boldLabel);
 			if(count > 0)
 			{
 				EditorGUILayout.BeginVertical("box");
@@ -82,6 +43,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 				}
 				EditorGUILayout.EndVertical();
 			}
+			EditorGUILayout.EndVertical();
 		}
 
 		private void DrawInputLayer(InputLayer layer)
@@ -89,13 +51,15 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 			ExtendedGUIStyle style = (layer.IsActive? InputStyles.Active: InputStyles.InActive);
 
 			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField(layer.Receiver.ToString(), style);
-			EditorGUILayout.LabelField(layer.Definition.Priority+":"+layer.Definition.Block, GUILayout.MaxWidth(64));
+			EditorGUILayout.LabelField(layer.Receiver.GetType().Name, style);
+			InputLayerDefinition definition = layer.Definition;
+			EditorGUILayout.LabelField($"{definition.Priority}:{definition.Block} - {definition.DebugName}", GUILayout.MaxWidth(192));
 			EditorGUILayout.EndHorizontal();
 		}
 
 		private void DrawDeviceStates()
 		{
+			EditorGUILayout.BeginVertical("box");
 			EditorGUILayout.LabelField("Active Device: "+Target.ActiveDevice.ToString());
 			DrawDeviceInputState("Keyboard", KeyboardDevice.Instance, typeof(Key), 4);
 			DrawMouseState(MouseDevice.Instance);
@@ -109,6 +73,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 				AGamepadDevice gamepad = id.GetGamepad();
 				DrawGamepadState(id.ToString(), gamepad);
 			}
+			EditorGUILayout.EndVertical();
 		}
 
 		private void DrawTouchState(TouchDevice touch)
@@ -179,42 +144,6 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 				EditorGUILayout.LabelField("-");
 			}
 			EditorGUILayout.EndVertical();
-		}
-
-		private void UpdateDefinitionList()
-		{
-			Type type = Target.LayerIDType;
-			if(type != null)
-			{
-				Array values = Enum.GetValues(type);
-				HashSet<int> validIDs = new HashSet<int>();
-				for(int x = 0; x != values.Length; ++x)
-				{
-					validIDs.Add(values.GetValue(x).GetHashCode());
-				}
-
-				int count = Target.LayerDefinitions.Count;
-				for(int x = count-1; x >= 0; --x)
-				{
-					LayerDefinition definition = Target.LayerDefinitions[x];
-					if(!validIDs.Contains(definition.ID))
-					{
-						Target.LayerDefinitions.RemoveAt(x);
-					}
-					else
-					{
-						validIDs.Remove(definition.ID);
-					}
-				}
-
-				foreach(int missingID in validIDs)
-				{
-					LayerDefinition definition = new LayerDefinition(missingID, 0, false);
-					Target.LayerDefinitions.Add(definition);
-				}
-
-				Target.LayerDefinitions.Sort((a, b) => a.ID.CompareTo(b.ID));
-			}
 		}
 	}
 }

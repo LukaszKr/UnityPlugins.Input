@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class AInputManager: MonoBehaviour
+	public class InputManager: MonoBehaviour
 	{
 		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
 
@@ -15,9 +15,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		private readonly List<IInputReceiver> m_ToPop = new List<IInputReceiver>();
 		private readonly List<InputLayer> m_ToPush = new List<InputLayer>();
 		private readonly InputValidator m_Validator = new InputValidator();
-		public List<LayerDefinition> LayerDefinitions = new List<LayerDefinition>();
-
-		public abstract Type LayerIDType { get; }
 
 		private EDeviceID m_ActiveDevice = EDeviceID.Mouse;
 		public EDeviceID ActiveDevice { get { return m_ActiveDevice; } }
@@ -194,20 +191,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 		{
 			return m_ActiveLayers;
 		}
-
-		protected LayerDefinition GetLayerDefinition(int layerID)
-		{
-			int count = LayerDefinitions.Count;
-			for(int x = 0; x != count; ++x)
-			{
-				LayerDefinition definition = LayerDefinitions[x];
-				if(definition.ID == layerID)
-				{
-					return definition;
-				}
-			}
-			return null;
-		}
 		#endregion
 
 		#region Receiver
@@ -247,15 +230,9 @@ namespace ProceduralLevel.UnityPlugins.Input
 			return -1;
 		}
 
-		public void PushReceiver(IInputReceiver receiver, DetectorUpdater updater, int layerID)
+		public void PushReceiver(IInputReceiver receiver, DetectorUpdater updater, InputLayerDefinition layerDefinition)
 		{
-			LayerDefinition definition = GetLayerDefinition(layerID);
-			if(definition == null)
-			{
-				Debug.LogException(new ArgumentNullException(string.Format("Layer with ID: {0} was not found.", layerID)));
-			}
-
-			InputLayer newLayer = new InputLayer(receiver, updater, definition);
+			InputLayer newLayer = new InputLayer(receiver, updater, layerDefinition);
 			m_ToPush.Add(newLayer);
 		}
 

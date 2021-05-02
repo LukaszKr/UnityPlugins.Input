@@ -2,6 +2,6 @@
 {
 	public interface IInputReceiver
 	{
-		void UpdateInput(AInputManager inputManager);
+		void UpdateInput(InputManager inputManager);
 	}
 }
