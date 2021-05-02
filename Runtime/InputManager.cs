@@ -23,16 +23,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		protected virtual void Awake()
 		{
-			RegisterDevice(TouchDevice.Instance);
-			RegisterDevice(KeyboardDevice.Instance);
-			RegisterDevice(MouseDevice.Instance);
-
-			int length = GamepadDevice.Gamepads.Length;
-			for(int x = 0; x < length; ++x)
-			{
-				RegisterDevice(GamepadDevice.Gamepads[x]);
-			}
-			RegisterDevice(AnyGamepadDevice.Instance);
+			RegisterDevices();
 		}
 
 		private void OnDestroy()
@@ -54,6 +45,21 @@ namespace ProceduralLevel.UnityPlugins.Input
 				ResetDevices();
 			}
 			UpdateActiveLayers();
+		}
+
+		#region Devices
+		protected virtual void RegisterDevices()
+		{
+			RegisterDevice(TouchDevice.Instance);
+			RegisterDevice(KeyboardDevice.Instance);
+			RegisterDevice(MouseDevice.Instance);
+
+			int length = GamepadDevice.Gamepads.Length;
+			for(int x = 0; x < length; ++x)
+			{
+				RegisterDevice(GamepadDevice.Gamepads[x]);
+			}
+			RegisterDevice(AnyGamepadDevice.Instance);
 		}
 
 		private void UpdateDevices()
@@ -88,6 +94,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 				device.ResetState();
 			}
 		}
+		#endregion
 
 		public void RecordProviders(List<AInputProvider> providers)
 		{
