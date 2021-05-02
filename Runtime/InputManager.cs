@@ -18,6 +18,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 		private EDeviceID m_ActiveDevice = EDeviceID.Mouse;
 		public EDeviceID ActiveDevice { get { return m_ActiveDevice; } }
+		public IReadOnlyList<InputLayer> ActiveLayers { get { return m_ActiveLayers; } }
 
 		public readonly CustomEvent<EDeviceID> OnActiveDeviceChanged = new CustomEvent<EDeviceID>();
 
@@ -95,17 +96,6 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 		}
 		#endregion
-
-		public void RecordProviders(List<AInputProvider> providers)
-		{
-			providers.Clear();
-			int count = m_InputDevices.Count;
-			for(int x = 0; x < count; ++x)
-			{
-				AInputDevice device = m_InputDevices[x];
-				device.RecordProviders(providers);
-			}
-		}
 
 		#region Device Management
 		public bool RegisterDevice(AInputDevice device, bool priority = false)
@@ -193,14 +183,41 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			m_ToPush.Clear();
 		}
-
-		public List<InputLayer> GetActiveLayers()
-		{
-			return m_ActiveLayers;
-		}
 		#endregion
 
 		#region Receiver
+		public void PushReceiver(IInputReceiver receiver, DetectorUpdater updater, InputLayerDefinition layerDefinition)
+		{
+			InputLayer newLayer = new InputLayer(receiver, updater, layerDefinition);
+			m_ToPush.Add(newLayer);
+		}
+
+		private void PushReceiverInternal(InputLayer newLayer)
+		{
+			if(IndexOfReceiver(newLayer.Receiver) >= 0)
+			{
+				if(!m_ToPop.Remove(newLayer.Receiver))
+				{
+					Debug.LogException(new ArgumentException(string.Format("Receiver {0} is already active", newLayer.Receiver.ToString())));
+				}
+				return;
+			}
+
+			m_Validator.Add(newLayer.Updater);
+
+			int count = m_ActiveLayers.Count;
+			for(int x = 0; x != count; ++x)
+			{
+				InputLayer layer = m_ActiveLayers[x];
+				if(layer.Definition.Priority > newLayer.Definition.Priority)
+				{
+					m_ActiveLayers.Insert(x, newLayer);
+					return;
+				}
+			}
+			m_ActiveLayers.Add(newLayer);
+		}
+
 		public bool PopReceiver(IInputReceiver receiver)
 		{
 			int index = IndexOfReceiver(receiver);
@@ -236,37 +253,18 @@ namespace ProceduralLevel.UnityPlugins.Input
 			}
 			return -1;
 		}
+		#endregion
 
-		public void PushReceiver(IInputReceiver receiver, DetectorUpdater updater, InputLayerDefinition layerDefinition)
+		#region Providers
+		public void RecordProviders(List<AInputProvider> providers)
 		{
-			InputLayer newLayer = new InputLayer(receiver, updater, layerDefinition);
-			m_ToPush.Add(newLayer);
-		}
-
-		private void PushReceiverInternal(InputLayer newLayer)
-		{
-			if(IndexOfReceiver(newLayer.Receiver) >= 0)
+			providers.Clear();
+			int count = m_InputDevices.Count;
+			for(int x = 0; x < count; ++x)
 			{
-				if(!m_ToPop.Remove(newLayer.Receiver))
-				{
-					Debug.LogException(new ArgumentException(string.Format("Receiver {0} is already active", newLayer.Receiver.ToString())));
-				}
-				return;
+				AInputDevice device = m_InputDevices[x];
+				device.RecordProviders(providers);
 			}
-
-			m_Validator.Add(newLayer.Updater);
-
-			int count = m_ActiveLayers.Count;
-			for(int x = 0; x != count; ++x)
-			{
-				InputLayer layer = m_ActiveLayers[x];
-				if(layer.Definition.Priority > newLayer.Definition.Priority)
-				{
-					m_ActiveLayers.Insert(x, newLayer);
-					return;
-				}
-			}
-			m_ActiveLayers.Add(newLayer);
 		}
 		#endregion
 

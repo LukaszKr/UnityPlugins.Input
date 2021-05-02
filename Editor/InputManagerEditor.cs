@@ -29,7 +29,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void DrawActiveLayers()
 		{
-			List<InputLayer> activeLayers = Target.GetActiveLayers();
+			IReadOnlyList<InputLayer> activeLayers = Target.ActiveLayers;
 			int count = (activeLayers != null? activeLayers.Count: 0);
 			EditorGUILayout.BeginVertical("box");
 			EditorGUILayout.LabelField($"Active Input Layers({count})", EditorStyles.boldLabel);
