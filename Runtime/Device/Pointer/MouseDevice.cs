@@ -65,7 +65,7 @@ namespace ProceduralLevel.UnityPlugins.Input
 
 			Position = (m_Mouse != null ? m_Mouse.position.ReadValue() : new Vector2(0f, 0f));
 			Rect screenRect = new Rect(0f, 0f, Screen.width,  Screen.height); //probably won't work with dual screens
-			if(screenRect.Contains(oldPosition)) //prevent massive delta changes when out of focus 
+			if(screenRect.Contains(oldPosition)) //prevent massive delta changes when out of focus
 			{
 				ScreenDelta = Position-oldPosition;
 			}
