@@ -4,7 +4,7 @@ using UnityEngine.InputSystem.XInput;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EGamepadType: byte
+	public enum EGamepadType : byte
 	{
 		Generic = 0,
 

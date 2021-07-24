@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class GamepadProvider: ADeviceInputProvider
+	public class GamepadProvider : ADeviceInputProvider
 	{
 		public EGamepadInputID InputID;
 		public EGamepadID GamepadID;

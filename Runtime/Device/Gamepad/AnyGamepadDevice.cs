@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class AnyGamepadDevice: AGamepadDevice
+	public class AnyGamepadDevice : AGamepadDevice
 	{
 		public static readonly AnyGamepadDevice Instance = new AnyGamepadDevice();
 

@@ -4,7 +4,7 @@ using ProceduralLevel.Common.Ext;
 namespace ProceduralLevel.UnityPlugins.Input
 {
 	[Flags]
-	public enum EInputStatus: byte
+	public enum EInputStatus : byte
 	{
 		Released = 1 << 0,
 		JustPressed = 1 << 1,

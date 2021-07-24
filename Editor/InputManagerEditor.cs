@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 namespace ProceduralLevel.UnityPlugins.Input.Editor
 {
 	[CustomEditor(typeof(InputManager), true)]
-	public class InputManagerEditor: AExtendedEditor<InputManager>
+	public class InputManagerEditor : AExtendedEditor<InputManager>
 	{
 		private const int LABEL_WIDTH = 100;
 

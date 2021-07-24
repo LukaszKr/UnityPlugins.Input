@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class KeyboardProvider: ADeviceInputProvider
+	public class KeyboardProvider : ADeviceInputProvider
 	{
 		public Key InputID;
 

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.Haptics;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public partial class GamepadDevice: AGamepadDevice
+	public partial class GamepadDevice : AGamepadDevice
 	{
 		public static readonly GamepadDevice[] Gamepads = new GamepadDevice[]
 		{

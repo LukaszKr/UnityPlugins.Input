@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum ETouchInputID: byte
+	public enum ETouchInputID : byte
 	{
 		Touch01 = 0,
 		Touch02 = 1,

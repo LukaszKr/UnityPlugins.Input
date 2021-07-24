@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EDeviceGroup: byte
+	public enum EDeviceGroup : byte
 	{
 		KeyboardAndMouse = 0,
 		Gamepad = 1,

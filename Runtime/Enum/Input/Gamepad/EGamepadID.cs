@@ -4,7 +4,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EGamepadID: byte
+	public enum EGamepadID : byte
 	{
 		Any = 0,
 		P1 = 1,

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class KeyboardDevice: AInputDevice
+	public class KeyboardDevice : AInputDevice
 	{
 		public static readonly KeyboardDevice Instance = new KeyboardDevice();
 

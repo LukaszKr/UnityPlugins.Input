@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class AInputDetector: ADetector, IProviderContainer
+	public abstract class AInputDetector : ADetector, IProviderContainer
 	{
 		public readonly GroupProvider Group = new GroupProvider();
 

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class MouseDevice: AInputDevice
+	public class MouseDevice : AInputDevice
 	{
 		public static readonly MouseDevice Instance = new MouseDevice();
 

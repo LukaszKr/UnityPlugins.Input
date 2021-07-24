@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class InputManager: MonoBehaviour
+	public class InputManager : MonoBehaviour
 	{
 		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
 

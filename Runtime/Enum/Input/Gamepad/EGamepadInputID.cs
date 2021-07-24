@@ -3,7 +3,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EGamepadInputID: byte
+	public enum EGamepadInputID : byte
 	{
 		LStick = 0,
 		RStick = 1,

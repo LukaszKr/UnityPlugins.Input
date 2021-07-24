@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class TriggerDetector: AInputDetector
+	public class TriggerDetector : AInputDetector
 	{
 		private bool m_Fired = false;
 

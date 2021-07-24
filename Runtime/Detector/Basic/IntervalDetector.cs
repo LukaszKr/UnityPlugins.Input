@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class IntervalDetector: DurationDetector
+	public class IntervalDetector : DurationDetector
 	{
 		private float[] m_Intervals;
 		private float m_PreviousTrigger;

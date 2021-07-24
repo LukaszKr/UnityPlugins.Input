@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class AGamepadDevice: AInputDevice
+	public abstract class AGamepadDevice : AInputDevice
 	{
 		public readonly EGamepadID GamepadID;
 

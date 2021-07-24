@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class AInputProvider: IComparable<AInputProvider>
+	public abstract class AInputProvider : IComparable<AInputProvider>
 	{
 		protected int m_UpdateTick = 0;
 		private RawInputState m_State;

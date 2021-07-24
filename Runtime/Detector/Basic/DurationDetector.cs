@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class DurationDetector: AInputDetector
+	public class DurationDetector : AInputDetector
 	{
 		public float Duration { get; private set; }
 

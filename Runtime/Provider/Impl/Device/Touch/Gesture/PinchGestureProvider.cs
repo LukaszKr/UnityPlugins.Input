@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class PinchGestureProvider: ADeviceInputProvider
+	public class PinchGestureProvider : ADeviceInputProvider
 	{
 		public PinchGestureProvider()
 		{

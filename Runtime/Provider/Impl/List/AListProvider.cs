@@ -4,7 +4,7 @@ using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class AListProvider: AInputProvider, IProviderContainer
+	public abstract class AListProvider : AInputProvider, IProviderContainer
 	{
 		protected readonly List<AInputProvider> m_Providers = new List<AInputProvider>();
 

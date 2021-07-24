@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class MouseProvider: ADeviceInputProvider
+	public class MouseProvider : ADeviceInputProvider
 	{
 		public EMouseInputID InputID;
 

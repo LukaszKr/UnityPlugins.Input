@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public abstract class DelayedDetector: DurationDetector
+	public abstract class DelayedDetector : DurationDetector
 	{
 		private bool m_Detected;
 

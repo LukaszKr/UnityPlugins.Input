@@ -3,7 +3,7 @@ using ProceduralLevel.Common.Ext;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public enum EDeviceID: byte
+	public enum EDeviceID : byte
 	{
 		Unknown = 0,
 		Keyboard = 1,

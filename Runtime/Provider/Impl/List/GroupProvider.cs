@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class GroupProvider: AListProvider
+	public class GroupProvider : AListProvider
 	{
 		private AInputProvider m_UsedProvider;
 

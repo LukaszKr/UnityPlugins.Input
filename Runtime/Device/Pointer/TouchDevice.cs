@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace ProceduralLevel.UnityPlugins.Input
 {
-	public class TouchDevice: APointerDevice
+	public class TouchDevice : APointerDevice
 	{
 		public static readonly TouchDevice Instance = new TouchDevice();
 
