@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
-	public struct InputLayerDefinition
+	public readonly struct InputLayerDefinition
 	{
 		public readonly string DebugName;
 		public readonly int Priority;
