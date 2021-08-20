@@ -1,5 +1,6 @@
 {
     "name": "ProceduralLevel.UnityPlugins.Input.Editor",
+    "rootNamespace": "ProceduralLevel.UnityPlugins.Input.Editor",
     "references": [
         "GUID:7beb5c7201ff0194aa34fefed6f62094",
         "GUID:09255ba187395ca4f8dfdd7bb760b467",

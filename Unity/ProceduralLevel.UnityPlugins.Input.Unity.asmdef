@@ -1,5 +1,6 @@
 {
     "name": "ProceduralLevel.UnityPlugins.Input.Unity",
+    "rootNamespace": "ProceduralLevel.UnityPlugins.Input.Unity",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
