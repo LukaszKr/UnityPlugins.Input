@@ -1,4 +1,4 @@
-﻿using ProceduralLevel.UnityPlugins.ExtendedEditor.Editor;
+﻿using ProceduralLevel.UnityPlugins.Common.Editor;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.Input.Editor
