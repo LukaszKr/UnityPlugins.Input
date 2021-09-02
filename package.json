@@ -6,7 +6,7 @@
 	"unity": "2020.3",
 	"unityRelease": "14f1",
 	"dependencies": {
-		"procedurallevel.unityplugins.common": "https://github.com/LukaszKr/UnityPlugins.Common.git",
+		"procedurallevel.unityplugins.common": "https://github.com/LukaszKr/UnityPlugins.Common.git"
 	},
 	"keywords": [
 	],
