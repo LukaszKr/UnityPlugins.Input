@@ -4,7 +4,7 @@
 	{
 		public readonly InputLayerDefinition InputLayer;
 
-		private readonly DetectorUpdater m_Updater = new DetectorUpdater();
+		protected readonly DetectorUpdater m_Updater = new DetectorUpdater();
 		private bool m_IsActive;
 
 		public bool IsActive { get { return m_IsActive; } }
@@ -12,10 +12,7 @@
 		public AInputReceiver(InputLayerDefinition inputLayer)
 		{
 			InputLayer = inputLayer;
-			InitializeDetectors(m_Updater);
 		}
-
-		protected abstract void InitializeDetectors(DetectorUpdater updater);
 
 		public void UpdateInput(InputManager inputManager)
 		{

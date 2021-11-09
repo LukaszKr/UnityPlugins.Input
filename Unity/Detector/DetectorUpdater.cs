@@ -18,6 +18,11 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			m_Detectors.AddRange(detectors);
 		}
 
+		public bool Remove(ADetector detector)
+		{
+			return m_Detectors.Remove(detector);
+		}
+
 		public void Update(int updateTick)
 		{
 			int count = m_Detectors.Count;
