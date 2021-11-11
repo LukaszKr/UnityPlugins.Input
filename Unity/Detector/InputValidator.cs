@@ -90,7 +90,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 					{
 						if(otherProvider.Contains(provider))
 						{
-							if(foundSelf && otherProvider.CompareTo(provider) == 0)
+							if(foundSelf || otherProvider.CompareTo(provider) == 0)
 							{
 								continue;
 							}
