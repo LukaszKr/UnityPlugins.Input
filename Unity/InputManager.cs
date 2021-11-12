@@ -150,9 +150,9 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			m_ToPop.Clear();
 
 			bool canProceed = true;
-			int count = m_ActiveLayers.Count-1;
-			int lastValid = 0;
-			for(int x = count; x >= 0; --x)
+			int count = m_ActiveLayers.Count;
+			int lastValid = -1;
+			for(int x = 0; x < count; ++x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
 				layer.IsActive = canProceed;
@@ -168,7 +168,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 			m_Validator.Update();
 
-			for(int x = count; x >= lastValid; --x)
+			for(int x = 0; x <= lastValid; ++x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
 				layer.Updater.Validate(m_Validator);
@@ -206,10 +206,10 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			m_Validator.Add(newLayer.Updater);
 
 			int count = m_ActiveLayers.Count;
-			for(int x = 0; x != count; ++x)
+			for(int x = 0; x < count; ++x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
-				if(layer.Definition.Priority > newLayer.Definition.Priority)
+				if(layer.Definition.Priority < newLayer.Definition.Priority)
 				{
 					m_ActiveLayers.Insert(x, newLayer);
 					return;
