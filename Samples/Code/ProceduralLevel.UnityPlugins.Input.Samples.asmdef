@@ -1,0 +1,19 @@
+{
+    "name": "ProceduralLevel.UnityPlugins.Input.Samples",
+    "rootNamespace": "ProceduralLevel.UnityPlugins.Input.Samples",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:7beb5c7201ff0194aa34fefed6f62094"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
