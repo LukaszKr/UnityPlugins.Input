@@ -54,7 +54,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Example
 
 			m_Updater = new DetectorUpdater(
 				m_CloneA, m_CloneB,
-				m_ShortcutA, m_ShortcutB, m_Interval,
+				m_ShortcutB, m_ShortcutA, m_Interval,
 				m_RotateUp, m_RotateDown, m_RotateLeft, m_RotateRight
 			);
 		}

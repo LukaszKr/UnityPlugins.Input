@@ -81,7 +81,6 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		{
 			if(inputDetector.Triggered)
 			{
-				bool foundSelf = false;
 				AInputProvider provider = inputDetector.Group.UsedProvider;
 				for(int x = 0; x < m_BufferLength; ++x)
 				{
@@ -90,16 +89,12 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 					{
 						if(otherProvider.Contains(provider))
 						{
-							if(foundSelf || otherProvider.CompareTo(provider) == 0)
+							if(otherProvider.CompareTo(provider) == 0)
 							{
 								continue;
 							}
 							return true;
 						}
-					}
-					else
-					{
-						foundSelf = true;
 					}
 				}
 			}
