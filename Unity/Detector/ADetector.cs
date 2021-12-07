@@ -6,17 +6,17 @@
 
 		public abstract bool Triggered { get; }
 
-		public void Update(int updateTick)
+		public void Update(int updateTick, float deltaTime)
 		{
 			if(m_LastUpdateTick != updateTick)
 			{
 				m_LastUpdateTick = updateTick;
-				OnUpdate(updateTick);
+				OnUpdate(updateTick, deltaTime);
 			}
 		}
 
 		public abstract void Validate(InputValidator resolver);
 
-		protected abstract void OnUpdate(int updateTick);
+		protected abstract void OnUpdate(int updateTick, float deltaTime);
 	}
 }

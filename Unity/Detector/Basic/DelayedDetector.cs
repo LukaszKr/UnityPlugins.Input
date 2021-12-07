@@ -14,9 +14,9 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			Delay = delay;
 		}
 
-		protected override bool OnInputUpdate()
+		protected override bool OnInputUpdate(float deltaTime)
 		{
-			base.OnInputUpdate();
+			base.OnInputUpdate(deltaTime);
 
 			if(!m_Detected && Duration >= Delay)
 			{

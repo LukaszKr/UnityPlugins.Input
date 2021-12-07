@@ -26,7 +26,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			RegisterDevices();
 		}
 
-		public void Update()
+		public void Update(float deltaTime)
         {
 			++m_UpdateTick;
 
@@ -39,7 +39,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			{
 				ResetDevices();
 			}
-			UpdateActiveLayers();
+			UpdateActiveLayers(deltaTime);
 		}
 
 		#region Devices
@@ -131,7 +131,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		#endregion
 
 		#region Layers
-		private void UpdateActiveLayers()
+		private void UpdateActiveLayers(float deltaTime)
 		{
 			for (int x = m_ToPop.Count - 1; x >= 0; --x)
 			{
@@ -153,7 +153,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 				if (canProceed)
 				{
 					lastValid = x;
-					layer.Updater.Update(m_UpdateTick);
+					layer.Updater.Update(m_UpdateTick, deltaTime);
 				}
 				if (layer.Definition.Block)
 				{

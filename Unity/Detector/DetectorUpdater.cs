@@ -23,12 +23,12 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			return m_Detectors.Remove(detector);
 		}
 
-		public void Update(int updateTick)
+		public void Update(int updateTick, float deltaTime)
 		{
 			int count = m_Detectors.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				m_Detectors[x].Update(updateTick);
+				m_Detectors[x].Update(updateTick, deltaTime);
 			}
 		}
 

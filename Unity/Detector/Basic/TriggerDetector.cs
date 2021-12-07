@@ -4,7 +4,7 @@
 	{
 		private bool m_Fired = false;
 
-		protected override bool OnInputUpdate()
+		protected override bool OnInputUpdate(float deltaTime)
 		{
 			if(!m_Fired)
 			{

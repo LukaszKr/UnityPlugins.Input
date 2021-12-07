@@ -13,7 +13,7 @@
 
 		public bool Enabled = true;
 
-		protected override void OnUpdate(int updateTick)
+		protected override void OnUpdate(int updateTick, float deltaTime)
 		{
 			if(!Enabled)
 			{
@@ -27,7 +27,7 @@
 
 			if(m_InputState.IsActive)
 			{
-				m_Triggered = OnInputUpdate();
+				m_Triggered = OnInputUpdate(deltaTime);
 			}
 			else
 			{
@@ -49,7 +49,7 @@
 			m_Triggered = false;
 		}
 
-		protected abstract bool OnInputUpdate();
+		protected abstract bool OnInputUpdate(float deltaTime);
 		protected abstract void OnInputReset();
 
 		#region Providers

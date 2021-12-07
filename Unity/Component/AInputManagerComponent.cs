@@ -16,7 +16,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
         protected virtual void Update()
         {
-            Manager.Update();
+            Manager.Update(Time.deltaTime);
         }
 
         protected void DrawDebugGUI()
