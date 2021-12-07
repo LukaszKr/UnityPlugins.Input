@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Example
 	public class ExampleInputReceiver : MonoBehaviour, IInputReceiver
 	{
 		[SerializeField]
-		private ExampleInputManager m_InputManager = null;
+		private ExampleInputManagerComponent m_InputManager = null;
 		[SerializeField]
 		private Transform m_RotateTarget = null;
 
@@ -61,12 +61,12 @@ namespace ProceduralLevel.UnityPlugins.Input.Example
 
 		private void OnEnable()
 		{
-			m_InputManager.PushReceiver(this, m_Updater, new InputLayerDefinition("Example", 0, false));
+			m_InputManager.Manager.PushReceiver(this, m_Updater, new InputLayerDefinition("Example", 0, false));
 		}
 
 		private void OnDisable()
 		{
-			m_InputManager.PopReceiver(this);
+			m_InputManager.Manager.PopReceiver(this);
 		}
 
 		public void UpdateInput(InputManager inputManager)

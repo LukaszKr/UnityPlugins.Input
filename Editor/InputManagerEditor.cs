@@ -8,8 +8,8 @@ using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input.Editor
 {
-	[CustomEditor(typeof(InputManager), true)]
-	public class InputManagerEditor : AExtendedEditor<InputManager>
+	[CustomEditor(typeof(InputManagerComponent), true)]
+	public class InputManagerEditor : AExtendedEditor<InputManagerComponent>
 	{
 		private const int LABEL_WIDTH = 100;
 
@@ -30,7 +30,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void DrawActiveLayers()
 		{
-			IReadOnlyList<InputLayer> activeLayers = Target.ActiveLayers;
+			IReadOnlyList<InputLayer> activeLayers = Target.Manager.ActiveLayers;
 			int count = (activeLayers != null? activeLayers.Count: 0);
 			EditorGUILayout.BeginVertical("box");
 			EditorGUILayout.LabelField($"Active Input Layers({count})", EditorStyles.boldLabel);
@@ -61,7 +61,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 		private void DrawDeviceStates()
 		{
 			EditorGUILayout.BeginVertical("box");
-			EditorGUILayout.LabelField("Active Device: "+Target.ActiveDevice.ToString());
+			EditorGUILayout.LabelField("Active Device: "+Target.Manager.ActiveDevice.ToString());
 			DrawDeviceInputState("Keyboard", KeyboardDevice.Instance, typeof(Key), 4);
 			DrawMouseState(MouseDevice.Instance);
 			DrawTouchState(TouchDevice.Instance);

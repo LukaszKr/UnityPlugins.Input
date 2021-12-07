@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.Input.Example
 {
-	public class ExampleInputManager : InputManager
+	public class ExampleInputManagerComponent : InputManagerComponent
 	{
 		private void OnGUI()
 		{

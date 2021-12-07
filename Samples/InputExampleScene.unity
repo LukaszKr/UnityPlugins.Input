@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9645fef57f3ebf74ea9cf3d09d1dd649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InputManager: {fileID: 1612705743}
+  m_InputManager: {fileID: 0}
   m_RotateTarget: {fileID: 110429342}
 --- !u!4 &121078812
 Transform:

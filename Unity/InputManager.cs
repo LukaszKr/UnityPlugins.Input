@@ -1,13 +1,12 @@
-﻿using System;
+﻿using ProceduralLevel.Common.Event;
+using System;
 using System.Collections.Generic;
-using ProceduralLevel.Common.Event;
-using ProceduralLevel.Common.Ext;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
-	public class InputManager : MonoBehaviour
-	{
+    public class InputManager
+    {
 		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
 
 		private int m_UpdateTick;
@@ -22,22 +21,17 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		public readonly CustomEvent<EDeviceID> OnActiveDeviceChanged = new CustomEvent<EDeviceID>();
 
-		protected virtual void Awake()
-		{
+		public InputManager()
+        {
 			RegisterDevices();
 		}
 
-		private void OnDestroy()
-		{
-			OnActiveDeviceChanged.RemoveAllListeners();
-		}
-
-		protected virtual void Update()
-		{
+		public void Update()
+        {
 			++m_UpdateTick;
 
 			bool hasFocus = Application.isFocused;
-			if(hasFocus)
+			if (hasFocus)
 			{
 				UpdateDevices();
 			}
@@ -56,7 +50,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			RegisterDevice(MouseDevice.Instance);
 
 			int length = GamepadDevice.Gamepads.Length;
-			for(int x = 0; x < length; ++x)
+			for (int x = 0; x < length; ++x)
 			{
 				RegisterDevice(GamepadDevice.Gamepads[x]);
 			}
@@ -69,13 +63,13 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			bool deviceChanged = false;
 
 			int count = m_InputDevices.Count;
-			for(int x = 0; x < count; ++x)
+			for (int x = 0; x < count; ++x)
 			{
 				AInputDevice device = m_InputDevices[x];
-				if(device.Enabled)
+				if (device.Enabled)
 				{
 					device.UpdateState(m_UpdateTick);
-					if(!deviceChanged && device.IsActive)
+					if (!deviceChanged && device.IsActive)
 					{
 						newDevice = device.ID;
 						deviceChanged = true;
@@ -89,7 +83,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		private void ResetDevices()
 		{
 			int count = m_InputDevices.Count;
-			for(int x = 0; x < count; ++x)
+			for (int x = 0; x < count; ++x)
 			{
 				AInputDevice device = m_InputDevices[x];
 				device.ResetState();
@@ -100,9 +94,9 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		#region Device Management
 		public bool RegisterDevice(AInputDevice device, bool priority = false)
 		{
-			if(!m_InputDevices.Contains(device))
+			if (!m_InputDevices.Contains(device))
 			{
-				if(priority)
+				if (priority)
 				{
 					m_InputDevices.Insert(0, device);
 				}
@@ -122,7 +116,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		public void TrySetActiveDevice(EDeviceID deviceID)
 		{
-			if(m_ActiveDevice != deviceID)
+			if (m_ActiveDevice != deviceID)
 			{
 				Cursor.visible = (deviceID == EDeviceID.Mouse || deviceID == EDeviceID.Keyboard);
 				m_ActiveDevice = deviceID;
@@ -139,7 +133,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		#region Layers
 		private void UpdateActiveLayers()
 		{
-			for(int x = m_ToPop.Count-1; x >= 0; --x)
+			for (int x = m_ToPop.Count - 1; x >= 0; --x)
 			{
 				IInputReceiver receiver = m_ToPop[x];
 				int index = IndexOfReceiver(receiver);
@@ -152,23 +146,23 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			bool canProceed = true;
 			int count = m_ActiveLayers.Count;
 			int lastValid = -1;
-			for(int x = 0; x < count; ++x)
+			for (int x = 0; x < count; ++x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
 				layer.IsActive = canProceed;
-				if(canProceed)
+				if (canProceed)
 				{
 					lastValid = x;
 					layer.Updater.Update(m_UpdateTick);
 				}
-				if(layer.Definition.Block)
+				if (layer.Definition.Block)
 				{
 					canProceed = false;
 				}
 			}
 			m_Validator.Update();
 
-			for(int x = 0; x <= lastValid; ++x)
+			for (int x = 0; x <= lastValid; ++x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
 				layer.Updater.Validate(m_Validator);
@@ -176,7 +170,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 
 			int toPushCount = m_ToPush.Count;
-			for(int x = 0; x < toPushCount; ++x)
+			for (int x = 0; x < toPushCount; ++x)
 			{
 				InputLayer layer = m_ToPush[x];
 				PushReceiverInternal(layer);
@@ -194,9 +188,9 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		private void PushReceiverInternal(InputLayer newLayer)
 		{
-			if(IndexOfReceiver(newLayer.Receiver) >= 0)
+			if (IndexOfReceiver(newLayer.Receiver) >= 0)
 			{
-				if(!m_ToPop.Remove(newLayer.Receiver))
+				if (!m_ToPop.Remove(newLayer.Receiver))
 				{
 					Debug.LogException(new ArgumentException(string.Format("Receiver {0} is already active", newLayer.Receiver.ToString())));
 				}
@@ -206,10 +200,10 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			m_Validator.Add(newLayer.Updater);
 
 			int count = m_ActiveLayers.Count;
-			for(int x = 0; x < count; ++x)
+			for (int x = 0; x < count; ++x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
-				if(layer.Definition.Priority < newLayer.Definition.Priority)
+				if (layer.Definition.Priority < newLayer.Definition.Priority)
 				{
 					m_ActiveLayers.Insert(x, newLayer);
 					return;
@@ -221,13 +215,13 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		public bool PopReceiver(IInputReceiver receiver)
 		{
 			int index = IndexOfReceiver(receiver);
-			if(index == -1)
+			if (index == -1)
 			{
 				int length = m_ToPush.Count;
-				for(int x = 0; x < length; ++x)
+				for (int x = 0; x < length; ++x)
 				{
 					InputLayer toPushLayer = m_ToPush[x];
-					if(toPushLayer.Receiver == receiver)
+					if (toPushLayer.Receiver == receiver)
 					{
 						m_ToPush.RemoveAt(x);
 						return true;
@@ -243,10 +237,10 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		{
 			int count = m_ActiveLayers.Count;
 
-			for(int x = 0; x != count; ++x)
+			for (int x = 0; x != count; ++x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
-				if(layer.Receiver == receiver)
+				if (layer.Receiver == receiver)
 				{
 					return x;
 				}
@@ -260,32 +254,12 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		{
 			providers.Clear();
 			int count = m_InputDevices.Count;
-			for(int x = 0; x < count; ++x)
+			for (int x = 0; x < count; ++x)
 			{
 				AInputDevice device = m_InputDevices[x];
 				device.RecordProviders(providers);
 			}
 		}
 		#endregion
-
-		protected void DrawDebugGUI()
-		{
-			TouchDevice touchDevice = TouchDevice.Instance;
-			TouchData[] touches = touchDevice.Touches;
-			int touchCount = touchDevice.Count;
-			for(int x = 0; x < touchCount; ++x)
-			{
-				TouchData touch = touches[x];
-				GUILayout.Label(touch.ToString());
-			}
-
-			List<AInputProvider> providers = new List<AInputProvider>();
-			RecordProviders(providers);
-			if(providers.Count > 0)
-			{
-				string str = StringExt.JoinToString(providers);
-				GUILayout.Label(str);
-			}
-		}
 	}
 }
