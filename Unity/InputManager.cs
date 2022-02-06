@@ -26,7 +26,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			RegisterDevices();
 		}
 
-		public void Update(float deltaTime)
+		public virtual void Update(float deltaTime)
 		{
 			++m_UpdateTick;
 
