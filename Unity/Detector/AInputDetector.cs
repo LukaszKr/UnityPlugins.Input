@@ -1,19 +1,29 @@
 ﻿namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
-	public abstract class AInputDetector : ADetector, IProviderContainer
+	public abstract class AInputDetector : IProviderContainer
 	{
 		public readonly GroupProvider Group = new GroupProvider();
 
+		private int m_LastUpdateTick = 0;
 		private RawInputState m_InputState;
 		private bool m_Triggered;
 
 		public RawInputState InputState { get { return m_InputState; } }
-		public override bool Triggered { get { return m_Triggered; } }
+		public bool Triggered { get { return m_Triggered; } }
 		public float Axis { get { return m_InputState.Axis; } }
 
 		public bool Enabled = true;
 
-		protected override void OnUpdate(int updateTick, float deltaTime)
+		public void Update(int updateTick, float deltaTime)
+		{
+			if(m_LastUpdateTick != updateTick)
+			{
+				m_LastUpdateTick = updateTick;
+				OnUpdate(updateTick, deltaTime);
+			}
+		}
+
+		private void OnUpdate(int updateTick, float deltaTime)
 		{
 			if(!Enabled)
 			{
@@ -35,7 +45,7 @@
 			}
 		}
 
-		public override void Validate(InputValidator resolver)
+		public void Validate(InputValidator resolver)
 		{
 			if(resolver.IsBlocked(this))
 			{

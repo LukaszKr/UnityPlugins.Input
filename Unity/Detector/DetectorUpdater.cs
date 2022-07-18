@@ -4,21 +4,21 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
 	public class DetectorUpdater
 	{
-		private List<ADetector> m_Detectors = new List<ADetector>();
+		private List<AInputDetector> m_Detectors = new List<AInputDetector>();
 
-		public IReadOnlyList<ADetector> Detectors { get { return m_Detectors; } }
+		public IReadOnlyList<AInputDetector> Detectors { get { return m_Detectors; } }
 
-		public DetectorUpdater(params ADetector[] detectors)
+		public DetectorUpdater(params AInputDetector[] detectors)
 		{
 			m_Detectors.AddRange(detectors);
 		}
 
-		public void Add(params ADetector[] detectors)
+		public void Add(params AInputDetector[] detectors)
 		{
 			m_Detectors.AddRange(detectors);
 		}
 
-		public bool Remove(ADetector detector)
+		public bool Remove(AInputDetector detector)
 		{
 			return m_Detectors.Remove(detector);
 		}

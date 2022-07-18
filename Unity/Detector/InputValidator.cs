@@ -44,12 +44,12 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 		}
 
-		private void Update(IReadOnlyList<ADetector> detectors)
+		private void Update(IReadOnlyList<AInputDetector> detectors)
 		{
 			int count = detectors.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				ADetector detector = detectors[x];
+				AInputDetector detector = detectors[x];
 				if(!detector.Triggered)
 				{
 					continue;
