@@ -6,7 +6,7 @@
 		public readonly bool IsRealAxis;
 		public readonly float Axis;
 
-		public bool IsActive { get { return EInputStatus.IsDown.Contains(Status); } }
+		public bool IsActive => EInputStatus.IsDown.Contains(Status);
 
 		public InputState(EInputStatus status)
 		{

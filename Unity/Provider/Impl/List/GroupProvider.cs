@@ -6,7 +6,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 	{
 		private AInputProvider m_UsedProvider;
 
-		public AInputProvider UsedProvider { get { return m_UsedProvider; } }
+		public AInputProvider UsedProvider => m_UsedProvider;
 
 		public GroupProvider()
 		{

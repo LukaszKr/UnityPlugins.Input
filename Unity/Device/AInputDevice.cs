@@ -9,8 +9,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		protected bool m_IsActive;
 		protected bool m_AnyInputActive;
 
-		public bool IsActive { get { return m_IsActive; } }
-		public bool AnyKeyPressed { get { return m_AnyInputActive; } }
+		public bool IsActive => m_IsActive;
+		public bool AnyKeyPressed => m_AnyInputActive;
 
 		public readonly EDeviceID ID;
 		public bool Enabled = true;

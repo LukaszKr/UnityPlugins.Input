@@ -7,7 +7,7 @@
 		protected readonly DetectorUpdater m_Updater = new DetectorUpdater();
 		private bool m_IsActive;
 
-		public bool IsActive { get { return m_IsActive; } }
+		public bool IsActive => m_IsActive;
 
 		public AInputReceiver(InputLayerDefinition inputLayer)
 		{

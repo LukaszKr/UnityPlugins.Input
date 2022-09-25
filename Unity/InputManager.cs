@@ -16,8 +16,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		private readonly InputValidator m_Validator = new InputValidator();
 
 		private EDeviceID m_ActiveDevice = EDeviceID.Mouse;
-		public EDeviceID ActiveDevice { get { return m_ActiveDevice; } }
-		public IReadOnlyList<InputLayer> ActiveLayers { get { return m_ActiveLayers; } }
+		public EDeviceID ActiveDevice => m_ActiveDevice;
+		public IReadOnlyList<InputLayer> ActiveLayers => m_ActiveLayers;
 
 		public readonly CustomEvent<EDeviceID> OnActiveDeviceChanged = new CustomEvent<EDeviceID>();
 

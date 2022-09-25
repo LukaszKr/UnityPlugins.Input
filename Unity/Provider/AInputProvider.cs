@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		protected int m_UpdateTick = 0;
 		private RawInputState m_State;
 
-		public RawInputState State { get { return m_State; } }
+		public RawInputState State => m_State;
 
 		public RawInputState UpdateState(int updateTick)
 		{

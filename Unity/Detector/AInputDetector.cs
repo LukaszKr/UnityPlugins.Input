@@ -8,9 +8,9 @@
 		private RawInputState m_InputState;
 		private bool m_Triggered;
 
-		public RawInputState InputState { get { return m_InputState; } }
-		public bool Triggered { get { return m_Triggered; } }
-		public float Axis { get { return m_InputState.Axis; } }
+		public RawInputState InputState => m_InputState;
+		public bool Triggered => m_Triggered;
+		public float Axis => m_InputState.Axis;
 
 		public bool Enabled = true;
 

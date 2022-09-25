@@ -6,7 +6,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 	{
 		private List<AInputDetector> m_Detectors = new List<AInputDetector>();
 
-		public IReadOnlyList<AInputDetector> Detectors { get { return m_Detectors; } }
+		public IReadOnlyList<AInputDetector> Detectors => m_Detectors;
 
 		public DetectorUpdater(params AInputDetector[] detectors)
 		{

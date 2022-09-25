@@ -9,8 +9,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		private GamepadDevice m_ActiveGamepad;
 
-		public override Gamepad UnityGamepad { get { return m_ActiveGamepad?.UnityGamepad; } }
-		public override EGamepadType GamepadType { get { return (m_ActiveGamepad != null ? m_ActiveGamepad.GamepadType : EGamepadType.Generic); } }
+		public override Gamepad UnityGamepad => m_ActiveGamepad?.UnityGamepad;
+		public override EGamepadType GamepadType => (m_ActiveGamepad != null ? m_ActiveGamepad.GamepadType : EGamepadType.Generic);
 
 		public AnyGamepadDevice()
 			: base(EGamepadID.Any)

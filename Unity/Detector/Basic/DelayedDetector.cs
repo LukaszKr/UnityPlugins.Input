@@ -6,7 +6,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 	{
 		private bool m_Detected;
 
-		public float Progress { get { return Math.Max(Duration/Delay, 1f); } }
+		public float Progress => Math.Max(Duration/Delay, 1f);
 		public float Delay { get; private set; }
 
 		public DelayedDetector(float delay)
