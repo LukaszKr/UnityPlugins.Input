@@ -79,7 +79,7 @@
 				intervals += m_Intervals[x].ToString();
 			}
 
-			return base.ToString()+string.Format("[CurrentInterval: {0}, Count: {1}, Intervals: {2}]", CurrentInterval, Count, intervals);
+			return base.ToString()+$"[{nameof(CurrentInterval)}: {CurrentInterval}, {nameof(Count)}: {Count}, Intervals: {intervals}]";
 		}
 	}
 }

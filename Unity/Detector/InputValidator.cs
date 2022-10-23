@@ -50,7 +50,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			for(int x = 0; x < count; ++x)
 			{
 				AInputDetector detector = detectors[x];
-				if(!detector.Triggered)
+				if(!detector.Active)
 				{
 					continue;
 				}
@@ -79,7 +79,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		public bool IsBlocked(AInputDetector inputDetector)
 		{
-			if(inputDetector.Triggered)
+			if(inputDetector.Active)
 			{
 				AInputProvider provider = inputDetector.Group.UsedProvider;
 				for(int x = 0; x < m_BufferLength; ++x)

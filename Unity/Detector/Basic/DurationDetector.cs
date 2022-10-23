@@ -19,7 +19,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		public override string ToString()
 		{
-			return base.ToString()+string.Format("[Duration: {0}]", Duration);
+			return base.ToString()+$"[{nameof(Duration)}: {Duration}]";
 		}
 	}
 }

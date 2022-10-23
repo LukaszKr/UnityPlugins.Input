@@ -71,43 +71,43 @@ namespace ProceduralLevel.UnityPlugins.Input.Example
 
 		public void UpdateInput(InputManager inputManager)
 		{
-			if(m_CloneA.Triggered)
+			if(m_CloneA.Active)
 			{
 				Debug.Log("Priority A");
 			}
-			if(m_CloneB.Triggered)
+			if(m_CloneB.Active)
 			{
 				Debug.Log("Priority B");
 			}
 
-			if(m_ShortcutA.Triggered)
+			if(m_ShortcutA.Active)
 			{
 				Debug.Log("SHORTCUT A");
 			}
-			if(m_ShortcutB.Triggered)
+			if(m_ShortcutB.Active)
 			{
 				Debug.Log("SHORTCUT B");
 			}
-			if(m_Interval.Triggered)
+			if(m_Interval.Active)
 			{
 				Debug.Log($"INTERVAL: {m_Interval.CurrentInterval}:{m_Interval.Count}");
 			}
 
-			if(m_RotateUp.Triggered)
+			if(m_RotateUp.Active)
 			{
 				m_RotateTarget.Rotate(-m_RotateUp.Axis, 0f, 0f, Space.World);
 			}
-			if(m_RotateDown.Triggered)
+			if(m_RotateDown.Active)
 			{
 				m_RotateTarget.Rotate(m_RotateDown.Axis, 0f, 0f, Space.World);
 
 			}
-			if(m_RotateLeft.Triggered)
+			if(m_RotateLeft.Active)
 			{
 				m_RotateTarget.Rotate(0f, m_RotateLeft.Axis, 0f, Space.World);
 
 			}
-			if(m_RotateRight.Triggered)
+			if(m_RotateRight.Active)
 			{
 				m_RotateTarget.Rotate(0f, -m_RotateRight.Axis, 0f, Space.World);
 			}

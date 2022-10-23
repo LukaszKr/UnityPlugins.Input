@@ -6,10 +6,14 @@
 
 		private int m_LastUpdateTick = 0;
 		private RawInputState m_InputState;
-		private bool m_Triggered;
+		private bool m_Active;
+		private bool m_ActivatedThisFrame;
+		private bool m_DeactivatedThisFrame;
 
 		public RawInputState InputState => m_InputState;
-		public bool Triggered => m_Triggered;
+		public bool Active => m_Active;
+		public bool ActivatedThisFrame => m_ActivatedThisFrame;
+		public bool DeactivatedThisFrame => m_DeactivatedThisFrame;
 		public float Axis => m_InputState.Axis;
 
 		public bool Enabled = true;
@@ -25,9 +29,10 @@
 
 		private void OnUpdate(int updateTick, float deltaTime)
 		{
+			m_DeactivatedThisFrame = false;
 			if(!Enabled)
 			{
-				if(m_Triggered)
+				if(m_Active)
 				{
 					ResetState();
 				}
@@ -35,11 +40,13 @@
 			}
 			m_InputState = Group.UpdateState(updateTick);
 
+			bool oldActive = m_Active;
 			if(m_InputState.IsActive)
 			{
-				m_Triggered = OnInputUpdate(deltaTime);
+				m_Active = OnInputUpdate(deltaTime);
+				m_ActivatedThisFrame = (!oldActive && m_Active);
 			}
-			else
+			else if(oldActive)
 			{
 				ResetState();
 			}
@@ -55,8 +62,12 @@
 
 		private void ResetState()
 		{
-			OnInputReset();
-			m_Triggered = false;
+			if(m_Active)
+			{
+				m_DeactivatedThisFrame = true;
+				OnInputReset();
+				m_Active = false;
+			}
 		}
 
 		protected abstract bool OnInputUpdate(float deltaTime);
@@ -76,8 +87,7 @@
 
 		public override string ToString()
 		{
-			return string.Format("[Triggered: {0}, Axis: {1}, InputProviders: {2}]",
-				Triggered.ToString(), Axis.ToString(), Group.ToString());
+			return $"[{nameof(Active)}: {Active}, {nameof(Axis)}: {Axis}, {nameof(Group)}: {Group}]";
 		}
 	}
 }

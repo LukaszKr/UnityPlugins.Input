@@ -34,7 +34,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		public override string ToString()
 		{
-			return base.ToString()+string.Format("[Detected: {0}, Progress: {1}, Delay: {2}]", m_Detected, Progress, Delay);
+			return base.ToString()+$"[{nameof(m_Detected)}: {m_Detected}, {nameof(Progress)}: {Progress}, {nameof(Delay)}: {Delay}]";
 		}
 	}
 }
