@@ -25,6 +25,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Example
 		private DurationDetector m_CloneA;
 		private DurationDetector m_CloneB;
 
+		private AInputDetector m_TriggerTest;
+
 		private void Awake()
 		{
 			m_CloneA = new DurationDetector().Add(Key.Digit1);
@@ -35,6 +37,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Example
 			m_ShortcutA.Add(new ShortcutProvider().Add(Key.LeftCtrl).Add(Key.A));
 			m_ShortcutB = new DurationDetector();
 			m_ShortcutB.Add(Key.LeftCtrl);
+
+			m_TriggerTest = new TriggerDetector().Add(Key.Space);
 
 			m_Interval = new IntervalDetector(0f, 0.5f, 0.4f, 0.3f, 0.2f)
 				.Add(Key.I);
@@ -55,7 +59,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Example
 			m_Updater = new DetectorUpdater(
 				m_CloneA, m_CloneB,
 				m_ShortcutB, m_ShortcutA, m_Interval,
-				m_RotateUp, m_RotateDown, m_RotateLeft, m_RotateRight
+				m_RotateUp, m_RotateDown, m_RotateLeft, m_RotateRight,
+				m_TriggerTest
 			);
 		}
 
@@ -71,6 +76,11 @@ namespace ProceduralLevel.UnityPlugins.Input.Example
 
 		public void UpdateInput(InputManager inputManager)
 		{
+			if(m_TriggerTest.Active)
+			{
+				Debug.Log("Trigger");
+			}
+
 			if(m_CloneA.Active)
 			{
 				Debug.Log("Priority A");

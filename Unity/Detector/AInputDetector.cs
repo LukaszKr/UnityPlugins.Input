@@ -9,6 +9,7 @@
 		private bool m_Active;
 		private bool m_ActivatedThisFrame;
 		private bool m_DeactivatedThisFrame;
+		private bool m_WasInputActive;
 
 		public RawInputState InputState => m_InputState;
 		public bool Active => m_Active;
@@ -40,13 +41,14 @@
 			}
 			m_InputState = Group.UpdateState(updateTick);
 
-			bool oldActive = m_Active;
 			if(m_InputState.IsActive)
 			{
+				m_WasInputActive = true;
+				bool oldActive = m_Active;
 				m_Active = OnInputUpdate(deltaTime);
 				m_ActivatedThisFrame = (!oldActive && m_Active);
 			}
-			else if(oldActive)
+			else if(m_WasInputActive)
 			{
 				ResetState();
 			}
@@ -62,12 +64,10 @@
 
 		private void ResetState()
 		{
-			if(m_Active)
-			{
-				m_DeactivatedThisFrame = true;
-				OnInputReset();
-				m_Active = false;
-			}
+			m_WasInputActive = false;
+			m_DeactivatedThisFrame = true;
+			m_Active = false;
+			OnInputReset();
 		}
 
 		protected abstract bool OnInputUpdate(float deltaTime);
