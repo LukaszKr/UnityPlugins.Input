@@ -55,16 +55,18 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 				float scrollX = NormalizeScroll(rawScroll.x)*ScrollSensitivity;
 				float scrollY = NormalizeScroll(rawScroll.y)*ScrollSensitivity;
 				Scroll = new Vector2(scrollX, scrollY);
+				Position = m_Mouse.position.ReadValue();
+				ScreenDelta = m_Mouse.delta.ReadValue();
 			}
 			else
 			{
-				Scroll = new Vector2(0f, 0f);
+				Scroll = default;
+				Position = default;
+				ScreenDelta = default;
 			}
 
-			Position = (m_Mouse != null ? m_Mouse.position.ReadValue() : new Vector2(0f, 0f));
-			Rect screenRect = new Rect(0f, 0f, Screen.width,  Screen.height); //probably won't work with dual screens
-			ScreenDelta = m_Mouse.delta.ReadValue();
 
+			Rect screenRect = new Rect(0f, 0f, Screen.width,  Screen.height); //probably won't work with dual screens
 			float deltaX = (ScreenDelta.x/screenRect.width);
 			float deltaY = (ScreenDelta.y/screenRect.height);
 			RawDelta = new Vector2(deltaX, deltaY);
