@@ -18,6 +18,13 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		public readonly TouchData[] Touches = new TouchData[TOUCH_COUNT];
 		public int Count { get; private set; }
 
+		public override Vector2 ScreenDelta => Touches[0].ScreenDelta;
+		public override Vector2 RawDelta => Touches[0].RawDelta;
+		public override Vector2 Delta => Touches[0].Delta;
+
+		public override Vector2 Position => Touches[0].Position;
+		public override Vector2 Scroll => default;
+
 		public TouchDevice()
 			: base(EDeviceID.Touch, TOUCH_COUNT)
 		{

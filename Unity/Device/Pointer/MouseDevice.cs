@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
-	public class MouseDevice : AInputDevice
+	public class MouseDevice : APointerDevice
 	{
 		public static readonly MouseDevice Instance = new MouseDevice();
 
@@ -16,12 +16,20 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		private Mouse m_Mouse;
 
-		public Vector2 ScreenDelta { get; private set; }
-		public Vector2 RawDelta { get; private set; }
-		public Vector2 Delta { get; private set; }
+		private Vector2 m_ScreenDelta;
+		private Vector2 m_RawDelta;
+		private Vector2 m_Delta;
 
-		public Vector2 Position { get; private set; }
-		public Vector2 Scroll { get; private set; }
+		private Vector2 m_Position;
+		private Vector2 m_Scroll;
+
+
+		public override Vector2 ScreenDelta => m_ScreenDelta;
+		public override Vector2 RawDelta => m_RawDelta;
+		public override Vector2 Delta => m_Delta;
+
+		public override Vector2 Position => m_Position;
+		public override Vector2 Scroll => m_Scroll;
 
 		public MouseDevice()
 			: base(EDeviceID.Mouse, EMouseInputIDExt.Meta.MaxValue+1)
@@ -54,23 +62,22 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 				Vector2 rawScroll = m_Mouse.scroll.ReadValue();
 				float scrollX = NormalizeScroll(rawScroll.x)*ScrollSensitivity;
 				float scrollY = NormalizeScroll(rawScroll.y)*ScrollSensitivity;
-				Scroll = new Vector2(scrollX, scrollY);
-				Position = m_Mouse.position.ReadValue();
-				ScreenDelta = m_Mouse.delta.ReadValue();
+				m_Scroll = new Vector2(scrollX, scrollY);
+				m_Position = m_Mouse.position.ReadValue();
+				m_ScreenDelta = m_Mouse.delta.ReadValue();
 			}
 			else
 			{
-				Scroll = default;
-				Position = default;
-				ScreenDelta = default;
+				m_Scroll = default;
+				m_Position = default;
+				m_ScreenDelta = default;
 			}
-
 
 			Rect screenRect = new Rect(0f, 0f, Screen.width,  Screen.height); //probably won't work with dual screens
 			float deltaX = (ScreenDelta.x/screenRect.width);
 			float deltaY = (ScreenDelta.y/screenRect.height);
-			RawDelta = new Vector2(deltaX, deltaY);
-			Delta = new Vector2(deltaX*DeltaSensitivityX, deltaY*DeltaSensitivityY);
+			m_RawDelta = new Vector2(deltaX, deltaY);
+			m_Delta = new Vector2(deltaX*DeltaSensitivityX, deltaY*DeltaSensitivityY);
 
 			m_IsActive |= ScreenDelta.sqrMagnitude > 0.1f;
 		}
@@ -158,7 +165,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		protected override void OnSkippedFrame()
 		{
-			Position = m_Mouse.position.ReadValue();
+			m_Position = m_Mouse.position.ReadValue();
 		}
 		#endregion
 
