@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using ProceduralLevel.Common.Ext;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
@@ -21,22 +19,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		protected void DrawDebugGUI()
 		{
-			TouchDevice touchDevice = TouchDevice.Instance;
-			TouchData[] touches = touchDevice.Touches;
-			int touchCount = touchDevice.Count;
-			for(int x = 0; x < touchCount; ++x)
-			{
-				TouchData touch = touches[x];
-				GUILayout.Label(touch.ToString());
-			}
-
-			List<AInputProvider> providers = new List<AInputProvider>();
-			Manager.GetActiveProviders(providers);
-			if(providers.Count > 0)
-			{
-				string str = StringExt.JoinToString(providers);
-				GUILayout.Label(str);
-			}
+			InputManagerDebugger.DrawDebugGUI(Manager);
 		}
 	}
 }

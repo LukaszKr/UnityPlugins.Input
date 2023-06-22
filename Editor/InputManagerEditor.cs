@@ -63,7 +63,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 		{
 			EditorGUILayout.BeginVertical("box");
 			EditorGUILayout.LabelField("Active Device: "+Target.Manager.ActiveDevice.ToString());
-			DrawDeviceInputState("Keyboard", KeyboardDevice.Instance, typeof(Key), 4);
+			DrawDeviceInputState("Keyboard", KeyboardDevice.Instance, 4);
 			DrawMouseState(MouseDevice.Instance);
 			DrawTouchState(TouchDevice.Instance);
 
@@ -80,7 +80,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void DrawTouchState(TouchDevice touch)
 		{
-			DrawDeviceInputState("Touch", touch, typeof(ETouchInputID), 3);
+			DrawDeviceInputState("Touch", touch, 3);
 			int count = touch.Count;
 			for(int x = 0; x < count; ++x)
 			{
@@ -92,7 +92,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void DrawMouseState(MouseDevice mouse)
 		{
-			DrawDeviceInputState("Mouse", mouse, typeof(EMouseInputID), 3);
+			DrawDeviceInputState("Mouse", mouse, 3);
 			EditorGUI.BeginDisabledGroup(true);
 			EditorGUILayout.Vector2Field("Position", mouse.Position);
 			EditorGUILayout.Vector2Field("Screen Delta", mouse.ScreenDelta);
@@ -104,7 +104,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 		private void DrawGamepadState(string prefix, AGamepadDevice device)
 		{
-			DrawDeviceInputState($"{prefix} Gamepad - {device.GamepadType}, Active: {device.IsActive}", device, typeof(EGamepadInputID), 3);
+			DrawDeviceInputState($"{prefix} Gamepad - {device.GamepadType}, Active: {device.IsActive}", device, 3);
 			EditorGUI.BeginDisabledGroup(true);
 			DrawAxisPair(device, EGamepadInputID.LStickLeft, EGamepadInputID.LStickRight);
 			DrawAxisPair(device, EGamepadInputID.LStickDown, EGamepadInputID.LStickUp);
@@ -124,9 +124,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 			EditorGUILayout.EndHorizontal();
 		}
 
-		private void DrawDeviceInputState(string name, ABaseInputDevice device, Type enumType, int minLineCount)
+		private void DrawDeviceInputState(string name, ABaseInputDevice device, int minLineCount)
 		{
-			m_Providers.Clear();
 
 			EditorGUILayout.LabelField(name, EditorStyles.boldLabel);
 			EditorGUILayout.BeginVertical(GUILayout.MinHeight(EditorStyles.label.TotalLineHeight()*minLineCount));
@@ -136,9 +135,10 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 				int count = m_Providers.Count;
 				for(int x = 0; x < count; ++x)
 				{
-					InputState state = m_Providers[x].State;
-					EditorGUILayout.LabelField(string.Format("{0} -> {1}", Enum.GetName(enumType, x), state.ToString()));
+					AInputProvider provider = m_Providers[x];
+					EditorGUILayout.LabelField(provider.ToString());
 				}
+				m_Providers.Clear();
 			}
 			else
 			{
