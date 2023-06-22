@@ -2,47 +2,27 @@
 {
 	public struct InputState
 	{
-		public readonly EInputStatus Status;
+		public readonly bool IsActive;
 		public readonly bool IsRealAxis;
 		public readonly float Axis;
 
-		public bool IsActive => EInputStatus.IsDown.Contains(Status);
-
-		public InputState(EInputStatus status)
+		public InputState(bool isActive)
 		{
-			Status = status;
+			IsActive = isActive;
 			IsRealAxis = false;
-			Axis = (EInputStatus.IsDown.Contains(status) ? 1f : 0f);
+			Axis = (IsActive ? 1f : 0f);
 		}
 
-		public InputState(EInputStatus status, float axis)
+		public InputState(bool isActive, float axis, bool isRealAxis = true)
 		{
-			Status = status;
-			IsRealAxis = true;
-			Axis = axis;
-		}
-
-		private InputState(EInputStatus status, float axis, bool isRealAxis)
-		{
-			Status = status;
+			IsActive = isActive;
 			IsRealAxis = isRealAxis;
 			Axis = axis;
 		}
 
-		public InputState GetNextState(RawInputState rawInput)
-		{
-			EInputStatus newStatus = Status.GetNextStatus(rawInput.IsActive);
-			return new InputState(newStatus, rawInput.Axis, rawInput.IsRealAxis);
-		}
-
-		public RawInputState ToRaw()
-		{
-			return new RawInputState(this);
-		}
-
 		public override string ToString()
 		{
-			return $"({nameof(Status)}: {Status}, {nameof(IsRealAxis)}: {IsRealAxis}, {nameof(Axis)}: {Axis})";
+			return $"({nameof(IsActive)}: {IsActive}, {nameof(IsRealAxis)}: {IsRealAxis}, {nameof(Axis)}: {Axis})";
 		}
 	}
 }

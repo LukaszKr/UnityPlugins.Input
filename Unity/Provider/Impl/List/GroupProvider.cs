@@ -13,7 +13,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		}
 
-		protected override RawInputState GetState()
+		protected override InputState GetState()
 		{
 			float axis = 0f;
 			bool isRealAxis = false;
@@ -24,7 +24,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			for(int x = 0; x < count; ++x)
 			{
 				AInputProvider provider = m_Providers[x];
-				RawInputState data = provider.UpdateState(m_UpdateTick);
+				InputState data = provider.UpdateState(m_UpdateTick);
 				if(data.IsActive)
 				{
 					isAnyProviderActive = true;
@@ -41,7 +41,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 				}
 			}
 
-			return new RawInputState(isAnyProviderActive, axis, isRealAxis);
+			return new InputState(isAnyProviderActive, axis, isRealAxis);
 		}
 	}
 }

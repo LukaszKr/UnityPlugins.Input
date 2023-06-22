@@ -5,13 +5,13 @@
 		public readonly GroupProvider Group = new GroupProvider();
 
 		private int m_LastUpdateTick = 0;
-		private RawInputState m_InputState;
+		private InputState m_InputState;
 		private bool m_Active;
 		private bool m_ActivatedThisFrame;
 		private bool m_DeactivatedThisFrame;
 		private bool m_WasInputActive;
 
-		public RawInputState InputState => m_InputState;
+		public InputState InputState => m_InputState;
 		public bool Active => m_Active;
 		public bool ActivatedThisFrame => m_ActivatedThisFrame;
 		public bool DeactivatedThisFrame => m_DeactivatedThisFrame;

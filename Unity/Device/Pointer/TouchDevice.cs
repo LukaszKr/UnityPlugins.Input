@@ -36,12 +36,6 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			int index = (int)touchID;
 			return m_InputState[index];
 		}
-
-		public EInputStatus GetStatus(ETouchInputID touchID)
-		{
-			int index = (int)touchID;
-			return m_InputState[index].Status;
-		}
 		#endregion
 
 		#region Update State
@@ -84,9 +78,9 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			Count = 0;
 		}
 
-		protected override RawInputState GetRawState(int rawInputID)
+		protected override InputState GetRawState(int rawInputID)
 		{
-			return new RawInputState(Count > 0 && rawInputID < Count);
+			return new InputState(Count > 0 && rawInputID < Count);
 		}
 		#endregion
 

@@ -24,11 +24,6 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		{
 			return m_InputState[(int)inputID];
 		}
-
-		public EInputStatus GetStatus(Key inputID)
-		{
-			return m_InputState[(int)inputID].Status;
-		}
 		#endregion
 
 		#region UpdateState
@@ -37,14 +32,14 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			m_Keyboard = Keyboard.current;
 		}
 
-		protected override RawInputState GetRawState(int rawInputID)
+		protected override InputState GetRawState(int rawInputID)
 		{
 			if(rawInputID > 0 && m_Keyboard != null)
 			{
 				Key key = (Key)rawInputID;
-				return new RawInputState(m_Keyboard[key].isPressed);
+				return new InputState(m_Keyboard[key].isPressed);
 			}
-			return new RawInputState(false);
+			return new InputState(false);
 		}
 		#endregion
 

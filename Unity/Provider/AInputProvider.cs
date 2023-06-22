@@ -5,11 +5,11 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 	public abstract class AInputProvider : IComparable<AInputProvider>
 	{
 		protected int m_UpdateTick = 0;
-		private RawInputState m_State;
+		private InputState m_State;
 
-		public RawInputState State => m_State;
+		public InputState State => m_State;
 
-		public RawInputState UpdateState(int updateTick)
+		public InputState UpdateState(int updateTick)
 		{
 			int oldTick = m_UpdateTick;
 			m_UpdateTick = updateTick;
@@ -19,7 +19,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 			if(oldTick != m_UpdateTick-1)
 			{
-				m_State = new RawInputState(false);
+				m_State = new InputState(false);
 			}
 			else
 			{
@@ -28,7 +28,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			return m_State;
 		}
 
-		protected abstract RawInputState GetState();
+		protected abstract InputState GetState();
 
 		public abstract bool Contains(AInputProvider provider);
 

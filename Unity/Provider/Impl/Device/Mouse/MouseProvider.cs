@@ -13,9 +13,9 @@
 			InputID = inputID;
 		}
 
-		protected override RawInputState GetState()
+		protected override InputState GetState()
 		{
-			return MouseDevice.Instance.Get(InputID).ToRaw();
+			return MouseDevice.Instance.Get(InputID);
 		}
 
 		protected override int OnCompareTo(AInputProvider other)

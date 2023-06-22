@@ -129,12 +129,12 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 
 			EditorGUILayout.LabelField(name, EditorStyles.boldLabel);
 			EditorGUILayout.BeginVertical(GUILayout.MinHeight(EditorStyles.label.TotalLineHeight()*minLineCount));
-			if(device.AnyKeyPressed)
+			if(device.IsActive)
 			{
 				for(int x = 0; x < inputState.Length; ++x)
 				{
 					InputState state = inputState[x];
-					if(state.Status > EInputStatus.Released)
+					if(state.IsActive)
 					{
 						EditorGUILayout.LabelField(string.Format("{0} -> {1}", Enum.GetName(enumType, x), state.ToString()));
 					}

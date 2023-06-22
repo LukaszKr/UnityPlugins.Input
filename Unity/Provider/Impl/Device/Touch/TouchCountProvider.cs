@@ -13,9 +13,9 @@
 			Count = count;
 		}
 
-		protected override RawInputState GetState()
+		protected override InputState GetState()
 		{
-			return new RawInputState(TouchDevice.Instance.Count == Count);
+			return new InputState(TouchDevice.Instance.Count == Count);
 		}
 
 		protected override int OnCompareTo(AInputProvider other)

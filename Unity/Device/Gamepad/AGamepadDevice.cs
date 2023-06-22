@@ -16,7 +16,6 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		}
 
 		public abstract InputState Get(EGamepadInputID inputID);
-		public abstract EInputStatus GetStatus(EGamepadInputID inputID);
 		public abstract float GetAxis(EGamepadInputID inputID);
 
 		public abstract void Rumble(float low, float high);

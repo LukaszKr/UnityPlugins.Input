@@ -6,7 +6,7 @@
 		{
 		}
 
-		protected override RawInputState GetState()
+		protected override InputState GetState()
 		{
 			TouchDevice touch = TouchDevice.Instance;
 			if(touch.Count == 2)
@@ -17,7 +17,7 @@
 				//Vector2 deltaB = touch.Touches[1].Delta;
 				//Vector2 delta = deltaA+deltaB;
 			}
-			return new RawInputState(false, 0f);
+			return new InputState(false, 0f);
 		}
 
 		protected override int OnCompareTo(AInputProvider other)

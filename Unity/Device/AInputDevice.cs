@@ -7,10 +7,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		protected InputState[] m_InputState;
 
 		protected bool m_IsActive;
-		protected bool m_AnyInputActive;
 
 		public bool IsActive => m_IsActive;
-		public bool AnyKeyPressed => m_AnyInputActive;
 
 		public readonly EDeviceID ID;
 		public bool Enabled = true;
@@ -31,7 +29,6 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		public void UpdateState(int updateTick)
 		{
 			m_IsActive = false;
-			m_AnyInputActive = false;
 
 			if(m_LastUpdateTick+1 != updateTick)
 			{
@@ -43,31 +40,27 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			int length = m_InputState.Length;
 			for(int rawInputID = 0; rawInputID < length; ++rawInputID)
 			{
-				RawInputState rawInput = GetRawState(rawInputID);
-				InputState currentState = m_InputState[rawInputID];
-				InputState newState = currentState.GetNextState(rawInput);
-				m_InputState[rawInputID] = newState;
-				m_IsActive = m_IsActive || rawInput.IsActive || newState.Status == EInputStatus.JustReleased;
-				m_AnyInputActive |= rawInput.IsActive;
+				InputState rawInput = GetRawState(rawInputID);
+				m_InputState[rawInputID] = rawInput;
+				m_IsActive |= rawInput.IsActive;
 			}
 		}
 
 		public virtual void ResetState()
 		{
 			m_IsActive = false;
-			m_AnyInputActive = false;
 
 			int length = m_InputState.Length;
 			for(int x = 0; x < length; ++x)
 			{
-				m_InputState[x] = new InputState();
+				m_InputState[x] = default;
 			}
 		}
 
 		protected virtual void OnSkippedFrame() { }
 
 		protected abstract void OnUpdateState();
-		protected abstract RawInputState GetRawState(int rawInputID);
+		protected abstract InputState GetRawState(int rawInputID);
 
 		public abstract void RecordProviders(List<AInputProvider> providers);
 	}

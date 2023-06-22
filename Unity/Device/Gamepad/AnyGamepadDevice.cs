@@ -25,16 +25,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			{
 				return m_ActiveGamepad.Get(inputID);
 			}
-			return new InputState(EInputStatus.Released);
-		}
-
-		public override EInputStatus GetStatus(EGamepadInputID inputID)
-		{
-			if(m_ActiveGamepad != null)
-			{
-				return m_ActiveGamepad.GetStatus(inputID);
-			}
-			return EInputStatus.Released;
+			return new InputState(false);
 		}
 
 		public override float GetAxis(EGamepadInputID inputID)
@@ -67,14 +58,13 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 		}
 
-		protected override RawInputState GetRawState(int rawInputID)
+		protected override InputState GetRawState(int rawInputID)
 		{
 			if(m_ActiveGamepad != null)
 			{
-				InputState state = m_ActiveGamepad.Get((EGamepadInputID)rawInputID);
-				return new RawInputState(state);
+				return m_ActiveGamepad.Get((EGamepadInputID)rawInputID);
 			}
-			return new RawInputState(false);
+			return new InputState(false);
 		}
 		#endregion
 

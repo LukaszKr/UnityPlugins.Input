@@ -23,7 +23,6 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		private Vector2 m_Position;
 		private Vector2 m_Scroll;
 
-
 		public override Vector2 ScreenDelta => m_ScreenDelta;
 		public override Vector2 RawDelta => m_RawDelta;
 		public override Vector2 Delta => m_Delta;
@@ -39,17 +38,12 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		#region Getters
 		public InputState Get(EMouseInputID inputID)
 		{
-			return m_InputState[(int)inputID];
+			return GetRawState((int)inputID);
 		}
 
-		public EInputStatus GetStatus(EMouseInputID inputID)
+		public float GetAxis(EMouseInputID inputID)
 		{
-			return m_InputState[(int)inputID].Status;
-		}
-
-		public float GetAxis(EMouseInputID button)
-		{
-			return m_InputState[(int)button].Axis;
+			return GetRawState((int)inputID).Axis;
 		}
 		#endregion
 
@@ -82,35 +76,35 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			m_IsActive |= ScreenDelta.sqrMagnitude > 0.1f;
 		}
 
-		protected override RawInputState GetRawState(int rawInputID)
+		protected override InputState GetRawState(int rawInputID)
 		{
 			if(m_Mouse == null)
 			{
-				return new RawInputState(false);
+				return new InputState(false);
 			}
 			EMouseInputID inputID = (EMouseInputID)rawInputID;
 			switch(inputID)
 			{
 				case EMouseInputID.Left:
-					return new RawInputState(m_Mouse.leftButton.isPressed);
+					return new InputState(m_Mouse.leftButton.isPressed);
 				case EMouseInputID.Right:
-					return new RawInputState(m_Mouse.rightButton.isPressed);
+					return new InputState(m_Mouse.rightButton.isPressed);
 				case EMouseInputID.Middle:
-					return new RawInputState(m_Mouse.middleButton.isPressed);
+					return new InputState(m_Mouse.middleButton.isPressed);
 				case EMouseInputID.Back:
-					return new RawInputState(m_Mouse.backButton.isPressed);
+					return new InputState(m_Mouse.backButton.isPressed);
 				case EMouseInputID.Forward:
-					return new RawInputState(m_Mouse.forwardButton.isPressed);
+					return new InputState(m_Mouse.forwardButton.isPressed);
 				default:
 					if(inputID.IsScroll())
 					{
 						float scrollValue = ReadScrollValue(inputID);
-						return new RawInputState(scrollValue >= 0.01f, scrollValue);
+						return new InputState(scrollValue >= 0.01f, scrollValue);
 					}
 					else if(inputID.IsMove())
 					{
 						float moveValue = ReadMoveValue(inputID);
-						return new RawInputState(moveValue >= MoveAxisDeadZone, moveValue);
+						return new InputState(moveValue >= MoveAxisDeadZone, moveValue);
 					}
 					throw new NotImplementedException();
 			}

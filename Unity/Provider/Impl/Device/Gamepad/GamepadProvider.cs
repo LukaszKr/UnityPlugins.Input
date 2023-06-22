@@ -15,10 +15,10 @@
 			GamepadID = gamepadID;
 		}
 
-		protected override RawInputState GetState()
+		protected override InputState GetState()
 		{
 			AGamepadDevice gamepad = GamepadID.GetGamepad();
-			return gamepad.Get(InputID).ToRaw();
+			return gamepad.Get(InputID);
 		}
 
 		protected override int OnCompareTo(AInputProvider other)
