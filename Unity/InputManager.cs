@@ -250,7 +250,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		#endregion
 
 		#region Providers
-		public void RecordProviders(List<AInputProvider> providers)
+		public void GetActiveProviders(List<AInputProvider> providers)
 		{
 			providers.Clear();
 			int count = m_InputDevices.Count;

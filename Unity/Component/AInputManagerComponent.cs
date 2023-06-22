@@ -31,7 +31,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 
 			List<AInputProvider> providers = new List<AInputProvider>();
-			Manager.RecordProviders(providers);
+			Manager.GetActiveProviders(providers);
 			if(providers.Count > 0)
 			{
 				string str = StringExt.JoinToString(providers);
