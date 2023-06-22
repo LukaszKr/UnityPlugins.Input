@@ -12,6 +12,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 	public class InputManagerEditor : AExtendedEditor<InputManagerComponent>
 	{
 		private const int LABEL_WIDTH = 100;
+		private readonly List<AInputProvider> m_Providers = new List<AInputProvider>();
 
 		protected override void Initialize()
 		{
@@ -123,21 +124,20 @@ namespace ProceduralLevel.UnityPlugins.Input.Editor
 			EditorGUILayout.EndHorizontal();
 		}
 
-		private void DrawDeviceInputState(string name, AInputDevice device, Type enumType, int minLineCount)
+		private void DrawDeviceInputState(string name, ABaseInputDevice device, Type enumType, int minLineCount)
 		{
-			InputState[] inputState = device.GetAllInputState();
+			m_Providers.Clear();
 
 			EditorGUILayout.LabelField(name, EditorStyles.boldLabel);
 			EditorGUILayout.BeginVertical(GUILayout.MinHeight(EditorStyles.label.TotalLineHeight()*minLineCount));
 			if(device.IsActive)
 			{
-				for(int x = 0; x < inputState.Length; ++x)
+				device.GetActiveProviders(m_Providers);
+				int count = m_Providers.Count;
+				for(int x = 0; x < count; ++x)
 				{
-					InputState state = inputState[x];
-					if(state.IsActive)
-					{
-						EditorGUILayout.LabelField(string.Format("{0} -> {1}", Enum.GetName(enumType, x), state.ToString()));
-					}
+					InputState state = m_Providers[x].State;
+					EditorGUILayout.LabelField(string.Format("{0} -> {1}", Enum.GetName(enumType, x), state.ToString()));
 				}
 			}
 			else

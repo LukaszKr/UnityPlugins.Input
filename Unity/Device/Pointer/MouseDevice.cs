@@ -38,18 +38,20 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		#region Getters
 		public InputState Get(EMouseInputID inputID)
 		{
-			return GetRawState((int)inputID);
+			return GetState((int)inputID);
 		}
 
 		public float GetAxis(EMouseInputID inputID)
 		{
-			return GetRawState((int)inputID).Axis;
+			return GetState((int)inputID).Axis;
 		}
 		#endregion
 
 		#region Update State
 		protected override void OnUpdateState()
 		{
+			base.OnUpdateState();
+
 			m_Mouse = Mouse.current;
 			if(m_Mouse != null)
 			{
@@ -76,7 +78,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			m_IsActive |= ScreenDelta.sqrMagnitude > 0.1f;
 		}
 
-		protected override InputState GetRawState(int rawInputID)
+		protected override InputState GetState(int rawInputID)
 		{
 			if(m_Mouse == null)
 			{
@@ -163,7 +165,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		}
 		#endregion
 
-		public override void RecordProviders(List<AInputProvider> providers)
+		public override void GetActiveProviders(List<AInputProvider> providers)
 		{
 			if(IsActive)
 			{

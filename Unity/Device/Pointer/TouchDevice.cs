@@ -42,6 +42,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		protected override void OnUpdateState()
 		{
+			base.OnUpdateState();
+
 			Touchscreen touchScreen = Touchscreen.current;
 			if(touchScreen != null)
 			{
@@ -78,13 +80,13 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			Count = 0;
 		}
 
-		protected override InputState GetRawState(int rawInputID)
+		protected override InputState GetState(int rawInputID)
 		{
 			return new InputState(Count > 0 && rawInputID < Count);
 		}
 		#endregion
 
-		public override void RecordProviders(List<AInputProvider> providers)
+		public override void GetActiveProviders(List<AInputProvider> providers)
 		{
 			if(IsActive)
 			{

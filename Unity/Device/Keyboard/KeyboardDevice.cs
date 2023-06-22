@@ -1,28 +1,36 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.Utilities;
 
 namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
-	public class KeyboardDevice : AInputDevice
+	public class KeyboardDevice : ABaseInputDevice
 	{
 		public static readonly KeyboardDevice Instance = new KeyboardDevice();
 
-		private const int INPUT_COUNT = 111;
+		private bool m_IsActive;
 		private Keyboard m_Keyboard = null;
+
+		public override bool IsActive => m_IsActive;
 
 		static KeyboardDevice()
 		{
 		}
 
 		public KeyboardDevice()
-			: base(EDeviceID.Keyboard, INPUT_COUNT)
+			: base(EDeviceID.Keyboard)
 		{
 		}
 
 		#region Getters
 		public InputState Get(Key inputID)
 		{
-			return m_InputState[(int)inputID];
+			if(m_Keyboard != null)
+			{
+				return new InputState(m_Keyboard[inputID].isPressed);
+			}
+			return new InputState(false);
 		}
 		#endregion
 
@@ -30,30 +38,26 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		protected override void OnUpdateState()
 		{
 			m_Keyboard = Keyboard.current;
+			m_IsActive = (m_Keyboard != null && m_Keyboard.anyKey.isPressed);
 		}
 
-		protected override InputState GetRawState(int rawInputID)
+		public override void ResetState()
 		{
-			if(rawInputID > 0 && m_Keyboard != null)
-			{
-				Key key = (Key)rawInputID;
-				return new InputState(m_Keyboard[key].isPressed);
-			}
-			return new InputState(false);
+			m_IsActive = false;
 		}
 		#endregion
 
-		public override void RecordProviders(List<AInputProvider> providers)
+		public override void GetActiveProviders(List<AInputProvider> providers)
 		{
 			if(IsActive)
 			{
-				int length = m_InputState.Length;
-				for(int x = 0; x < length; ++x)
+				ReadOnlyArray<KeyControl> keys = m_Keyboard.allKeys;
+				for(int x = 1; x < keys.Count; ++x)
 				{
-					InputState state = m_InputState[x];
-					if(state.IsActive)
+					KeyControl key = keys[x];
+					if(key.isPressed)
 					{
-						providers.Add(new KeyboardProvider((Key)x));
+						providers.Add(new KeyboardProvider(key.keyCode));
 					}
 				}
 			}

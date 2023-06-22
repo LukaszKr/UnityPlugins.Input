@@ -43,6 +43,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		#region Update State
 		protected override void OnUpdateState()
 		{
+			base.OnUpdateState();
 			m_Gamepad = GamepadID.GetUnityGamepad();
 
 			if(m_Gamepad != null)
@@ -51,7 +52,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 		}
 
-		protected override InputState GetRawState(int rawInputID)
+		protected override InputState GetState(int rawInputID)
 		{
 			if(m_Gamepad == null)
 			{
@@ -111,7 +112,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 		}
 
-		public override void RecordProviders(List<AInputProvider> providers)
+		public override void GetActiveProviders(List<AInputProvider> providers)
 		{
 			//leave empty to avoid duplications from each of separate gamepads
 		}

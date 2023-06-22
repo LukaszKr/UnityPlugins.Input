@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
 	public class InputManager
 	{
-		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
+		private readonly List<ABaseInputDevice> m_InputDevices = new List<ABaseInputDevice>();
 
 		private int m_UpdateTick;
 		protected readonly List<InputLayer> m_ActiveLayers = new List<InputLayer>();
@@ -65,7 +65,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			int count = m_InputDevices.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				AInputDevice device = m_InputDevices[x];
+				ABaseInputDevice device = m_InputDevices[x];
 				if(device.Enabled)
 				{
 					device.UpdateState(m_UpdateTick);
@@ -85,14 +85,14 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			int count = m_InputDevices.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				AInputDevice device = m_InputDevices[x];
+				ABaseInputDevice device = m_InputDevices[x];
 				device.ResetState();
 			}
 		}
 		#endregion
 
 		#region Device Management
-		public bool RegisterDevice(AInputDevice device, bool priority = false)
+		public bool RegisterDevice(ABaseInputDevice device, bool priority = false)
 		{
 			if(!m_InputDevices.Contains(device))
 			{
@@ -109,7 +109,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			return false;
 		}
 
-		public bool UnregisterDevice(AInputDevice device)
+		public bool UnregisterDevice(ABaseInputDevice device)
 		{
 			return m_InputDevices.Remove(device);
 		}
@@ -124,7 +124,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 		}
 
-		public void SetActiveDevice(AInputDevice device)
+		public void SetActiveDevice(ABaseInputDevice device)
 		{
 			TrySetActiveDevice(device.ID);
 		}
@@ -256,8 +256,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			int count = m_InputDevices.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				AInputDevice device = m_InputDevices[x];
-				device.RecordProviders(providers);
+				ABaseInputDevice device = m_InputDevices[x];
+				device.GetActiveProviders(providers);
 			}
 		}
 		#endregion

@@ -41,6 +41,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		#region Update State
 		protected override void OnUpdateState()
 		{
+			base.OnUpdateState();
+
 			GamepadDevice[] gamepads = GamepadDevice.Gamepads;
 			int length = gamepads.Length;
 			for(int x = 0; x < length; ++x)
@@ -58,7 +60,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 		}
 
-		protected override InputState GetRawState(int rawInputID)
+		protected override InputState GetState(int rawInputID)
 		{
 			if(m_ActiveGamepad != null)
 			{
@@ -76,7 +78,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			}
 		}
 
-		public override void RecordProviders(List<AInputProvider> providers)
+		public override void GetActiveProviders(List<AInputProvider> providers)
 		{
 			if(IsActive)
 			{

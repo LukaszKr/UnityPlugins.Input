@@ -1,23 +1,15 @@
-﻿using System.Collections.Generic;
-
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+﻿namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
-	public abstract class AInputDevice
+	public abstract class AInputDevice : ABaseInputDevice
 	{
+		protected bool m_IsActive;
 		protected InputState[] m_InputState;
 
-		protected bool m_IsActive;
+		public override bool IsActive => m_IsActive;
 
-		public bool IsActive => m_IsActive;
-
-		public readonly EDeviceID ID;
-		public bool Enabled = true;
-
-		private int m_LastUpdateTick;
-
-		public AInputDevice(EDeviceID id, int inputCount)
+		protected AInputDevice(EDeviceID id, int inputCount)
+			: base(id)
 		{
-			ID = id;
 			m_InputState = new InputState[inputCount];
 		}
 
@@ -26,27 +18,21 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			return m_InputState;
 		}
 
-		public void UpdateState(int updateTick)
+		protected override void OnUpdateState()
 		{
 			m_IsActive = false;
-
-			if(m_LastUpdateTick+1 != updateTick)
-			{
-				OnSkippedFrame();
-			}
-			m_LastUpdateTick = updateTick;
-			OnUpdateState();
-
 			int length = m_InputState.Length;
 			for(int rawInputID = 0; rawInputID < length; ++rawInputID)
 			{
-				InputState rawInput = GetRawState(rawInputID);
+				InputState rawInput = GetState(rawInputID);
 				m_InputState[rawInputID] = rawInput;
 				m_IsActive |= rawInput.IsActive;
 			}
 		}
 
-		public virtual void ResetState()
+		protected abstract InputState GetState(int rawInputID);
+
+		public override void ResetState()
 		{
 			m_IsActive = false;
 
@@ -56,12 +42,5 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 				m_InputState[x] = default;
 			}
 		}
-
-		protected virtual void OnSkippedFrame() { }
-
-		protected abstract void OnUpdateState();
-		protected abstract InputState GetRawState(int rawInputID);
-
-		public abstract void RecordProviders(List<AInputProvider> providers);
 	}
 }
