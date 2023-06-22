@@ -28,7 +28,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 
 		protected override string ToStringImpl()
 		{
-			return $"{InputID}";
+			return InputID.ToString();
 		}
 	}
 }

@@ -26,7 +26,7 @@
 
 		protected override string ToStringImpl()
 		{
-			return $"{InputID}";
+			return InputID.ToString();
 		}
 	}
 }
