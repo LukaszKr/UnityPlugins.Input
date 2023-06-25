@@ -57,6 +57,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 			if(m_ActiveGamepad != null)
 			{
 				m_IsActive = m_ActiveGamepad.IsActive;
+				m_IsAnyKeyActive = m_ActiveGamepad.IsAnyKeyActive;
 			}
 		}
 

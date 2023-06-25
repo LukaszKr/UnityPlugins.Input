@@ -13,6 +13,7 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 		private Keyboard m_Keyboard = null;
 
 		public override bool IsActive => m_IsActive;
+		public override bool IsAnyKeyActive => m_IsActive;
 
 		static KeyboardDevice()
 		{

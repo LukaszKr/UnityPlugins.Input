@@ -4,8 +4,8 @@ namespace ProceduralLevel.UnityPlugins.Input.Unity
 {
 	public abstract class ABaseInputDevice
 	{
-
 		public abstract bool IsActive { get; }
+		public abstract bool IsAnyKeyActive { get; }
 
 		public readonly EDeviceID ID;
 		public bool Enabled = true;
