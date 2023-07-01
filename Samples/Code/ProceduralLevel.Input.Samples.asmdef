@@ -1,16 +1,15 @@
 {
-    "name": "ProceduralLevel.UnityPlugins.Input.Unity",
-    "rootNamespace": "ProceduralLevel.UnityPlugins.Input.Unity",
+    "name": "ProceduralLevel.Input.Samples",
+    "rootNamespace": "ProceduralLevel.Input.Samples",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:7beb5c7201ff0194aa34fefed6f62094"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
-    "precompiledReferences": [
-        "ProceduralLevel.Common.dll"
-    ],
+    "precompiledReferences": [],
     "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public class DetectorUpdater
 	{

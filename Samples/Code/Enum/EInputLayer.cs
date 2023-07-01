@@ -1,4 +1,4 @@
-﻿namespace ProceduralLevel.UnityPlugins.Input.Example
+﻿namespace ProceduralLevel.Input.Example
 {
 	public enum EInputLayer
 	{

@@ -1,4 +1,4 @@
-﻿namespace ProceduralLevel.UnityPlugins.Input.Unity
+﻿namespace ProceduralLevel.Input.Unity
 {
 	public abstract class ADeviceInputProvider : AInputProvider
 	{

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public static class InputProviderListExt
 	{

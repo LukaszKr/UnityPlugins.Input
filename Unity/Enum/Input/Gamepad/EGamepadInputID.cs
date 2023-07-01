@@ -1,7 +1,7 @@
 ﻿using ProceduralLevel.Common.Ext;
 using UnityEngine.InputSystem.LowLevel;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public enum EGamepadInputID : byte
 	{

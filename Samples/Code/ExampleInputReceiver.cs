@@ -1,8 +1,8 @@
-﻿using ProceduralLevel.UnityPlugins.Input.Unity;
+﻿using ProceduralLevel.Input.Unity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace ProceduralLevel.UnityPlugins.Input.Example
+namespace ProceduralLevel.Input.Example
 {
 	public class ExampleInputReceiver : MonoBehaviour, IInputReceiver
 	{

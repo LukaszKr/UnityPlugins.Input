@@ -1,6 +1,6 @@
 ﻿using ProceduralLevel.Common.Ext;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public enum EDeviceGroup : byte
 	{

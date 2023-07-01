@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XInput;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public enum EGamepadType : byte
 	{

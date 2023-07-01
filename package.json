@@ -1,12 +1,12 @@
 {
-	"name": "procedurallevel.unityplugins.input",
-	"version": "1.10.0",
+	"name": "procedurallevel.input",
+	"version": "1.11.0",
 	"displayName": "Input",
 	"description": "",
 	"unity": "2020.3",
 	"unityRelease": "14f1",
 	"dependencies": {
-		"procedurallevel.unityplugins.common": "https://github.com/LukaszKr/UnityPlugins.Common.git"
+		"procedurallevel.common": "https://github.com/LukaszKr/UnityPlugins.Common.git"
 	},
 	"keywords": [
 	],

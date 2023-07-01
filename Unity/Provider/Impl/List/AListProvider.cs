@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ProceduralLevel.Common.Ext;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public abstract class AListProvider : AInputProvider, IProviderContainer
 	{

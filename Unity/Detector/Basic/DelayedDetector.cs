@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public abstract class DelayedDetector : DurationDetector
 	{

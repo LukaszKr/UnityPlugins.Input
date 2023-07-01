@@ -1,6 +1,6 @@
 ﻿using UnityEngine.InputSystem;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public abstract class AGamepadDevice : AInputDevice
 	{

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public struct TouchData
 	{

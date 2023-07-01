@@ -1,7 +1,7 @@
-﻿using ProceduralLevel.UnityPlugins.Input.Unity;
+﻿using ProceduralLevel.Input.Unity;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.Input.Example
+namespace ProceduralLevel.Input.Example
 {
 	public class ExampleInputManagerComponent : InputManagerComponent
 	{

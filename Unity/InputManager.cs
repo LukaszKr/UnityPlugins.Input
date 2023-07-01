@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ProceduralLevel.Common.Event;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.Input.Unity
+namespace ProceduralLevel.Input.Unity
 {
 	public class InputManager
 	{
