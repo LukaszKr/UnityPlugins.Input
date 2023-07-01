@@ -10,6 +10,13 @@
 	},
 	"keywords": [
 	],
+	"samples": [
+		{
+			"displayName": "Sample",
+			"description": "Sample",
+			"path": "Samples/"
+		}
+	],
 	"author": {
 		"name": "Procedural Level",
 		"url": "https://www.procedurallevel.com"
