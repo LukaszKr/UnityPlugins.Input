@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ProceduralLevel.Common.Editor;
 using ProceduralLevel.Input.Unity;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace ProceduralLevel.Input.Editor
 {
-	[CustomEditor(typeof(InputManagerComponent), true)]
-	public class InputManagerEditor : AExtendedEditor<InputManagerComponent>
+	[CustomEditor(typeof(AInputManagerComponent), true)]
+	public class InputManagerEditor : AExtendedEditor<AInputManagerComponent>
 	{
 		private const int LABEL_WIDTH = 100;
 		private readonly List<AInputProvider> m_Providers = new List<AInputProvider>();

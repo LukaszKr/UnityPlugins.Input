@@ -29,9 +29,9 @@ namespace ProceduralLevel.Input.Unity
 		{
 			if(m_Keyboard != null)
 			{
-				return new InputState(m_Keyboard[inputID].isPressed);
+				return new InputState(m_Keyboard[inputID]);
 			}
-			return new InputState(false);
+			return new InputState();
 		}
 		#endregion
 

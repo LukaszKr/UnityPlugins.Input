@@ -17,17 +17,17 @@ namespace ProceduralLevel.Input.Unity
 		{
 			float axis = 0f;
 			bool isRealAxis = false;
-			bool isAnyProviderActive = false;
 			m_UsedProvider = null;
+			EInputStatus status = EInputStatus.Released;
 
 			int count = m_Providers.Count;
 			for(int x = 0; x < count; ++x)
 			{
 				AInputProvider provider = m_Providers[x];
 				InputState data = provider.UpdateState(m_UpdateTick);
+				status = (data.Status > status? data.Status: status);
 				if(data.IsActive)
 				{
-					isAnyProviderActive = true;
 					m_UsedProvider = provider;
 					if(data.IsRealAxis)
 					{
@@ -41,7 +41,7 @@ namespace ProceduralLevel.Input.Unity
 				}
 			}
 
-			return new InputState(isAnyProviderActive, axis, isRealAxis);
+			return new InputState(status, axis, isRealAxis);
 		}
 	}
 }

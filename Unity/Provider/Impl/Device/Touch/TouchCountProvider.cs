@@ -15,7 +15,7 @@
 
 		protected override InputState GetState()
 		{
-			return new InputState(TouchDevice.Instance.Count == Count);
+			return new InputState(TouchDevice.Instance.Count == Count ? EInputStatus.Pressed : EInputStatus.Released);
 		}
 
 		protected override int OnCompareTo(AInputProvider other)

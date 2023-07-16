@@ -11,7 +11,6 @@
 		private bool m_DeactivatedThisFrame;
 		private bool m_WasInputActive;
 
-		public InputState InputState => m_InputState;
 		public bool Active => m_Active;
 		public bool ActivatedThisFrame => m_ActivatedThisFrame;
 		public bool DeactivatedThisFrame => m_DeactivatedThisFrame;
@@ -45,7 +44,7 @@
 			{
 				m_WasInputActive = true;
 				bool oldActive = m_Active;
-				m_Active = OnInputUpdate(deltaTime);
+				m_Active = OnInputUpdate(m_InputState, deltaTime);
 				m_ActivatedThisFrame = (!oldActive && m_Active);
 			}
 			else if(m_WasInputActive)
@@ -70,7 +69,7 @@
 			OnInputReset();
 		}
 
-		protected abstract bool OnInputUpdate(float deltaTime);
+		protected abstract bool OnInputUpdate(InputState inputState, float deltaTime);
 		protected abstract void OnInputReset();
 
 		#region Providers

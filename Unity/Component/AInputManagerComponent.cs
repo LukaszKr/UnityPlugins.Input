@@ -2,10 +2,9 @@
 
 namespace ProceduralLevel.Input.Unity
 {
-	public abstract class AInputManagerComponent<TInputManager> : MonoBehaviour
-		where TInputManager : InputManager, new()
+	public abstract class AInputManagerComponent : MonoBehaviour
 	{
-		public abstract TInputManager Manager { get; }
+		public abstract InputManager Manager { get; }
 
 		private void OnDestroy()
 		{

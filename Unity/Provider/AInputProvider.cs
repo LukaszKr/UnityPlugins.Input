@@ -19,7 +19,7 @@ namespace ProceduralLevel.Input.Unity
 			}
 			if(oldTick != m_UpdateTick-1)
 			{
-				m_State = new InputState(false);
+				m_State = new InputState();
 			}
 			else
 			{

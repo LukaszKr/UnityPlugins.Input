@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.Input.Unity
 {
-	public class InputManagerComponent : AInputManagerComponent<InputManager>
+	public class InputManagerComponent : AInputManagerComponent
 	{
 		private InputManager _manager;
 

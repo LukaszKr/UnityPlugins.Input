@@ -10,6 +10,8 @@ namespace ProceduralLevel.Input.Example
 		private ExampleInputManagerComponent m_InputManager = null;
 		[SerializeField]
 		private Transform m_RotateTarget = null;
+		[SerializeField]
+		private ExampleOverlayInputReceiver m_Overlay = null;
 
 		private DetectorUpdater m_Updater;
 
@@ -78,7 +80,8 @@ namespace ProceduralLevel.Input.Example
 		{
 			if(m_TriggerTest.Active)
 			{
-				Debug.Log("Trigger");
+				Debug.Log("OPEN OVERLAY");
+				inputManager.PushReceiver(m_Overlay, m_Overlay.Updater, new InputLayerDefinition("Overlay", 1, true));
 			}
 
 			if(m_CloneA.Active)

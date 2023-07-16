@@ -6,7 +6,7 @@ namespace ProceduralLevel.Input.Unity
 	{
 		public float Duration { get; private set; }
 
-		protected override bool OnInputUpdate(float deltaTime)
+		protected override bool OnInputUpdate(InputState inputState, float deltaTime)
 		{
 			Duration += deltaTime;
 			return true;

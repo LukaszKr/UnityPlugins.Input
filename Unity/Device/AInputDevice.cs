@@ -28,14 +28,14 @@
 			int length = m_InputState.Length;
 			for(int rawInputID = 0; rawInputID < length; ++rawInputID)
 			{
-				InputState rawInput = GetState(rawInputID);
-				m_InputState[rawInputID] = rawInput;
+				RawInputState rawInput = GetState(rawInputID);
+				m_InputState[rawInputID] = m_InputState[rawInputID].Combine(rawInput);
 				m_IsActive |= rawInput.IsActive;
 				m_IsAnyKeyActive |= rawInput.IsActive;
 			}
 		}
 
-		protected abstract InputState GetState(int rawInputID);
+		protected abstract RawInputState GetState(int rawInputID);
 
 		public override void ResetState()
 		{

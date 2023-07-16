@@ -31,9 +31,9 @@
 			}
 		}
 
-		protected override bool OnInputUpdate(float deltaTime)
+		protected override bool OnInputUpdate(InputState inputState, float deltaTime)
 		{
-			base.OnInputUpdate(deltaTime);
+			base.OnInputUpdate(inputState, deltaTime);
 
 			bool updated = false;
 			while(Duration >= m_NextTrigger)

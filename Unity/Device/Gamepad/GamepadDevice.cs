@@ -52,22 +52,22 @@ namespace ProceduralLevel.Input.Unity
 			}
 		}
 
-		protected override InputState GetState(int rawInputID)
+		protected override RawInputState GetState(int rawInputID)
 		{
 			if(m_Gamepad == null)
 			{
-				return new InputState(false);
+				return new RawInputState();
 			}
 			EGamepadInputID inputID = (EGamepadInputID)rawInputID;
 			if(inputID.IsAxis())
 			{
 				float axisValue = ReadAxisValue(inputID);
-				return new InputState(axisValue >= AxisDeadZone, axisValue);
+				return new RawInputState(axisValue >= AxisDeadZone, axisValue);
 			}
 			else
 			{
 				bool buttonState = m_Gamepad[inputID.ToUnity()].isPressed;
-				return new InputState(buttonState);
+				return new RawInputState(buttonState);
 			}
 		}
 

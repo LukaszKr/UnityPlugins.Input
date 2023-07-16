@@ -38,12 +38,7 @@ namespace ProceduralLevel.Input.Unity
 		#region Getters
 		public InputState Get(EMouseInputID inputID)
 		{
-			return GetState((int)inputID);
-		}
-
-		public float GetAxis(EMouseInputID inputID)
-		{
-			return GetState((int)inputID).Axis;
+			return m_InputState[(int)inputID];
 		}
 		#endregion
 
@@ -78,35 +73,35 @@ namespace ProceduralLevel.Input.Unity
 			m_IsActive |= ScreenDelta.sqrMagnitude > 0.1f;
 		}
 
-		protected override InputState GetState(int rawInputID)
+		protected override RawInputState GetState(int rawInputID)
 		{
 			if(m_Mouse == null)
 			{
-				return new InputState(false);
+				return new RawInputState(false);
 			}
 			EMouseInputID inputID = (EMouseInputID)rawInputID;
 			switch(inputID)
 			{
 				case EMouseInputID.Left:
-					return new InputState(m_Mouse.leftButton.isPressed);
+					return new RawInputState(m_Mouse.leftButton.isPressed);
 				case EMouseInputID.Right:
-					return new InputState(m_Mouse.rightButton.isPressed);
+					return new RawInputState(m_Mouse.rightButton.isPressed);
 				case EMouseInputID.Middle:
-					return new InputState(m_Mouse.middleButton.isPressed);
+					return new RawInputState(m_Mouse.middleButton.isPressed);
 				case EMouseInputID.Back:
-					return new InputState(m_Mouse.backButton.isPressed);
+					return new RawInputState(m_Mouse.backButton.isPressed);
 				case EMouseInputID.Forward:
-					return new InputState(m_Mouse.forwardButton.isPressed);
+					return new RawInputState(m_Mouse.forwardButton.isPressed);
 				default:
 					if(inputID.IsScroll())
 					{
 						float scrollValue = ReadScrollValue(inputID);
-						return new InputState(scrollValue >= 0.01f, scrollValue);
+						return new RawInputState(scrollValue >= 0.01f, scrollValue);
 					}
 					else if(inputID.IsMove())
 					{
 						float moveValue = ReadMoveValue(inputID);
-						return new InputState(moveValue >= MoveAxisDeadZone, moveValue);
+						return new RawInputState(moveValue >= MoveAxisDeadZone, moveValue);
 					}
 					throw new NotImplementedException();
 			}

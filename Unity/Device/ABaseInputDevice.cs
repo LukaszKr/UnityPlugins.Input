@@ -19,7 +19,6 @@ namespace ProceduralLevel.Input.Unity
 
 		public void UpdateState(int updateTick)
 		{
-
 			if(m_LastUpdateTick+1 != updateTick)
 			{
 				OnSkippedFrame();

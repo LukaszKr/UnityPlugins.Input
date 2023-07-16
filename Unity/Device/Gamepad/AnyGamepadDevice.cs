@@ -25,7 +25,7 @@ namespace ProceduralLevel.Input.Unity
 			{
 				return m_ActiveGamepad.Get(inputID);
 			}
-			return new InputState(false);
+			return new InputState();
 		}
 
 		public override float GetAxis(EGamepadInputID inputID)
@@ -61,13 +61,13 @@ namespace ProceduralLevel.Input.Unity
 			}
 		}
 
-		protected override InputState GetState(int rawInputID)
+		protected override RawInputState GetState(int rawInputID)
 		{
 			if(m_ActiveGamepad != null)
 			{
-				return m_ActiveGamepad.Get((EGamepadInputID)rawInputID);
+				return new RawInputState(m_ActiveGamepad.Get((EGamepadInputID)rawInputID).IsActive);
 			}
-			return new InputState(false);
+			return new RawInputState(false);
 		}
 		#endregion
 

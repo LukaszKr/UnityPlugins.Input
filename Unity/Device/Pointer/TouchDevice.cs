@@ -80,9 +80,9 @@ namespace ProceduralLevel.Input.Unity
 			Count = 0;
 		}
 
-		protected override InputState GetState(int rawInputID)
+		protected override RawInputState GetState(int rawInputID)
 		{
-			return new InputState(Count > 0 && rawInputID < Count);
+			return new RawInputState(Count > 0 && rawInputID < Count);
 		}
 		#endregion
 
