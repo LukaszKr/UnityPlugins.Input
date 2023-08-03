@@ -40,7 +40,7 @@ namespace ProceduralLevel.Input.Example
 			m_ShortcutB = new DurationDetector();
 			m_ShortcutB.Add(Key.LeftCtrl);
 
-			m_TriggerTest = new TriggerDetector().Add(Key.Space);
+			m_TriggerTest = new DurationDetector().Add(Key.Space);
 
 			m_Interval = new IntervalDetector(0f, 0.5f, 0.4f, 0.3f, 0.2f)
 				.Add(Key.I);
@@ -78,7 +78,7 @@ namespace ProceduralLevel.Input.Example
 
 		public void UpdateInput(InputManager inputManager)
 		{
-			if(m_TriggerTest.Active)
+			if(m_TriggerTest.ActivatedThisFrame)
 			{
 				Debug.Log("OPEN OVERLAY");
 				inputManager.PushReceiver(m_Overlay, m_Overlay.Updater, new InputLayerDefinition("Overlay", 1, true));

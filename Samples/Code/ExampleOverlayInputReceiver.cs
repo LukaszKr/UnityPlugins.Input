@@ -12,14 +12,14 @@ namespace ProceduralLevel.Input
 
 		public ExampleOverlayInputReceiver()
 		{
-			m_TriggerTest = new TriggerDetector().Add(Key.Space);
+			m_TriggerTest = new DurationDetector().Add(Key.Space);
 
 			Updater = new DetectorUpdater(m_TriggerTest);
 		}
 
 		public void UpdateInput(InputManager inputManager)
 		{
-			if(m_TriggerTest.Active)
+			if(m_TriggerTest.ActivatedThisFrame)
 			{
 				Debug.Log("CLOSE OVERLAY");
 				inputManager.PopReceiver(this);
