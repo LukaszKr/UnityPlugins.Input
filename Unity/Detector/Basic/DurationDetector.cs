@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ProceduralLevel.Input.Unity
+﻿namespace ProceduralLevel.Input.Unity
 {
 	public class DurationDetector : AInputDetector
 	{
