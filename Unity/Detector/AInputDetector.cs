@@ -64,6 +64,7 @@
 		private void ResetState()
 		{
 			m_WasInputActive = false;
+			m_ActivatedThisFrame = false;
 			m_DeactivatedThisFrame = true;
 			m_Active = false;
 			OnInputReset();
