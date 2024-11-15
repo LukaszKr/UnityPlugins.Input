@@ -17,7 +17,6 @@ namespace UnityPlugins.Input.Unity
 			{
 				return new RawInputState(false);
 			}
-
 		}
 	}
 }

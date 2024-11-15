@@ -47,5 +47,25 @@ namespace UnityPlugins.Input.Unity.State.Enums
 			test.Run();
 		}
 		#endregion
+
+		[Test]
+		[TestCase(EInputStatus.JustPressed, true)]
+		[TestCase(EInputStatus.Pressed, true)]
+		[TestCase(EInputStatus.JustReleased, false)]
+		[TestCase(EInputStatus.Released, false)]
+		public void IsPressed(EInputStatus status, bool expected)
+		{
+			Assert.AreEqual(expected, status.IsPressed());
+		}
+
+		[Test]
+		[TestCase(EInputStatus.JustPressed, false)]
+		[TestCase(EInputStatus.Pressed, false)]
+		[TestCase(EInputStatus.JustReleased, true)]
+		[TestCase(EInputStatus.Released, true)]
+		public void ISReleased(EInputStatus status, bool expected)
+		{
+			Assert.AreEqual(expected, status.IsReleased());
+		}
 	}
 }
