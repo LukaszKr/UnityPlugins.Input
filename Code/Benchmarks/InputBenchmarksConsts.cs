@@ -1,4 +1,4 @@
-namespace UnityPlugins.Input.Benchmarks
+namespace UnityPlugins.Input
 {
 	public static class InputBenchmarksConsts
 	{
