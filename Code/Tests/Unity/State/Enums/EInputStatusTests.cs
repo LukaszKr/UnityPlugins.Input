@@ -41,8 +41,8 @@ namespace UnityPlugins.Input.Unity.State.Enums
 			new GetNextTest(EInputStatus.Pressed, EInputStatus.Pressed, true),
 		};
 
-		[Test]
-		public void GetNext([ValueSource(nameof(m_GetNextTests))] GetNextTest test)
+		[Test, TestCaseSource(nameof(m_GetNextTests))]
+		public void GetNext(GetNextTest test)
 		{
 			test.Run();
 		}
