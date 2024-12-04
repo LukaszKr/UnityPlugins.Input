@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using UnityEngine.TestTools;
 
 namespace UnityPlugins.Input.Unity.Providers
 {
