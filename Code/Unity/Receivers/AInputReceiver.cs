@@ -23,11 +23,11 @@
 				m_IsActive = active;
 				if(active)
 				{
-					GameInputManager.Instance.Receivers.PushReceiver(this, m_Updater, InputLayer);
+					InputManager.Instance.Receivers.PushReceiver(this, m_Updater, InputLayer);
 				}
 				else
 				{
-					GameInputManager.Instance.Receivers.PopReceiver(this);
+					InputManager.Instance.Receivers.PopReceiver(this);
 				}
 			}
 		}

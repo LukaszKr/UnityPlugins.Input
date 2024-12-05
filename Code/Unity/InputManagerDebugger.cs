@@ -10,7 +10,7 @@ namespace UnityPlugins.Input.Unity
 		private static readonly StringBuilder m_StringBuilder = new StringBuilder();
 
 		#region Debug
-		public static void DrawDebugGUI(GameInputManager manager)
+		public static void DrawDebugGUI(InputManager manager)
 		{
 			TouchDevice touchDevice = TouchDevice.Instance;
 			TouchData[] touches = touchDevice.Touches;

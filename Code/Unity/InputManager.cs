@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace UnityPlugins.Input.Unity
 {
-	public class GameInputManager
+	public class InputManager
 	{
-		public static readonly GameInputManager Instance = new GameInputManager();
+		public static readonly InputManager Instance = new InputManager();
 
 		private readonly List<AInputDevice> m_InputDevices = new List<AInputDevice>();
 
@@ -20,7 +20,7 @@ namespace UnityPlugins.Input.Unity
 
 		public readonly CustomEvent<AInputDevice> OnActiveDeviceChanged = new CustomEvent<AInputDevice>();
 
-		private GameInputManager()
+		private InputManager()
 		{
 			RegisterDevices();
 		}
