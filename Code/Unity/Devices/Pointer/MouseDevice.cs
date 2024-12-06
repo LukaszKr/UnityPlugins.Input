@@ -55,8 +55,14 @@ namespace UnityPlugins.Input.Unity
 				float scrollX = NormalizeScroll(rawScroll.x)*ScrollSensitivity;
 				float scrollY = NormalizeScroll(rawScroll.y)*ScrollSensitivity;
 				m_Scroll = new Vector2(scrollX, scrollY);
+				Vector2 oldPosition = m_Position;
 				m_Position = m_Mouse.position.ReadValue();
-				m_ScreenDelta = m_Mouse.delta.ReadValue();
+				//can't use mouse.detal here due to unity not applying screen scale to delta, but it applies it to position
+				//let's say you force 1920x1080 resolultion on game window, but its' not taking whole screen so it's at 0.5 scale
+				//lower right corner mouse position will be 1920x1080, but delta movement will be only 960x540 pixels.
+				//delta is real screen pixels, while mouse position is window actual.
+				//so using mouse.delta would lead to different behaviour of drag sensitivity
+				m_ScreenDelta = m_Position-oldPosition;
 			}
 			else
 			{

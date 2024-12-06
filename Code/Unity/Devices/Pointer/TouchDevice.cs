@@ -59,8 +59,10 @@ namespace UnityPlugins.Input.Unity
 					TouchControl touch = unityTouches[x];
 					if(touch.isInProgress)
 					{
+						TouchData oldTouchData = Touches[activeTouchOffset];
 						Vector2 position = touch.position.ReadValue();
-						Vector2 screenDelta = touch.delta.ReadValue();
+						//touch.delta.ReadValue();
+						Vector2 screenDelta = position-oldTouchData.Position;
 						Vector2 rawDelta = new Vector2(screenDelta.x/screenRect.width, screenDelta.y/screenRect.height);
 						Vector2 delta = new Vector2(rawDelta.x*DeltaSensitivityX, rawDelta.y*DeltaSensitivityY);
 						Touches[activeTouchOffset++] = new TouchData(position, screenDelta, rawDelta, delta);
