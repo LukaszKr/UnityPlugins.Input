@@ -1,5 +1,6 @@
 ﻿using UnityPlugins.Input.Unity.Providers;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace UnityPlugins.Input.Unity.Detectors.Basic
 {
@@ -63,6 +64,16 @@ namespace UnityPlugins.Input.Unity.Detectors.Basic
 			Assert.IsFalse(detector.IsActive);
 
 			detector.Update(4, 0.1f);
+			Assert.IsTrue(detector.IsActive);
+		}
+
+		[Test, Description("0f interval should not cause infinite loop.")]
+		public void IntervalEqualToZero_NoInfiniteLoop()
+		{
+			IntervalDetector detector = new IntervalDetector(0.1f, 0f);
+			detector.Add(new TestInputProvider(new RawInputState(true)));
+
+			detector.Update(1, 1f);
 			Assert.IsTrue(detector.IsActive);
 		}
 	}

@@ -1,4 +1,6 @@
-﻿namespace UnityPlugins.Input.Unity
+﻿using UnityEngine.Analytics;
+
+namespace UnityPlugins.Input.Unity
 {
 	public class IntervalDetector : DurationDetector
 	{
@@ -29,7 +31,10 @@
 			while(Duration >= m_NextTriggerAt)
 			{
 				intervalHit = true;
-				UpdateInterval();
+				if(!UpdateInterval())
+				{
+					break;
+				}
 			}
 			return intervalHit;
 		}
@@ -48,14 +53,17 @@
 			Restart();
 		}
 
-		private void UpdateInterval()
+		private bool UpdateInterval()
 		{
 			if(m_IntervalIndex < m_Intervals.Length-1)
 			{
 				m_IntervalIndex++;
 				m_CurrentInterval = m_Intervals[m_IntervalIndex];
 			}
+			float prevTriggerAt = m_NextTriggerAt;
 			m_NextTriggerAt += CurrentInterval;
+			//if they are equal, infinite loop would happen
+			return m_NextTriggerAt > prevTriggerAt;
 		}
 
 		public override string ToString()
