@@ -1,6 +1,4 @@
-﻿using UnityEngine.Analytics;
-
-namespace UnityPlugins.Input.Unity
+﻿namespace UnityPlugins.Input.Unity
 {
 	public class IntervalDetector : DurationDetector
 	{

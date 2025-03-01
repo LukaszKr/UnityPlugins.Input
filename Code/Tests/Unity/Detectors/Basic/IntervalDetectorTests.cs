@@ -1,6 +1,5 @@
 ﻿using UnityPlugins.Input.Unity.Providers;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace UnityPlugins.Input.Unity.Detectors.Basic
 {
