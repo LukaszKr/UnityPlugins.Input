@@ -8,6 +8,7 @@ namespace UnityPlugins.Input.Unity
 	{
 		protected readonly List<AInputProvider> m_Providers = new List<AInputProvider>();
 
+		public IReadOnlyList<AInputProvider> Providers => m_Providers;
 		public int Count => m_Providers.Count;
 
 		public AGroupProvider Add(AInputProvider provider)
