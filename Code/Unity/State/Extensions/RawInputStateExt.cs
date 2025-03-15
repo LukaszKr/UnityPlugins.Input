@@ -5,13 +5,9 @@ namespace UnityPlugins.Input.Unity
 	{
 		public static RawInputState ToRawInputState(this ButtonControl control)
 		{
-			bool isRealAxis = false;
-			float axis;
-
 			if(control.isPressed)
 			{
-				axis = 1f;
-				return new RawInputState(axis, isRealAxis);
+				return new RawInputState(1f, false);
 			}
 			else
 			{

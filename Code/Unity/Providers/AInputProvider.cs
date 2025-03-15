@@ -6,6 +6,7 @@ namespace UnityPlugins.Input.Unity
 	{
 		private InputState m_State;
 		private int m_LastUpdateTick;
+		private bool m_EnabledInMiddleOfInput;
 
 		public InputState State => m_State;
 
@@ -18,9 +19,19 @@ namespace UnityPlugins.Input.Unity
 				case 0:
 					return; //already updated in this frame
 				case 1:
-					m_State = m_State.Combine(GetRawState());
+					RawInputState rawState = GetRawState();
+					if(rawState.IsActive && m_EnabledInMiddleOfInput)
+					{
+						m_State = new InputState(EInputStatus.Released);
+					}
+					else
+					{
+						m_EnabledInMiddleOfInput = false;
+						m_State = m_State.Combine(rawState);
+					}
 					break;
 				default: //skipped update frame, reset state
+					m_EnabledInMiddleOfInput = true;
 					m_State = new InputState(EInputStatus.Released);
 					break;
 			}
