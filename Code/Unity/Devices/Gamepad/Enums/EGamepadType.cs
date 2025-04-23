@@ -1,4 +1,6 @@
 ﻿using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.Switch;
 using UnityEngine.InputSystem.XInput;
 using UnityPlugins.Common.Logic;
 
@@ -13,17 +15,13 @@ namespace UnityPlugins.Input.Unity
 
 		DualShockPS3 = 3,
 		DualShockPS4 = 4,
+		DualShockPS5 = 5,
 
-		SwitchPro = 5,
+		SwitchPro = 6,
 	}
 
 	public static class EGamepadTypeExt
 	{
-		public const string XBOX360 = "XInputControllerWindows";
-		public const string DUALSHOCK3 = "DualShock3GamepadHID";
-		public const string DUALSHOCK4 = "DualShock4GamepadHID";
-		public const string SWITCH_PRO = "SwitchProControllerHID";
-
 		public static readonly EnumExt<EGamepadType> Meta = new EnumExt<EGamepadType>();
 
 		public static bool IsXbox(this EGamepadType type)
@@ -38,26 +36,35 @@ namespace UnityPlugins.Input.Unity
 
 		public static EGamepadType FromGamepad(Gamepad gamepad)
 		{
-			string name = gamepad.GetType().Name;
+			if(gamepad is DualShockGamepad)
+			{
+				if(gamepad is DualShock3GamepadHID)
+				{
+					return EGamepadType.DualShockPS3;
+				}
+				if(gamepad is DualShock4GamepadHID)
+				{
+					return EGamepadType.DualShockPS4;
+				}
+				if(gamepad is DualSenseGamepadHID)
+				{
+					return EGamepadType.DualShockPS5;
+				}
+				return EGamepadType.DualShockPS4;
+			}
+			if(gamepad is SwitchProControllerHID)
+			{
+				return EGamepadType.SwitchPro;
+			}
+
 			if(gamepad is IXboxOneRumble) //Doesn't seem to be working on Windows
 			{
 				return EGamepadType.XboxOne;
 			}
-			if(name == XBOX360)
+
+			if(gamepad is XInputController)
 			{
 				return EGamepadType.Xbox360;
-			}
-			if(name == SWITCH_PRO)
-			{
-				return EGamepadType.SwitchPro;
-			}
-			if(name == DUALSHOCK3)
-			{
-				return EGamepadType.DualShockPS3;
-			}
-			if(name == DUALSHOCK4)
-			{
-				return EGamepadType.DualShockPS4;
 			}
 
 			return EGamepadType.Generic;
