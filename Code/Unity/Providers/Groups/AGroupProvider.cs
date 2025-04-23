@@ -4,17 +4,16 @@ using UnityPlugins.Common.Logic;
 
 namespace UnityPlugins.Input.Unity
 {
-	public abstract class AGroupProvider : AInputProvider
+	public abstract class AGroupProvider : AInputProvider, IGroupProvider
 	{
 		protected readonly List<AInputProvider> m_Providers = new List<AInputProvider>();
 
 		public IReadOnlyList<AInputProvider> Providers => m_Providers;
 		public int Count => m_Providers.Count;
 
-		public AGroupProvider Add(AInputProvider provider)
+		public void Add(AInputProvider provider)
 		{
 			m_Providers.Add(provider);
-			return this;
 		}
 
 		public void Sort()
