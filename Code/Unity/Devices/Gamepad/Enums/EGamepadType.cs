@@ -1,6 +1,7 @@
 ﻿using UnityEngine.InputSystem;
+#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
 using UnityEngine.InputSystem.DualShock;
-using UnityEngine.InputSystem.Switch;
+#endif
 using UnityEngine.InputSystem.XInput;
 using UnityPlugins.Common.Logic;
 
@@ -13,11 +14,13 @@ namespace UnityPlugins.Input.Unity
 		Xbox360 = 1,
 		XboxOne = 2,
 
-		DualShockPS3 = 3,
-		DualShockPS4 = 4,
-		DualShockPS5 = 5,
+		DualShockPS3 = 10,
+		DualShockPS4 = 11,
+		DualShockPS5 = 12,
 
-		SwitchPro = 6,
+		SwitchPro = 20,
+
+		SteamDeck = 30,
 	}
 
 	public static class EGamepadTypeExt
@@ -36,6 +39,7 @@ namespace UnityPlugins.Input.Unity
 
 		public static EGamepadType FromGamepad(Gamepad gamepad)
 		{
+#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
 			if(gamepad is DualShockGamepad)
 			{
 				if(gamepad is DualShock3GamepadHID)
@@ -52,10 +56,14 @@ namespace UnityPlugins.Input.Unity
 				}
 				return EGamepadType.DualShockPS4;
 			}
-			if(gamepad is SwitchProControllerHID)
+#endif
+
+#if UNITY_STANDALONE_WIN
+			if(gamepad is UnityEngine.InputSystem.Switch.SwitchProControllerHID)
 			{
 				return EGamepadType.SwitchPro;
 			}
+#endif
 
 			if(gamepad is IXboxOneRumble) //Doesn't seem to be working on Windows
 			{

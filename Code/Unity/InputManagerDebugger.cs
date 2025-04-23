@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 namespace UnityPlugins.Input.Unity
 {
@@ -12,6 +14,13 @@ namespace UnityPlugins.Input.Unity
 		#region Debug
 		public static void DrawDebugGUI(InputManager manager)
 		{
+			ReadOnlyArray<Gamepad> gamepads = Gamepad.all;
+			for(int x = 0; x < gamepads.Count; ++x)
+			{
+				Gamepad gamepad = gamepads[x];
+				GUILayout.Label($"{gamepad.name}:'{gamepad.GetType().Name}':{gamepad.name}");
+			}
+
 			TouchDevice touchDevice = TouchDevice.Instance;
 			TouchData[] touches = touchDevice.Touches;
 			int touchCount = touchDevice.Count;
