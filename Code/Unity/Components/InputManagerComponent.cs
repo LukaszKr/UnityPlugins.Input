@@ -16,7 +16,7 @@ namespace UnityPlugins.Input.Unity
 			InputManager.Instance.Update(Time.deltaTime);
 		}
 
-		protected void DrawDebugGUI()
+		public void DrawDebugGUI()
 		{
 			InputManagerDebugger.DrawDebugGUI(InputManager.Instance);
 		}
