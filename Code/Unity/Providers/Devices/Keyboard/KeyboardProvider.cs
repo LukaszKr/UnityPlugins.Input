@@ -2,33 +2,20 @@
 
 namespace UnityPlugins.Input.Unity
 {
-	public class KeyboardProvider : ADeviceInputProvider
+	public class KeyboardProvider : ADeviceInputProvider<KeyboardProvider, Key>
 	{
-		public Key InputID;
-
 		public KeyboardProvider()
 		{
 		}
 
 		public KeyboardProvider(Key inputID)
+			: base(inputID)
 		{
-			InputID = inputID;
 		}
 
 		public override RawInputState GetRawState()
 		{
-			return KeyboardDevice.Instance.Get(InputID);
-		}
-
-		protected override int OnCompareTo(AInputProvider other)
-		{
-			KeyboardProvider otherProvider = (KeyboardProvider)other;
-			return InputID.CompareTo(otherProvider.InputID);
-		}
-
-		protected override string ToStringImpl()
-		{
-			return InputID.ToString();
+			return KeyboardDevice.Instance.Get(m_InputID);
 		}
 	}
 }

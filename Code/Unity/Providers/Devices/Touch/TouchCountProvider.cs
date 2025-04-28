@@ -1,6 +1,6 @@
 ﻿namespace UnityPlugins.Input.Unity
 {
-	public class TouchCountProvider : ADeviceInputProvider
+	public class TouchCountProvider : AInputProvider
 	{
 		public int Count;
 
