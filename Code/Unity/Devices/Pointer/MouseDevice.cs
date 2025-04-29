@@ -9,7 +9,7 @@ namespace UnityPlugins.Input.Unity
 	{
 		public static readonly MouseDevice Instance = new MouseDevice();
 
-		public float MoveAxisDeadZone = 0.02f;
+		public float MoveAxisDeadZone = 0.000001f;
 		public float DeltaSensitivityX = 200f;
 		public float DeltaSensitivityY = 200f;
 		public float ScrollSensitivity = 5f;
@@ -136,13 +136,13 @@ namespace UnityPlugins.Input.Unity
 			switch(inputID)
 			{
 				case EMouseInputID.MoveLeft:
-					return -Delta.x;
+					return -NormalizedDelta.x;
 				case EMouseInputID.MoveRight:
-					return Delta.x;
+					return NormalizedDelta.x;
 				case EMouseInputID.MoveUp:
-					return Delta.y;
+					return NormalizedDelta.y;
 				case EMouseInputID.MoveDown:
-					return -Delta.y;
+					return -NormalizedDelta.y;
 				default:
 					throw new NotImplementedException();
 			}
