@@ -23,15 +23,16 @@ namespace UnityPlugins.Input.Unity
 			m_InputID = input;
 		}
 
-		public void SetInput(TInput inputID)
+		public bool SetInput(TInput inputID)
 		{
 			if(Equals(m_InputID, inputID))
 			{
-				return;
+				return false;
 			}
 
 			m_InputID = inputID;
 			OnChanged.Invoke((TProvider)this);
+			return true;
 		}
 
 		protected override int OnCompareTo(AInputProvider other)
