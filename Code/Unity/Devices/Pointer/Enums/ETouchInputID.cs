@@ -4,11 +4,13 @@ namespace UnityPlugins.Input.Unity
 {
 	public enum ETouchInputID : byte
 	{
-		Touch01 = 0,
-		Touch02 = 1,
-		Touch03 = 2,
-		Touch04 = 3,
-		Touch05 = 4,
+		None = 0,
+
+		Touch01 = 1,
+		Touch02 = 2,
+		Touch03 = 3,
+		Touch04 = 4,
+		Touch05 = 5,
 	}
 
 	public static class ETouchInputIDExt

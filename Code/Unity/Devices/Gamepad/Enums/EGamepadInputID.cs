@@ -5,38 +5,40 @@ namespace UnityPlugins.Input.Unity
 {
 	public enum EGamepadInputID : byte
 	{
-		LStick = 0,
-		RStick = 1,
+		None = 0,
 
-		LB = 2,
-		RB = 3,
+		LStick = 1,
+		RStick = 2,
 
-		A = 4,
-		B = 5,
-		X = 6,
-		Y = 7,
+		LB = 3,
+		RB = 4,
 
-		Back = 8,
-		Start = 9,
+		A = 5,
+		B = 6,
+		X = 7,
+		Y = 8,
 
-		DPadLeft = 10,
-		DPadRight = 11,
-		DPadUp = 12,
-		DPadDown = 13,
+		Back = 9,
+		Start = 10,
+
+		DPadLeft = 11,
+		DPadRight = 12,
+		DPadUp = 13,
+		DPadDown = 14,
 
 		//Axes
-		LStickLeft = 14,
-		LStickRight = 15,
-		LStickUp = 16,
-		LStickDown = 17,
+		LStickLeft = 15,
+		LStickRight = 16,
+		LStickUp = 17,
+		LStickDown = 18,
 
-		RStickLeft = 18,
-		RStickRight = 19,
-		RStickUp = 20,
-		RStickDown = 21,
+		RStickLeft = 19,
+		RStickRight = 20,
+		RStickUp = 21,
+		RStickDown = 22,
 
-		LTrigger = 22,
-		RTrigger = 23
+		LTrigger = 23,
+		RTrigger = 24
 	}
 
 	public static class EGamepadInputIDExt
@@ -53,7 +55,7 @@ namespace UnityPlugins.Input.Unity
 
 		public static GamepadButton ToUnity(this EGamepadInputID inputID)
 		{
-			return m_Map[(int)inputID];
+			return m_Map[(int)inputID-1];
 		}
 
 		public static bool IsAxis(this EGamepadInputID inputID)

@@ -91,6 +91,8 @@ namespace UnityPlugins.Input.Unity
 			EMouseInputID inputID = (EMouseInputID)rawInputID;
 			switch(inputID)
 			{
+				case EMouseInputID.None:
+					return new RawInputState();
 				case EMouseInputID.Left:
 					return new RawInputState(m_Mouse.leftButton.isPressed);
 				case EMouseInputID.Right:

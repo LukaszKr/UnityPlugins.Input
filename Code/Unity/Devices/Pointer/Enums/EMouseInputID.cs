@@ -4,22 +4,24 @@ namespace UnityPlugins.Input.Unity
 {
 	public enum EMouseInputID : byte
 	{
-		Left = 0,
-		Right = 1,
-		Middle = 2,
-		Back = 3,
-		Forward = 4,
+		None = 0,
+
+		Left = 1,
+		Right = 2,
+		Middle = 3,
+		Back = 4,
+		Forward = 5,
 
 		//Axes
-		ScrollLeft = 5,
-		ScrollRight = 6,
-		ScrollForward = 7,
-		ScrollBackward = 8,
+		ScrollLeft = 6,
+		ScrollRight = 7,
+		ScrollForward = 8,
+		ScrollBackward = 9,
 
-		MoveLeft = 9,
-		MoveRight = 10,
-		MoveUp = 11,
-		MoveDown = 12
+		MoveLeft = 10,
+		MoveRight = 11,
+		MoveUp = 12,
+		MoveDown = 13,
 	}
 
 	public static class EMouseInputIDExt

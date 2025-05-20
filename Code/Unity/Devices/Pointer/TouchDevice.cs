@@ -52,7 +52,7 @@ namespace UnityPlugins.Input.Unity
 
 				ReadOnlyArray<TouchControl> unityTouches = touchScreen.touches;
 				int touchCount = Mathf.Min(unityTouches.Count, TOUCH_COUNT);
-				int activeTouchOffset = 0;
+				int activeTouchOffset = 1;
 
 				for(int x = 0; x < touchCount; ++x)
 				{
@@ -68,7 +68,7 @@ namespace UnityPlugins.Input.Unity
 						Touches[activeTouchOffset++] = new TouchData(position, screenDelta, rawDelta, delta);
 					}
 				}
-				Count = activeTouchOffset;
+				Count = activeTouchOffset-1;
 			}
 			else
 			{

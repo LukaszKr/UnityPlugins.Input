@@ -60,6 +60,11 @@ namespace UnityPlugins.Input.Unity
 			}
 			EGamepadInputID inputID = (EGamepadInputID)rawInputID;
 
+			if(inputID == EGamepadInputID.None)
+			{
+				return new RawInputState();
+			}
+
 			if(inputID.IsAxis())
 			{
 				float axisValue = ReadAxisValue(inputID);
