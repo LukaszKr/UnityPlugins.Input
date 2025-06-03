@@ -18,11 +18,11 @@ namespace UnityPlugins.Input.Unity
 		public readonly TouchData[] Touches = new TouchData[TOUCH_COUNT];
 		public int Count { get; private set; }
 
-		public override Vector2 ScreenDelta => Touches[0].ScreenDelta;
-		public override Vector2 NormalizedDelta => Touches[0].RawDelta;
-		public override Vector2 Delta => Touches[0].Delta;
+		public override Vector2 ScreenDelta => Touches[1].ScreenDelta;
+		public override Vector2 NormalizedDelta => Touches[1].RawDelta;
+		public override Vector2 Delta => Touches[1].Delta;
 
-		public override Vector2 Position => Touches[0].Position;
+		public override Vector2 Position => Touches[1].Position;
 		public override Vector2 Scroll => default;
 		public override bool ShowCursor => false;
 
@@ -85,7 +85,11 @@ namespace UnityPlugins.Input.Unity
 
 		protected override RawInputState GetState(int rawInputID)
 		{
-			return new RawInputState(Count > 0 && rawInputID < Count);
+			if(rawInputID == 0) //None
+			{
+				return new RawInputState();
+			}
+			return new RawInputState(Count > 0 && rawInputID-1 < Count);
 		}
 		#endregion
 
@@ -94,7 +98,7 @@ namespace UnityPlugins.Input.Unity
 			if(IsActive)
 			{
 				int touchCount = Count;
-				for(int x = 0; x < touchCount; ++x)
+				for(int x = 1; x <= touchCount; ++x)
 				{
 					providers.Add(new TouchProvider((ETouchInputID)x));
 				}
