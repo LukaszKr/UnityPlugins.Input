@@ -31,12 +31,22 @@ namespace UnityPlugins.Input.Unity
 		#region Getters
 		public override RawInputState Get(EGamepadInputID inputID)
 		{
-			return m_InputState[(int)inputID];
+			int index = (int)inputID;
+			if(index >= 0 && index < m_InputState.Length)
+			{
+				return m_InputState[index];
+			}
+			return new RawInputState();
 		}
 
 		public override float GetAxis(EGamepadInputID inputID)
 		{
-			return m_InputState[(int)inputID].Axis;
+			int index = (int)inputID;
+			if(index >= 0 && index < m_InputState.Length)
+			{
+				return m_InputState[(int)inputID].Axis;
+			}
+			return 0f;
 		}
 		#endregion
 

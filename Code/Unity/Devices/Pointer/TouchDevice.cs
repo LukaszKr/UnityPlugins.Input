@@ -35,7 +35,11 @@ namespace UnityPlugins.Input.Unity
 		public RawInputState Get(ETouchInputID touchID)
 		{
 			int index = (int)touchID;
-			return m_InputState[index];
+			if(index >= 0 && index < m_InputState.Length)
+			{
+				return m_InputState[index];
+			}
+			return new RawInputState();
 		}
 		#endregion
 

@@ -25,7 +25,10 @@ namespace UnityPlugins.Input.Unity
 		{
 			if(m_Keyboard != null)
 			{
-				return m_Keyboard[inputID].ToRawInputState();
+				if(inputID >= 0 && (int)inputID <= Keyboard.KeyCount)
+				{
+					return m_Keyboard[inputID].ToRawInputState();
+				}
 			}
 			return new RawInputState();
 		}

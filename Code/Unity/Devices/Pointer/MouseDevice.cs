@@ -41,7 +41,12 @@ namespace UnityPlugins.Input.Unity
 		#region Getters
 		public RawInputState Get(EMouseInputID inputID)
 		{
-			return m_InputState[(int)inputID];
+			int index = (int)inputID;
+			if(inputID >= 0 && index < m_InputState.Length)
+			{
+				return m_InputState[index];
+			}
+			return new RawInputState();
 		}
 		#endregion
 
