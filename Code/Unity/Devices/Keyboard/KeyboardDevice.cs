@@ -23,9 +23,13 @@ namespace UnityPlugins.Input.Unity
 		#region Getters
 		public RawInputState Get(Key inputID)
 		{
+			if(inputID == Key.None)
+			{
+				return new RawInputState();
+			}
 			if(m_Keyboard != null)
 			{
-				if(inputID >= 0 && (int)inputID <= Keyboard.KeyCount)
+				if(inputID > Key.None && (int)inputID <= Keyboard.KeyCount)
 				{
 					return m_Keyboard[inputID].ToRawInputState();
 				}
