@@ -75,7 +75,7 @@ namespace UnityPlugins.Input.Unity
 			for(int x = 0; x < count; ++x)
 			{
 				InputLayer layer = m_ActiveLayers[x];
-				if(layer.Definition.Priority < newLayer.Definition.Priority)
+				if(layer.Definition.Priority <= newLayer.Definition.Priority)
 				{
 					m_ActiveLayers.Insert(x, newLayer);
 					return;

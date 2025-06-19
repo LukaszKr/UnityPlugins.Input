@@ -83,7 +83,7 @@ namespace UnityPlugins.Input.Unity.Receivers
 
 			m_Manager.Update(0f);
 
-			Assert.AreEqual(0, receiverA.UpdateCount);
+			Assert.AreEqual(1, receiverA.UpdateCount);
 			Assert.AreEqual(1, receiverB.UpdateCount);
 			Assert.AreEqual(2, m_Manager.ActiveLayers.Count);
 		}
@@ -100,7 +100,7 @@ namespace UnityPlugins.Input.Unity.Receivers
 
 			m_Manager.Update(0f);
 
-			Assert.AreEqual(1, receiverA.UpdateCount);
+			Assert.AreEqual(0, receiverA.UpdateCount);
 			Assert.AreEqual(1, receiverB.UpdateCount);
 			Assert.AreEqual(0, receiverC.UpdateCount);
 			Assert.AreEqual(3, m_Manager.ActiveLayers.Count);
