@@ -6,7 +6,8 @@
 	"unity": "2020.3",
 	"unityRelease": "14f1",
 	"dependencies": {
-		"unityplugins.common": "https://github.com/LukaszKr/UnityPlugins.Common.git"
+		"unityplugins.common": "https://github.com/LukaszKr/UnityPlugins.Common.git",
+		"com.unity.inputsystem": "1.11.0"
 	},
 	"keywords": [
 	],
