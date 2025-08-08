@@ -63,7 +63,7 @@ namespace UnityPlugins.Input.Unity.State.Enums
 		[TestCase(EInputStatus.Pressed, false)]
 		[TestCase(EInputStatus.JustReleased, true)]
 		[TestCase(EInputStatus.Released, true)]
-		public void ISReleased(EInputStatus status, bool expected)
+		public void IsReleased(EInputStatus status, bool expected)
 		{
 			Assert.AreEqual(expected, status.IsReleased());
 		}
