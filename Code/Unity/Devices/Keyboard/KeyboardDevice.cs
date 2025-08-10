@@ -56,7 +56,7 @@ namespace UnityPlugins.Input.Unity
 			if(IsActive)
 			{
 				ReadOnlyArray<KeyControl> keys = m_Keyboard.allKeys;
-				for(int x = 1; x < keys.Count; ++x)
+				for(int x = 0; x < keys.Count; ++x)
 				{
 					KeyControl key = keys[x];
 					if(key.isPressed)
