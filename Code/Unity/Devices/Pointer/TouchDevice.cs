@@ -18,11 +18,11 @@ namespace UnityPlugins.Input.Unity
 		public readonly TouchData[] Touches = new TouchData[TOUCH_COUNT];
 		public int Count { get; private set; }
 
-		public override Vector2 ScreenDelta => Touches[1].ScreenDelta;
-		public override Vector2 NormalizedDelta => Touches[1].RawDelta;
-		public override Vector2 Delta => Touches[1].Delta;
+		public override Vector2 ScreenDelta => Touches[0].ScreenDelta;
+		public override Vector2 NormalizedDelta => Touches[0].RawDelta;
+		public override Vector2 Delta => Touches[0].Delta;
 
-		public override Vector2 Position => Touches[1].Position;
+		public override Vector2 Position => Touches[0].Position;
 		public override Vector2 Scroll => default;
 		public override bool ShowCursor => false;
 
@@ -56,7 +56,7 @@ namespace UnityPlugins.Input.Unity
 
 				ReadOnlyArray<TouchControl> unityTouches = touchScreen.touches;
 				int touchCount = Mathf.Min(unityTouches.Count, TOUCH_COUNT);
-				int activeTouchOffset = 1;
+				int activeTouchOffset = 0;
 
 				for(int x = 0; x < touchCount; ++x)
 				{
@@ -71,8 +71,12 @@ namespace UnityPlugins.Input.Unity
 						Vector2 delta = new Vector2(rawDelta.x*DeltaSensitivityX, rawDelta.y*DeltaSensitivityY);
 						Touches[activeTouchOffset++] = new TouchData(position, screenDelta, rawDelta, delta);
 					}
+					else
+					{
+						break;
+					}
 				}
-				Count = activeTouchOffset-1;
+				Count = activeTouchOffset;
 			}
 			else
 			{
