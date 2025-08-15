@@ -106,7 +106,7 @@ namespace UnityPlugins.Input.Unity
 			if(IsActive)
 			{
 				int touchCount = Count;
-				for(int x = 1; x <= touchCount; ++x)
+				for(int x = 0; x < touchCount; ++x)
 				{
 					providers.Add(new TouchProvider((ETouchInputID)x));
 				}
