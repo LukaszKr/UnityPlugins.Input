@@ -56,6 +56,8 @@ namespace UnityPlugins.Input.Unity
 			base.OnUpdate();
 
 			m_Mouse = Mouse.current;
+			Vector2 resolution = new Vector2(Screen.width,  Screen.height); //probably won't work with dual screens
+
 			if(m_Mouse != null)
 			{
 				Vector2 rawScroll = m_Mouse.scroll.ReadValue();
@@ -64,7 +66,7 @@ namespace UnityPlugins.Input.Unity
 				m_Scroll = new Vector2(scrollX, scrollY);
 				Vector2 oldPosition = m_Position;
 				m_Position = m_Mouse.position.ReadValue();
-				//can't use mouse.detal here due to unity not applying screen scale to delta, but it applies it to position
+				//can't use mouse.delta here due to unity not applying screen scale to delta, but it applies it to position
 				//let's say you force 1920x1080 resolultion on game window, but its' not taking whole screen so it's at 0.5 scale
 				//lower right corner mouse position will be 1920x1080, but delta movement will be only 960x540 pixels.
 				//delta is real screen pixels, while mouse position is window actual.
@@ -78,9 +80,8 @@ namespace UnityPlugins.Input.Unity
 				m_ScreenDelta = default;
 			}
 
-			Rect screenRect = new Rect(0f, 0f, Screen.width,  Screen.height); //probably won't work with dual screens
-			float deltaX = (ScreenDelta.x/screenRect.width);
-			float deltaY = (ScreenDelta.y/screenRect.height);
+			float deltaX = (ScreenDelta.x/resolution.x);
+			float deltaY = (ScreenDelta.y/resolution.y);
 			m_NormalizedDelta = new Vector2(deltaX, deltaY);
 			m_Delta = new Vector2(deltaX*DeltaSensitivityX, deltaY*DeltaSensitivityY);
 
