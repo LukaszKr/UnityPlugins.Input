@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Utilities;
@@ -65,6 +66,35 @@ namespace UnityPlugins.Input.Unity
 					}
 				}
 			}
+		}
+
+		public KeyControl FindKeyOnCurrentKeyboardLayout(Key key)
+		{
+			return FindKeyOnCurrentKeyboardLayout(key.ToString());
+		}
+
+		public KeyControl FindKeyOnCurrentKeyboardLayout(string displayName)
+		{
+			if(m_Keyboard == null)
+			{
+				return null;
+			}
+			//Fixed version of Unity Implementation of this method - KeyControl can be null in some cases, but Unity method doesn't do any null checks.
+			ReadOnlyArray<KeyControl> keys = m_Keyboard.allKeys;
+			for(int x = 0; x < keys.Count; ++x)
+			{
+				KeyControl key = keys[x];
+				if(key == null)
+				{
+					continue;
+				}
+				if(string.Equals(key.displayName, displayName, StringComparison.CurrentCultureIgnoreCase))
+				{
+					return key;
+				}
+			}
+
+			return null;
 		}
 	}
 }
