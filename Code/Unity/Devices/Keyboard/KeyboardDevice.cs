@@ -60,6 +60,10 @@ namespace UnityPlugins.Input.Unity
 				for(int x = 0; x < keys.Count; ++x)
 				{
 					KeyControl key = keys[x];
+					if(key == null)
+					{
+						continue;
+					}
 					if(key.isPressed)
 					{
 						providers.Add(new KeyboardProvider(key.keyCode));
