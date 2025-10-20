@@ -2,7 +2,7 @@
 {
 	public abstract class AInputReceiver : IInputReceiver
 	{
-		public readonly InputLayerDefinition InputLayer;
+		public InputLayerDefinition InputLayer;
 
 		protected readonly DetectorUpdater m_Updater = new DetectorUpdater();
 		private bool m_IsActive;
