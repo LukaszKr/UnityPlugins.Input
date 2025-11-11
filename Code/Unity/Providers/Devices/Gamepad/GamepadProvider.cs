@@ -2,29 +2,28 @@
 {
 	public class GamepadProvider : ADeviceInputProvider<GamepadProvider, EGamepadInputID>
 	{
-		public EGamepadID GamepadID;
+		public AGamepadDevice Gamepad;
 
 		public GamepadProvider()
 		{
 		}
 
-		public GamepadProvider(EGamepadInputID inputID, EGamepadID gamepadID = EGamepadID.Any)
+		public GamepadProvider(EGamepadInputID inputID, AGamepadDevice gamepad)
 			: base(inputID)
 		{
 			m_InputID = inputID;
-			GamepadID = gamepadID;
+			Gamepad = gamepad;
 		}
 
 		public override RawInputState GetRawState()
 		{
-			AGamepadDevice gamepad = GamepadID.GetGamepad();
-			return gamepad.Get(m_InputID);
+			return Gamepad.Get(m_InputID);
 		}
 
 		protected override int OnCompareTo(AInputProvider other)
 		{
 			GamepadProvider otherProvider = (GamepadProvider)other;
-			int gamepadCompare = GamepadID.CompareTo(otherProvider.GamepadID);
+			int gamepadCompare = Gamepad.CompareTo(otherProvider.Gamepad);
 			if(gamepadCompare == 0)
 			{
 				return m_InputID.CompareTo(otherProvider.m_InputID);
@@ -34,7 +33,7 @@
 
 		protected override string ToStringImpl()
 		{
-			return $"{m_InputID}, {GamepadID}";
+			return $"{m_InputID}, {Gamepad}";
 		}
 	}
 }

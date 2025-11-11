@@ -6,11 +6,10 @@ namespace UnityPlugins.Input.Unity
 {
 	public enum EGamepadID : byte
 	{
-		Any = 0,
-		P1 = 1,
-		P2 = 2,
-		P3 = 3,
-		P4 = 4
+		P1 = 0,
+		P2 = 1,
+		P3 = 2,
+		P4 = 3
 	}
 
 	public static class EGamepadIDExt
@@ -19,13 +18,8 @@ namespace UnityPlugins.Input.Unity
 
 		public static AGamepadDevice GetGamepad(this EGamepadID id)
 		{
-			if(id == EGamepadID.Any)
-			{
-				return AnyGamepadDevice.Instance;
-			}
-
 			GamepadDevice[] gamepads = GamepadDevice.Gamepads;
-			return gamepads[(int)id-1];
+			return gamepads[(int)id];
 		}
 
 		public static Gamepad GetUnityGamepad(this EGamepadID id)

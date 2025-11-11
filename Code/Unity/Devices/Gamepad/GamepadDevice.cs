@@ -17,15 +17,19 @@ namespace UnityPlugins.Input.Unity
 
 		public float AxisDeadZone = 0.5f;
 
+		public readonly EGamepadID ID;
+
 		private Gamepad m_Gamepad;
 		private EGamepadType m_GamepadType = EGamepadType.Generic;
 
 		public override Gamepad UnityGamepad => m_Gamepad;
 		public override EGamepadType GamepadType => m_GamepadType;
+		protected override int CompareValue => (int)ID;
 
-		public GamepadDevice(EGamepadID gamepadID)
-			: base(gamepadID)
+		public GamepadDevice(EGamepadID id)
+			: base()
 		{
+			ID = id;
 		}
 
 		#region Getters
@@ -54,7 +58,7 @@ namespace UnityPlugins.Input.Unity
 		protected override void OnUpdate()
 		{
 			base.OnUpdate();
-			m_Gamepad = GamepadID.GetUnityGamepad();
+			m_Gamepad = ID.GetUnityGamepad();
 
 			if(m_Gamepad != null)
 			{

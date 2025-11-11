@@ -11,9 +11,9 @@ namespace UnityPlugins.Input.Unity
 
 		public override Gamepad UnityGamepad => m_ActiveGamepad?.UnityGamepad;
 		public override EGamepadType GamepadType => (m_ActiveGamepad != null ? m_ActiveGamepad.GamepadType : EGamepadType.Generic);
+		protected override int CompareValue => -1;
 
 		public AnyGamepadDevice()
-			: base(EGamepadID.Any)
 		{
 
 		}
@@ -89,7 +89,7 @@ namespace UnityPlugins.Input.Unity
 					RawInputState state = m_InputState[x];
 					if(state.IsActive)
 					{
-						providers.Add(new GamepadProvider((EGamepadInputID)x));
+						providers.Add(new GamepadProvider((EGamepadInputID)x, this));
 					}
 				}
 			}

@@ -25,10 +25,18 @@ namespace UnityPlugins.Input.Unity
 			return source;
 		}
 
-		public static TSource Add<TSource>(this TSource source, EGamepadInputID button, EGamepadID gamepadID = EGamepadID.Any)
+		public static TSource Add<TSource>(this TSource source, EGamepadInputID button)
 			where TSource : IGroupProvider
 		{
-			source.Add(new GamepadProvider(button, gamepadID));
+			source.Add(new GamepadProvider(button, AnyGamepadDevice.Instance));
+			return source;
+		}
+
+		public static TSource Add<TSource>(this TSource source, EGamepadInputID button, EGamepadID gamepadID)
+			where TSource : IGroupProvider
+		{
+			AGamepadDevice gamepad = gamepadID.GetGamepad();
+			source.Add(new GamepadProvider(button, gamepad));
 			return source;
 		}
 
