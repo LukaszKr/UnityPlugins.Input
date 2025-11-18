@@ -2,10 +2,10 @@
     "name": "UnityPlugins.Input.Editor",
     "rootNamespace": "UnityPlugins.Input.Editor",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:a4f27f4560b427748867decce1333bea",
-        "GUID:3ce9475b178ec2e439e356365496353f",
-        "GUID:7beb5c7201ff0194aa34fefed6f62094"
+        "Unity.InputSystem",
+        "UnityPlugins.Common.Logic",
+        "UnityPlugins.Common.Editor",
+        "UnityPlugins.Input.Unity"
     ],
     "includePlatforms": [
         "Editor"

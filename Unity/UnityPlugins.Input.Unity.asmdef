@@ -2,8 +2,8 @@
     "name": "UnityPlugins.Input.Unity",
     "rootNamespace": "UnityPlugins.Input.Unity",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:a4f27f4560b427748867decce1333bea"
+        "Unity.InputSystem",
+        "UnityPlugins.Common.Logic"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
