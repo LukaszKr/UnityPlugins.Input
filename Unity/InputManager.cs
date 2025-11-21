@@ -17,6 +17,7 @@ namespace UnityPlugins.Input.Unity
 
 		private AInputDevice m_ActiveDevice;
 		public AInputDevice ActiveDevice => m_ActiveDevice;
+		public int UpdateTick => m_UpdateTick;
 
 		public readonly CustomEvent<AInputDevice> OnActiveDeviceChanged = new CustomEvent<AInputDevice>();
 
